@@ -20,7 +20,7 @@ describe('MODELS: CdUser', function() {
 	});
 
 	it('should create an empty object when data argument is undefined', function() {
-		expect(cdUser).toEqual(jasmine.objectContaining({}));
+		expect(new CdUser()).toEqual(jasmine.objectContaining({}));
 	});
 
 
