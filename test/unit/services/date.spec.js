@@ -22,6 +22,7 @@ describe('SERVICES: date', function() {
 				timestamp = new Date(dateString) / 1000;
 
 			expect(date.formatYMD(timestamp)).toBe(dateString);
+			expect(date.formatYMD()).toBe('1970-01-01');
 		});
 
 	});

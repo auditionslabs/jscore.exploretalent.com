@@ -33,7 +33,7 @@ function restMethod(object, method) {
 			data: data
 		};
 
-		_.extend(config, settings);
+		config = _.assign(config, settings, REST.settings);
 
 		config = runInterceptors(config, 'request', this);
 
@@ -56,6 +56,8 @@ function restMethod(object, method) {
 }
 
 
-REST = _.reduce([ 'put', 'patch', 'delete', 'get', 'post' ], restMethod, REST);
+REST.$$methods = [ 'put', 'patch', 'delete', 'get', 'post' ];
+
+REST = _.reduce(REST.$$methods, restMethod, REST);
 
 module.exports = REST;
