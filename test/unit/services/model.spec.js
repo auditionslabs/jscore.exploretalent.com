@@ -50,6 +50,10 @@ describe('SERVICES: model', function() {
 
 		});
 
+		it('should return the data when modelify `data` argument is undefined', function() {
+			expect(model('dummy_model1')).toBeUndefined();
+		});
+
 	});
 
 });

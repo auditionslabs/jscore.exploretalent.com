@@ -1,6 +1,7 @@
 'use strict';
 
 var REST = require('./rest.js'),
+	model = require('./model.js'),
 	_ = require('lodash');
 
 function Resource(url, settings) {
@@ -19,9 +20,11 @@ Resource.prototype.interpolate = function(data) {
 			if(data[dataKey]) {
 				url = url.replace(key, data[dataKey]);
 				delete data[dataKey];
+			} else {
+				url = url.replace(key, '');
 			}
 			return url;
-		}, self.$$url),
+		}, self.$$url).replace(/\/+/g, '/'),
 		data: data
 	};
 };
@@ -36,6 +39,13 @@ _.each(REST.$$methods, function(method) {
 		var self = this,
 			params = self.interpolate(data),
 			newSettings = _.assign({}, settings, self.$$settings);
+
+		if(newSettings.model) {
+			newSettings.interceptor = [{
+				responseSuccess: _.partial(model, newSettings.model)
+			}];
+			delete newSettings.model;
+		}
 
 		return REST[method](params.url, params.data, newSettings);
 	};

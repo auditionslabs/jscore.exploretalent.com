@@ -11,9 +11,9 @@ REST.settings = {};
 REST.$$runInterceptors = runInterceptors;
 REST.$$restMethod = restMethod;
 
-function runInterceptors(data, name, context) {
+function runInterceptors(interceptors, data, name, context) {
 	data = (_.isArray(data) || _.isArguments(data))? data: [data];
-	return _.reduce(REST.interceptors, function(newData, interceptor) {
+	return _.reduce(interceptors, function(newData, interceptor) {
 		var fn = (interceptor[name] || _.identity);
 		return fn.apply(context, data);
 	}, data);
@@ -23,9 +23,9 @@ function restMethod(object, method) {
 
 	object[method] = function(url, data, settings) {
 
-		var promise, config;
+		var promise, config, interceptors;
 
-		settings = settings || {};
+		settings = _.clone(settings || {});
 
 		config = {
 			url: url,
@@ -33,18 +33,27 @@ function restMethod(object, method) {
 			data: data
 		};
 
+		if(settings.interceptors) {
+			interceptors = settings.interceptors;
+			delete settings.interceptors;
+		} else {
+			interceptors = [];
+		}
+
+		interceptors = interceptors.concat(REST.interceptors);
+
 		config = _.assign(config, settings, REST.settings);
 
-		config = runInterceptors(config, 'request', this);
+		config = runInterceptors(interceptors, config, 'request', this);
 
 		promise = $.ajax(config).then(function() {
-			return runInterceptors(arguments, 'responseSuccess', this);
+			return runInterceptors(interceptors, arguments, 'responseSuccess', this);
 		}, function() {
-			return runInterceptors(arguments, 'responseError', this);
+			return runInterceptors(interceptors, arguments, 'responseError', this);
 		});
 
 		promise.always(function() {
-			runInterceptors(arguments, 'response', this);
+			runInterceptors(interceptors, arguments, 'response', this);
 		});
 
 		return promise;

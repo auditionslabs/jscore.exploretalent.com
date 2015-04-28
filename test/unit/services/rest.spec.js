@@ -30,14 +30,18 @@ describe('SERVICES: REST', function() {
 		REST.interceptors = [];
 	});
 
-	describe('runInterceptors', function() {
+	describe('runInterceptors()', function() {
+
+		beforeEach(function() {
+			REST.interceptors.push({});
+		});
 
 		it('should return data passed from request, response, responseSuccess, responseError', function() {
 			var data = { dummy_key: 'dummy-value' };
-			expect(REST.$$runInterceptors(data, 'request')).toEqual(data);
-			expect(REST.$$runInterceptors(data, 'response')).toEqual(data);
-			expect(REST.$$runInterceptors(data, 'responseSuccess')).toEqual(data);
-			expect(REST.$$runInterceptors(data, 'responseError')).toEqual(data);
+			expect(REST.$$runInterceptors(REST.interceptors, data, 'request')).toEqual(data);
+			expect(REST.$$runInterceptors(REST.interceptors, data, 'response')).toEqual(data);
+			expect(REST.$$runInterceptors(REST.interceptors, data, 'responseSuccess')).toEqual(data);
+			expect(REST.$$runInterceptors(REST.interceptors, data, 'responseError')).toEqual(data);
 		});
 
 	});
@@ -149,8 +153,19 @@ describe('SERVICES: REST', function() {
 					REST[method]('/dummy-url', {}).then(spy);
 					deferred.reject(dummyObject);
 					expect(spy).not.toHaveBeenCalledWith(dummyObject);
-					expect(responseErrorSpy).not.toHaveBeenCalled();
-				});
+					expect(responseErrorSpy).toHaveBeenCalled();
+				}).commit();
+			});
+
+			it('should add settins.interceptor as an interceptor', function() {
+				methods.each(function(method) {
+					var spy = jasmine.createSpy();
+					var interceptor = { 'request': jasmine.createSpy().and.callFake(_.identity) };
+					REST[method]('/dummy-url', {},  {
+						interceptors: [interceptor]
+					});
+					expect(interceptor.request).toHaveBeenCalled();
+				}).commit();
 			});
 
 		});

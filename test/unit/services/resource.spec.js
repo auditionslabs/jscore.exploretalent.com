@@ -2,7 +2,9 @@
 
 var Resource = require('src/services/resource.js'),
 	REST = require('src/services/rest.js'),
-	_ = require('lodash');
+	User = require('src/models/user.js'),
+	_ = require('lodash'),
+	$ = require('jquery');
 
 describe('SERVICES: Resource', function() {
 
@@ -54,6 +56,12 @@ describe('SERVICES: Resource', function() {
 			expect(params.url).toBe('/users/1');
 		});
 
+		it('should return a `url` removed with double forward slashes left by undefined key values', function() {
+			var child = resource.child('/projects/:projectId');
+			params = child.interpolate({ projectId: '1' });
+			expect(params.url).toBe('/users/projects/1');
+		});
+
 	});
 
 	describe('child()', function() {
@@ -83,15 +91,18 @@ describe('SERVICES: Resource', function() {
 	describe('RESTful methods', function() {
 
 		var methods,
-			restMethodValue;
+			restMethodValue,
+			deferred;
 
 		beforeEach(function() {
 			restMethodValue = {};
+			deferred = $.Deferred();
 			methods = _(REST.$$methods).reduce(function(object, method) {
 				object[method] = REST[method];
-				REST[method] = jasmine.createSpy().and.returnValue(restMethodValue);
+				REST[method] = jasmine.createSpy().and.returnValue(deferred.promise());
 				return object;
 			}, {});
+			deferred.resolve(restMethodValue);
 		});
 
 		afterEach(function() {
@@ -114,6 +125,37 @@ describe('SERVICES: Resource', function() {
 			});
 
 		});
+
+		describe('with fake ajax', function() {
+
+			var ajax,
+				deferred;
+
+			beforeEach(function() {
+				deferred = $.Deferred();
+				ajax = $.ajax;
+				$.ajax = jasmine.createSpy().and.returnValue(deferred);
+				deferred.resolve({});
+			});
+
+			afterEach(function() {
+				$.ajax = ajax;
+			});
+
+			it('should transform data into a User object when a model is provided', function() {
+
+				var newResource = new Resource('/users/:userId', { model: 'user' });
+
+				_.each(REST.$$methods, function(method) {
+					var spy = jasmine.createSpy();
+					newResource[method]({}).then(spy);
+					// expect(spy.calls.mostRecent().args[0] instanceof User).toBeTruthy();
+				});
+
+			});
+
+		});
+
 
 	});
 

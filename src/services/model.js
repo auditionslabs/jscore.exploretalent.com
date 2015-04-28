@@ -19,7 +19,7 @@ function modelify(name, data) {
 		relations = _.pick(data, _.keys(relationship));
 
 		_.each(relations, function(property, key) {
-			data[key] = modelify(relationship[key], property || {});
+			data[key] = modelify(relationship[key], property);
 		});
 
 		if(model.create && _.isFunction(model.create)) {
