@@ -19,6 +19,12 @@ Router.prototype.add = function(url, controller) {
 			controller.apply(null, self.$$params.concat(_.toArray(arguments)));
 		});
 	}
+
+	return self;
+};
+
+Router.prototype.finalize = function() {
+	crossroads.parse(window.location.pathname);
 };
 
 module.exports = new Router();

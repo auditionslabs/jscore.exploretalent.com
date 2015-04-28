@@ -59,6 +59,29 @@ describe('SERVICES: router', function() {
 			expect(router.$$controllers.DummyController).toHaveBeenCalledWith(1, 2, 3, 'me');
 		});
 
+		it('should return the router instance', function() {
+			expect(router.add('/dummy-url', 'DummyController') === router).toBeTruthy();
+		});
+
+	});
+
+	describe('finalize()', function() {
+
+		var parse;
+
+		beforeEach(function() {
+			parse = crossroads.parse;
+			crossroads.parse = jasmine.createSpy();
+		});
+
+		afterEach(function() {
+			crossroads.parse = parse;
+		});
+
+		it('should call crossroads.parse', function() {
+			router.finalize();
+			expect(crossroads.parse).toHaveBeenCalledWith(window.location.pathname);
+		});
 
 	});
 
