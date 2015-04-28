@@ -59,7 +59,7 @@ describe('SERVICES: Resource', function() {
 		it('should return a `url` removed with double forward slashes left by undefined key values', function() {
 			var child = resource.child('/projects/:projectId');
 			params = child.interpolate({ projectId: '1' });
-			expect(params.url).toBe('/users/projects/1');
+			expect(params.url).toBe('/users//projects/1');
 		});
 
 	});

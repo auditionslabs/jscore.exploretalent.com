@@ -24,7 +24,7 @@ Resource.prototype.interpolate = function(data) {
 				url = url.replace(key, '');
 			}
 			return url;
-		}, self.$$url).replace(/\/+/g, '/'),
+		}, self.$$url),
 		data: data
 	};
 };
