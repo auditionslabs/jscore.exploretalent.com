@@ -1,11 +1,15 @@
 'use strict';
 
-var $ = require('jquery'),
-	_ = require('lodash'),
+var $ = require('jquery'), _ = require('lodash'),
 
 	REST = {};
 
-REST.interceptors = [];
+REST.interceptors = [{
+	request: _.identity,
+	response: _.identity,
+	responseSuccess: _.identity,
+	responseError: _.identity
+}];
 REST.settings = {};
 
 REST.$$runInterceptors = runInterceptors;

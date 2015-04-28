@@ -12,7 +12,7 @@ CdUser.prototype.getFullName = function() {
 };
 
 CdUser.relationship = [
-	'user',
+	'user'
 ];
 
 module.exports = CdUser;
