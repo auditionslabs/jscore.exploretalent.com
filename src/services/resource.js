@@ -41,7 +41,8 @@ _.each(REST.$$methods, function(method) {
 			newSettings = _.assign({}, settings, self.$$settings);
 
 		if(newSettings.model) {
-			newSettings.interceptor = [{
+			//changed interceptors to interceptor
+			newSettings.interceptors = [{
 				responseSuccess: _.partial(model, newSettings.model)
 			}];
 			delete newSettings.model;

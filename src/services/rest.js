@@ -4,6 +4,14 @@ var $ = require('jquery'), _ = require('lodash'),
 
 	REST = {};
 
+//set up ajax to use cross domain
+$.ajaxSetup({
+	xhrFields : {
+		withCredentials : true
+	},
+	crossDomain : true
+});
+
 REST.interceptors = [{
 	request: _.identity,
 	response: _.identity,
@@ -44,8 +52,11 @@ function restMethod(object, method) {
 			interceptors = [];
 		}
 
-		interceptors = interceptors.concat(REST.interceptors);
-
+		//replaced line below to foreach
+		//interceptors = interceptors.concat(REST.interceptors);
+		_(interceptors).forEach(function(n) {
+			n = _.assign(n, REST.interceptors[0]);
+		}, interceptors);
 		config = _.assign(config, settings, REST.settings);
 
 		config = runInterceptors(interceptors, config, 'request', this);
