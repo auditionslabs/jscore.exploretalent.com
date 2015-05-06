@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 	talents = {},
-	Talent = require('./talent.js');
+	Talent = require('./bam_talentci.js');
 
 talents.relationship = Talent.relationship;
 
