@@ -45,7 +45,9 @@ Talent.relationship = [
 	'bam_talent_resume',
 	'bam_talent_music',
 	'bam_talent_dance',
-	'bam_talent_general'
+	'bam_talent_general',
+	//if using GET from api, result is in the data property, set model to array of bam_talentcis
+	'data:bam_talentcis'
 ];
 
 module.exports = Talent;
