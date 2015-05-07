@@ -3,4 +3,4 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + '/api/v1/conversations/:conversationId');
+module.exports = new Resource(api.base + '/conversations/:conversationId');
