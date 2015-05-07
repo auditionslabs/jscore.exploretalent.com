@@ -52,11 +52,8 @@ function restMethod(object, method) {
 			interceptors = [];
 		}
 
-		//replaced line below to foreach
-		//interceptors = interceptors.concat(REST.interceptors);
-		_(interceptors).forEach(function(n) {
-			n = _.assign(n, REST.interceptors[0]);
-		}, interceptors);
+		interceptors = interceptors.concat(REST.interceptors);
+
 		config = _.assign(config, settings, REST.settings);
 
 		config = runInterceptors(interceptors, config, 'request', this);
@@ -72,11 +69,9 @@ function restMethod(object, method) {
 		});
 
 		return promise;
-
 	};
 
 	return object;
-
 }
 
 
