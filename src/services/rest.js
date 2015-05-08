@@ -49,7 +49,7 @@ function restMethod(object, method) {
 			interceptors = settings.interceptors;
 			delete settings.interceptors;
 		} else {
-			interceptors = [];
+			interceptors = [ interceptor ];
 		}
 
 		//replaced line below to foreach
