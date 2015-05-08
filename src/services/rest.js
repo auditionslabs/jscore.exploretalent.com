@@ -12,12 +12,12 @@ $.ajaxSetup({
 	crossDomain : true
 });
 
-REST.interceptors = [{
+REST.interceptor = {
 	request: _.identity,
 	response: _.identity,
 	responseSuccess: _.identity,
 	responseError: _.identity
-}];
+};
 REST.settings = {};
 
 REST.$$runInterceptors = runInterceptors;
@@ -52,7 +52,11 @@ function restMethod(object, method) {
 			interceptors = [];
 		}
 
-		interceptors = interceptors.concat(REST.interceptors);
+		//replaced line below to foreach
+-		//interceptors = interceptors.concat(REST.interceptors);
+-		_(interceptors).forEach(function(n) {
+-			n = _.assign(n, REST.interceptor);
+-		}, interceptors);
 
 		config = _.assign(config, settings, REST.settings);
 
