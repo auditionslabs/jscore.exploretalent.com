@@ -54,8 +54,8 @@ function restMethod(object, method) {
 
 		//replaced line below to foreach
 		//interceptors = interceptors.concat(REST.interceptors);
-		_(interceptors).forEach(function(n) {
-			n = _.assign(n, REST.interceptor);
+		_(interceptors).forEach(function(interceptor) {
+			_.assign(interceptor, REST.interceptor);
 		}, interceptors);
 
 		config = _.assign(config, settings, REST.settings);
