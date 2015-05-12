@@ -20,21 +20,6 @@ Talent.prototype.isPaying = function() {
 	return this.bam_talentrecurring ? true : false;
 }
 
-Talent.prototype.getLocation = function() {
-	if (this.bam_talentinfo2 && this.bam_talentinfo2.city1) {
-		return this.bam_talentinfo2.city1;
-	}
-	else if(this.city && this.state && this.state.length > 2) {
-		return this.city + ', ' + this.state;
-	}
-	else if(this.state.length > 2) {
-		return this.city;
-	}
-	else {
-		return 'Not Set';
-	}
-}
-
 Talent.prototype.getPrimaryPhoto = function() {
 	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'media_path'));
 
@@ -48,6 +33,12 @@ Talent.prototype.getPrimaryPhoto = function() {
 	var folder = 'media' + _.padLeft(Math.floor(this.talentnum / 10000), 3, '0') + '/' + _.padLeft(this.talentnum, 10, '0');
 
 	return base_url + watermark + folder + media_path;
+}
+
+Talent.prototype.getSocialAccount = function(type) {
+	var social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'));
+	
+	return social;
 }
 
 Talent.relationship = [
