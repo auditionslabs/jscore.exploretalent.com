@@ -6,9 +6,9 @@ function TalentSocial(data) {
 	_.extend(this, data || {});
 }
 
-TalentSocial.prototype.getSocialAccount = function(type) {
+TalentSocial.prototype.getByType = function(type) {
 	if (this.data) {
-		var social = _.first(_.pluck(_.where(this.data, { sm_type : type }), 'sm_url'));
+		var social = _.first(_.where(this.data, { sm_type : type }));
 		return social;
 	}
 }
