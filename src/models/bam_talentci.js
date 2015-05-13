@@ -67,6 +67,7 @@ Talent.relationship = [
 	'bam_talent_music',
 	'bam_talent_dance',
 	'bam_talent_general',
+	'bam_talent_social:bam_talent_socials',
 	//if using GET from api, result is in the data property, set model to array of bam_talentcis
 	'data:bam_talentcis'
 ];
