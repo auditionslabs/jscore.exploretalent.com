@@ -7,7 +7,8 @@ function TalentSocial(data) {
 }
 
 TalentSocial.relationship = [
-	'talentnum:bam_talentci'
+	'talentnum:bam_talentci',
+	'data:bam_talent_socials'
 ];
 
 module.exports = TalentSocial;
