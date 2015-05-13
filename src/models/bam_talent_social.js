@@ -11,7 +11,7 @@ TalentSocial.prototype.getSocialAccount = function(type) {
 		var social = _.first(_.pluck(_.where(this.data, { sm_type : type }), 'sm_url'));
 		return social;
 	}
-}t
+}
 
 TalentSocial.relationship = [
 	'talentnum:bam_talentci',
