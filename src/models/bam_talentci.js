@@ -48,7 +48,7 @@ Talent.prototype.getLocation = function() {
 	else if(this.city && this.state && this.state.length > 2) {
 		return this.city + ', ' + this.state;
 	}
-	else if(this.state.length > 2) {
+	else if(this.state && this.state.length > 2) {
 		return this.city;
 	}
 	else {
