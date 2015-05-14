@@ -4,7 +4,7 @@ function Converter() {
 }
 
 Converter.prototype.inchToCm = function(inch) {
-	return inches * 2.54;
+	return inch * 2.54;
 };
 
 Converter.prototype.cmToInch = function(cm) {
