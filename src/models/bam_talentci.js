@@ -22,7 +22,7 @@ Talent.prototype.isPaying = function() {
 
 Talent.prototype.getPrimaryPhoto = function() {
 	var base_url = 'https://www.exploretalent.com';
-	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_full_path'));
+	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_path_full'));
 
 	if (media_path) {
 		var watermark = '/etwatermark.php?image=';
