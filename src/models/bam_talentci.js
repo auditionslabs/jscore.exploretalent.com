@@ -22,19 +22,15 @@ Talent.prototype.isPaying = function() {
 
 Talent.prototype.getPrimaryPhoto = function() {
 	var base_url = 'https://www.exploretalent.com';
-	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'media_path'));
+	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_full_path'));
 
 	if (media_path) {
-		media_path = '/' + media_path;
+		var watermark = '/etwatermark.php?image=';
+		return base_url + watermark + media_path;
 	}
 	else {
 		return base_url + '/graphics/filler.jpg';
 	}
-
-	var watermark = '/etwatermark.php?image=';
-	var folder = 'media' + _.padLeft(Math.floor(this.talentnum / 10000), 3, '0') + '/' + _.padLeft(this.talentnum, 10, '0');
-
-	return base_url + watermark + folder + media_path;
 }
 
 Talent.prototype.getSocialAccount = function(type) {
