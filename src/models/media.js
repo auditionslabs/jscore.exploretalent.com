@@ -6,4 +6,4 @@ function Media(data) {
 	_.extend(this, data);
 }
 
-module.exports = User;
+module.exports = Media;

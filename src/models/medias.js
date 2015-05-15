@@ -4,7 +4,7 @@ var _ = require('lodash'),
 	medias = {},
 	Media = require('./media.js');
 
-medias.relationship = media.relationship;
+medias.relationship = Media.relationship;
 
 medias.create = function(array) {
 	return _.map(array || [], function(item) {
