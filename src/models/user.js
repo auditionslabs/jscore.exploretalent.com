@@ -7,7 +7,7 @@ function User(data) {
 }
 
 User.prototype.getMediaByType = function(t) {
-	return _.where(this.media, { type : t });
+	return _.where(this.media, { media_type_id : t });
 };
 
 User.relationship = [
