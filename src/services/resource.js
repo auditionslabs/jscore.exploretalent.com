@@ -23,7 +23,7 @@ Resource.prototype.interpolate = function(data) {
 			} else {
 				url = url.replace(key, '');
 			}
-			return url;
+			return url.replace(/\/$/, "");
 		}, self.$$url),
 		data: data
 	};
