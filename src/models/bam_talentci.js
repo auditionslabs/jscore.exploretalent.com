@@ -21,15 +21,13 @@ Talent.prototype.isPaying = function() {
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
-	var base_url = 'https://www.exploretalent.com';
 	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_path_full'));
 
 	if (media_path) {
-		var watermark = '/etwatermark.php?image=';
-		return base_url + watermark + media_path;
+		return 'https://etdownload.s3.amazonaws.com/' + media_path;
 	}
 	else {
-		return base_url + '/graphics/filler.jpg';
+		return 'https://www.exploretalent.com/graphics/filler.jpg';
 	}
 }
 
