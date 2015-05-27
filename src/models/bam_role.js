@@ -7,12 +7,12 @@ function Role(data) {
 }
 
 Role.prototype.convertToFullDate = function() {
-	var date = new Date(int.parse(this.bam_casting.asap) * 1000);
+	var date = new Date(parseInt(this.bam_casting.asap) * 1000);
 	var convertedDate = date.getDate() + date.getMonth() + date.getFullYear();
 	return convertedDate;
 };
 
-Talent.relationship = [
+Role.relationship = [
 	'data:bam_roles'
 ];
 
