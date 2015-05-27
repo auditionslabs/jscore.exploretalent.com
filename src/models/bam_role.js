@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-	date = require('../date.js');
+	date = require('../services/date.js');
 
 function Role(data) {
 	_.extend(this, data);
