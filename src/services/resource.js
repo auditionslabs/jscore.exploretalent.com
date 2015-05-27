@@ -17,7 +17,7 @@ Resource.prototype.interpolate = function(data) {
 	return {
 		url: _(self.$$keys).reduce(function(url, key) {
 			var dataKey = key.substring(1);
-			if(data[dataKey]) {
+			if(data && data[dataKey]) {
 				url = url.replace(key, data[dataKey]);
 				delete data[dataKey];
 			} else {

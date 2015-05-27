@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + '/jobs/:jobId', {
+module.exports = new Resource(api.base + '/talent/jobs/:jobId', {
 	model: 'bam_role'
 });
