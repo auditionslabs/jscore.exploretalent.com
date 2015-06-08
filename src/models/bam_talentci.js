@@ -54,7 +54,7 @@ Talent.prototype.getLocation = function() {
 
 Talent.prototype.heightText = function() {
 	var feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00);
-	var inches -= feet * 12;
+	var inches = feet * 12;
 	return feet + '"' + inches + "'";
 }
 
