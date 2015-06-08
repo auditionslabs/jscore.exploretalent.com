@@ -52,6 +52,12 @@ Talent.prototype.getLocation = function() {
 	}
 }
 
+Talent.prototype.heightText = function() {
+	var feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00);
+	inches -= feet * 12;
+	return feet + '"' + inches + "'";
+}
+
 Talent.relationship = [
 	'user',
 	'bam_talentrecurring',
