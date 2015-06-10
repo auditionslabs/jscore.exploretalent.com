@@ -6,4 +6,8 @@ function Casting(data) {
 	_.extend(this, data);
 }
 
+Casting.relationship = [
+	'data:bam_roles'
+];
+
 module.exports = Casting;
