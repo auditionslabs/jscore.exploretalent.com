@@ -7,8 +7,8 @@ function Role(data) {
 	_.extend(this, data);
 }
 
-Role.prototype.convertToFullDate = function() {
-	return date.formatYMD(parseInt(this.bam_casting.asap));
+Role.prototype.convertToFullDate = function(timestamp) {
+	return date.formatYMD(parseInt(timestamp));
 };
 
 Role.relationship = [
