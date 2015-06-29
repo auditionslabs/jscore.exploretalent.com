@@ -6,8 +6,16 @@ function Conversation(data) {
 	_.extend(this, data || {});
 }
 
+Conversation.prototype.from = function() {
+	return _.first(_.where(this.users, { id : this.user_id }));
+};
+
+Conversation.prototype.to = function() {
+	return _.first(_.filter(this.users, function(n) { return n.id != this.user_id }));
+}
+
 Conversation.relationship = [
-	'user_id:user',
+	'user',
 	'users:users',
 	'data:conversations'
 ];
