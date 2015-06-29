@@ -15,6 +15,7 @@ Message.prototype.to = function() {
 }
 
 Message.relationship = [
+	'data:messages'
 ];
 
 module.exports = Message;
