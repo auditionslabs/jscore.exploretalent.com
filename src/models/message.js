@@ -11,7 +11,8 @@ Message.prototype.from = function() {
 };
 
 Message.prototype.to = function() {
-	return _.first(_.filter(this.users, function(n) { return n.id != this.user_id }));
+	var user_id = this.user_id;
+	return _.first(_.filter(this.users, function(n) { return n.id != user_id }));
 }
 
 Message.relationship = [
