@@ -5,8 +5,10 @@ var _ = require('lodash'),
 users.relationship = User.relationship;
 
 users.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new User(item);
+		return modelify('user', item);
 	});
 };
 

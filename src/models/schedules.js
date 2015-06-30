@@ -7,8 +7,10 @@ var _ = require('lodash'),
 schedules.relationship = Schedule.relationship;
 
 schedules.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new Schedule(item);
+		return modelify('schedule', item);
 	});
 };
 

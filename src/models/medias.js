@@ -7,8 +7,10 @@ var _ = require('lodash'),
 medias.relationship = Media.relationship;
 
 medias.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new Media(item);
+		return modelify('media', item);
 	});
 };
 

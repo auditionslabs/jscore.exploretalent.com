@@ -5,8 +5,10 @@ var _ = require('lodash'),
 messages.relationship = Message.relationship;
 
 messages.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new Message(item);
+		return modelify('message', item);
 	});
 };
 

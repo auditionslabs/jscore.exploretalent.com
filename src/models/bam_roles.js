@@ -7,8 +7,9 @@ var _ = require('lodash'),
 roles.relationship = Role.relationship;
 
 roles.create = function(array) {
+	var modelify = require('../services/model.js');
 	return _.map(array || [], function(item) {
-		return new Role(item);
+		return modelify('bam_role', item);
 	});
 };
 

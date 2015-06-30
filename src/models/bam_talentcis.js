@@ -7,8 +7,10 @@ var _ = require('lodash'),
 talents.relationship = Talent.relationship;
 
 talents.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new Talent(item);
+		return modelify('bam_talentci', item);
 	});
 };
 

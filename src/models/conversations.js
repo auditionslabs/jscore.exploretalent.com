@@ -7,8 +7,10 @@ var _ = require('lodash'),
 conversations.relationship = Conversation.relationship;
 
 conversations.create = function(array) {
+	var modelify = require('../services/model.js');
+
 	return _.map(array || [], function(item) {
-		return new Conversation(item);
+		return modelify('conversation', item);
 	});
 };
 
