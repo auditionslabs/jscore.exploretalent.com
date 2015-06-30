@@ -22,12 +22,22 @@ Talent.prototype.isPaying = function() {
 
 Talent.prototype.getPrimaryPhoto = function() {
 	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_path_full'));
+	var gender = this.bam_talentinfo1.sex;
 
 	if (media_path) {
 		return 'https://etdownload.s3.amazonaws.com/' + media_path;
 	}
+
 	else {
-		return 'https://www.exploretalent.com/graphics/filler.jpg';
+
+		if(gender == "Male") {
+			return 'https://www.exploretalent.com/graphics/filler.jpg';
+		}
+
+		else {
+			return 'https://www.exploretalent.com/graphics/filler_women.jpg';
+		}
+		
 	}
 }
 
