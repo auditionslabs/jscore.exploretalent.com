@@ -31,11 +31,11 @@ Talent.prototype.getPrimaryPhoto = function() {
 	else {
 
 		if(gender == "Male") {
-			return 'https://www.exploretalent.com/graphics/filler.jpg';
+			return '/images/filler.jpg';
 		}
 
 		else {
-			return 'https://www.exploretalent.com/graphics/filler_women.jpg';
+			return '/images/filler_women.jpg';
 		}
 		
 	}
