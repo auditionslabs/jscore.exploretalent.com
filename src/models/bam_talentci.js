@@ -22,14 +22,12 @@ Talent.prototype.isPaying = function() {
 
 Talent.prototype.getPrimaryPhoto = function() {
 	var media_path = _.first(_.pluck(_.where(this.bam_talent_media2, { type : '2' }), 'bam_media_path_full'));
-	var gender = this.bam_talentinfo1.sex;
+	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male';
 
 	if (media_path) {
 		return 'https://etdownload.s3.amazonaws.com/' + media_path;
 	}
-
 	else {
-
 		if(gender == "Male") {
 			return '/images/filler.jpg';
 		}
@@ -37,7 +35,6 @@ Talent.prototype.getPrimaryPhoto = function() {
 		else {
 			return '/images/filler_women.jpg';
 		}
-		
 	}
 }
 
