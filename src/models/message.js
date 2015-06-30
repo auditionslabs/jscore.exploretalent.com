@@ -16,7 +16,7 @@ Message.prototype.to = function() {
 }
 
 Message.relationship = [
-	'users'
+	'users',
 	'data:messages'
 ];
 
