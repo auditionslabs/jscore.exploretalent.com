@@ -18,6 +18,7 @@ Conversation.prototype.to = function() {
 Conversation.relationship = [
 	'user',
 	'users',
+	'messages',
 	'data:conversations'
 ];
 
