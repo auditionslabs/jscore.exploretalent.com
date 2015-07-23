@@ -15,8 +15,9 @@ Message.prototype.to = function() {
 	return _.first(_.filter(this.users, function(n) { return n.id != user_id }));
 }
 
-Message.prototype.getOtherUser = function(owner_id) {
-	return _.first(_.filter(this.users, function(n) { return n.id != owner_id }));
+Message.prototype.getOtherUser = function() {
+	if (this.owner)
+		return _.first(_.filter(this.users, function(n) { return n.id != this.owner.id }));
 }
 
 Message.relationship = [
