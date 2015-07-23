@@ -16,8 +16,10 @@ Conversation.prototype.to = function() {
 }
 
 Conversation.prototype.getOtherUser = function() {
-	if (this.owner)
-		return _.first(_.filter(this.users, function(n) { return n.id != this.owner.id }));
+	if (this.owner) {
+		var owner = this.owner;
+		return _.first(_.filter(this.users, function(n) { return n.id != owner.id }));
+	}
 }
 
 Conversation.relationship = [
