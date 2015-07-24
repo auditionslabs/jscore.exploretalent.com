@@ -22,6 +22,12 @@ Conversation.prototype.getOtherUser = function() {
 	}
 }
 
+Conversation.prototype.getUnreadCount = function() {
+	if (this.messages) {
+		return _.where(this.messages, { read : 0 }).length;
+	}
+}
+
 Conversation.relationship = [
 	'user',
 	'users',
