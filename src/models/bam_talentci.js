@@ -22,14 +22,14 @@ Talent.prototype.isPaying = function() {
 
 Talent.prototype.getPrimaryPhoto = function() {
 	var media_path =
-		_.pluck(
-			_.first(
+		_.first(
+			_.pluck(
 				_.uniq(([]).concat(
 					_.where(this.bam_talent_media2, { type : 2 }),
 					_.where(this.bam_talent_media2, { type : '2' })
-				))
-			),
-			'bam_media_path_full'
+				)),
+				'bam_media_path_full'
+			)
 		);
 
 	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male';
