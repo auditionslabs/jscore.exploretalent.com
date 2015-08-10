@@ -9,7 +9,8 @@ function Friends(data) {
 
 Friends.relationship = [
 	'bam_talentci1:bam_talentci',
-	'bam_talentci2:bam_talentci'
+	'bam_talentci2:bam_talentci',
+	'data:bam_friends'
 ];
 
 module.exports = Friends;
