@@ -11,11 +11,11 @@ Friend.prototype.getOtherUser = function() {
 	if (this.owner) {
 		var owner = this.owner;
 
-		if (this.bam_talentnum1 == owner.bam_talentci.talentnum) {
-			return this.bam_talentci1;
+		if (this.talentnum1 == owner.bam_talentci.talentnum) {
+			return this.bam_talentci2;
 		}
 		else {
-			return this.bamt_talentci2;
+			return this.bam_talentci1;
 		}
 	}
 	else {
