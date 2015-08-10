@@ -7,7 +7,7 @@ function Friend(data) {
 	_.extend(this, data);
 }
 
-Friend.prototyp.getOtherUser = function() {
+Friend.prototype.getOtherUser = function() {
 	if (this.owner) {
 		var owner = this.owner;
 
