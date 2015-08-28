@@ -1,3 +1,4 @@
 module.exports = {
-	base: ''
+	base: '',
+	type: '/talent'
 };

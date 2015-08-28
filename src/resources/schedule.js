@@ -3,7 +3,7 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + '/talent/schedules/:ScheduleId', {
+module.exports = new Resource(api.base + api.type + '/schedules/:ScheduleId', {
 	model: 'schedule'
 });
 
