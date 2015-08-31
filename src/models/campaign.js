@@ -10,4 +10,4 @@ Campaign.relationship = [
 	'data:campaigns'
 ];
 
-module.exports = campaigns;
+module.exports = Campaign;
