@@ -9,7 +9,7 @@ function CampaignQuery(data) {
 CampaignQuery.prototype.hasQuery = function(key) {
 	var query = JSON.parse(this.query);
 
-	return _.find(query.withs, function(q) {
+	return _.find(query.wheres, function(q) {
 		return q[2] == key;
 	});
 }
