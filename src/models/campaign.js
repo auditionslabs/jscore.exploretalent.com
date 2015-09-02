@@ -7,6 +7,7 @@ function Campaign(data) {
 }
 
 Campaign.relationship = [
+	'campaign_query',
 	'data:campaigns'
 ];
 

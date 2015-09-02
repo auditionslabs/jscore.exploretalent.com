@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + api.type + '/campaigns/:campaignId', {
-	model: 'campaign'
+module.exports = new Resource(api.base + api.type + '/campaign_queries/:queryId', {
+	model: 'campaign_query'
 });
