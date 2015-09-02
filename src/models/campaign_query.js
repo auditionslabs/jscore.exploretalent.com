@@ -11,9 +11,9 @@ CampaignQuery.prototype.hasQuery = function(key, type) {
 
 	return _.find(query.wheres, function(q) {
 		if (type == 'min')
-			return q[1] == key && q[2] == '>';
+			return q[1] == key && q[2] == '>=';
 		else if (type == 'max')
-			return q[1] == key && q[2] == '<';
+			return q[1] == key && q[2] == '<=';
 		else
 			return q[1] == key;
 	});
