@@ -6,6 +6,14 @@ function CampaignQuery(data) {
 	_.extend(this, data || {});
 }
 
+CampaignQuery.prototype.hasQuery = function(key) {
+	var query = JSON.parse(this.query);
+
+	return _.find(query.withs, function(q) {
+		return q[2] == key;
+	});
+}
+
 CampaignQuery.relationship = [
 	'data:campaign_queries'
 ];
