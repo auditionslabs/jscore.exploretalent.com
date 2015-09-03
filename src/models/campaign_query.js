@@ -10,12 +10,17 @@ CampaignQuery.prototype.hasQuery = function(key, type) {
 	var query = JSON.parse(this.query);
 
 	return _.find(query.wheres, function(q) {
-		if (type == 'min')
-			return q[1] == key && q[2] == '>=';
-		else if (type == 'max')
-			return q[1] == key && q[2] == '<=';
-		else
-			return q[1] == key;
+		if (q[2] instanceof Array) {
+			return q[2][1] == key;
+		}
+		else {
+			if (type == 'min')
+				return q[1] == key && q[2] == '>=';
+			else if (type == 'max')
+				return q[1] == key && q[2] == '<=';
+			else
+				return q[1] == key;
+		}
 	});
 }
 
