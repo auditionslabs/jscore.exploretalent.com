@@ -1,7 +1,7 @@
 'use strict';
 
 function unmask(phone) {
-	return phon.replace(/\-/g, '').replace(/\(/g, '').replace(/\)/g, '');
+	return phone.replace(/\-/g, '').replace(/\(/g, '').replace(/\)/g, '');
 }
 
 module.exports = {
