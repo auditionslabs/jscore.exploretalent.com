@@ -1,4 +1,6 @@
-module.exports = function(element, data) {
+module.exports = databind;
+
+function databind(element, data) {
 	var self = $(element);
 
 	//remove elements of parent element which are not templates
@@ -48,7 +50,7 @@ module.exports = function(element, data) {
 			clone.removeAttr('data-bind-template');
 			clone.removeAttr('data-bind-value');
 			// call databind on the cloned element
-			clone.databind(data);
+			databind(clone, data);
 			// add cloned element to the target
 			self.find(appendTo).addBack(appendTo).append(clone);
 		});
