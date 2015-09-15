@@ -39,7 +39,7 @@ Casting.prototype.getCategory = function() {
 		23 :  "Theatre - Non-Equity",
 		24 :  "Trade Shows/Live Events/Promo Model",
 		25 :  "Crew - Marketing/PR",
-		26 :  "Voice Over"
+		26 :  "Voice Over",
 		27 :  "Internet",
 		28 :  "Music - Vocals",
 		29 :  "Music - Strings",
