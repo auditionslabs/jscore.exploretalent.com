@@ -88,7 +88,8 @@ Casting.prototype.getCategory = function() {
 }
 
 Casting.relationship = [
-	'data:bam_castings'
+	'data:bam_castings',
+	'bam_roles'
 ];
 
 module.exports = Casting;

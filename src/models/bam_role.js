@@ -11,13 +11,13 @@ Role.prototype.convertToFullDate = function(timestamp) {
 	return date.formatYMD(parseInt(timestamp));
 };
 
-Role.prototype.heightMinText = function() {
+Role.prototype.getHeightMinText = function() {
 	var feet = Math.floor(this.height_min / 12.00);
 	var inches = feet % 12;
 	return feet + '"' + inches + "'";
 }
 
-Role.prototype.heightMaxText = function() {
+Role.prototype.getHeightMaxText = function() {
 	var feet = Math.floor(this.height_max / 12.00);
 	var inches = feet % 12;
 	return feet + '"' + inches + "'";
