@@ -11,6 +11,12 @@ Role.prototype.convertToFullDate = function(timestamp) {
 	return date.formatYMD(parseInt(timestamp));
 };
 
+Role.prototype.heightText = function() {
+	var feet = Math.floor(this.heightinches / 12.00);
+	var inches = feet * 12;
+	return feet + '"' + inches + "'";
+}
+
 Role.relationship = [
 	'data:bam_roles'
 ];
