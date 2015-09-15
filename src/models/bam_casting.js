@@ -6,6 +6,19 @@ function Casting(data) {
 	_.extend(this, data);
 }
 
+Casting.prototype.getRate = function() {
+	var rates = {
+		0	:	"",
+		1	:	"event",
+		2	:	"hour",
+		3	:	"day",
+		4	:	"week",
+		5	:	"month"
+	};
+
+	return rates[this.rate_des];
+};
+
 Casting.prototype.getCategory = function() {
 	var categories = {
 		0  :  "",
