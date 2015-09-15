@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 	projects = {},
-	project = require('./project.js');
+	Project = require('./project.js');
 
 projects.relationship = Project.relationship;
 

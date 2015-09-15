@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
 	date = require('../services/date.js');
 
 function Project(data) {
