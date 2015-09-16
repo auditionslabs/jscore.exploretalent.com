@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	serializeObject : serializeObject
+	serializeObject : serializeObject,
+	validate		: validate
 };
 
 function serializeObject(form) {
@@ -26,4 +27,32 @@ function serializeObject(form) {
 
 			return this;
 		}.bind({}))[0];
+}
+
+function validate(form) {
+	var $form = $(form);
+
+	_.forEach($form.find('[data-validate]'), function(e) {
+		var $e = $(e);
+		var ok = true;
+
+		switch($e.attr('data-validate')) {
+			case 'phone':
+			case 'number':
+				ok = /^\d+$/.test($e.val());
+				break;
+			case 'text':
+				ok = /^[A-Za-z\s]+$/.test($e.val());
+				break;
+			case 'email':
+				ok = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/.test($e.val());
+				break;
+			default:
+				break;
+		}
+
+		if (!ok) {
+			$($e.attr('data-validate-error')).show();
+		}
+	});
 }
