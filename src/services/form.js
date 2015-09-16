@@ -31,6 +31,7 @@ function serializeObject(form) {
 
 function validate(form) {
 	var $form = $(form);
+	var allOk = true;
 
 	_.forEach($form.find('[data-validate]'), function(e) {
 		var $e = $(e);
@@ -51,8 +52,25 @@ function validate(form) {
 				break;
 		}
 
-		if (!ok) {
-			$($e.attr('data-validate-error')).show();
+		var $parent = $e.parent();
+		var $help = $parent.find('.help-block');
+
+		if (ok) {
+			$parent.removeClass('has-error');
+			$help.remove();
+		}
+		else {
+			allOk = false;
+			$parent.addClass('has-error');
+
+			if ($help.length) {
+				$help.show();
+			}
+			else {
+				$parent.append('<p class="help-block">' + $e.attr('data-validate-error') + '</p>');
+			}
 		}
 	});
+
+	return allOk;
 }
