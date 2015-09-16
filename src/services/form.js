@@ -51,6 +51,10 @@ function validate(form) {
 			case 'required':
 				ok = $e.val() ? true : false;
 				break;
+			case 'zip':
+				ok = /^\d+$/.test($e.val());
+				if (ok)
+					ok = parseInt($e.val()) <= 99999;
 			default:
 				break;
 		}
