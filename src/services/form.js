@@ -48,6 +48,9 @@ function validate(form) {
 			case 'email':
 				ok = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/.test($e.val());
 				break;
+			case 'required':
+				ok = $e.val() ? true : false;
+				break;
 			default:
 				break;
 		}
