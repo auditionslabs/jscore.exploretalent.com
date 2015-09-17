@@ -19,8 +19,15 @@ Role.prototype.getHeightMaxText = function() {
 	return feet + '"' + inches + "'";
 }
 
+Role.prototype.getLikeItList = function() {
+	return _.filter(this.schedules, function(schedule) {
+		return schedule.rating > 0;
+	});
+}
+
 Role.relationship = [
-	'data:bam_roles'
+	'data:bam_roles',
+	'schedules'
 ];
 
 module.exports = Role;
