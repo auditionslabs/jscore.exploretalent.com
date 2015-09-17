@@ -1,8 +1,5 @@
 'use strict';
 
-var api = require('src/config/api.js'),
-	Resource = require('src/services/resource.js');
+var job = require('./job.js');
 
-module.exports = new Resource(api.base + api.type + '/projects/:projectId/jobs/:jobId', {
-	model: 'bam_role'
-});
+module.exports = project.child('/jobs/:jobId');
