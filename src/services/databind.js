@@ -113,6 +113,7 @@ function databind(element, data) {
 					$(element).hide();
 				break;
 			case 'option':
+				var value = JSON.parse(value);
 				$(element).attr('value', value.key);
 				$(element).text(value.value);
 				break;
