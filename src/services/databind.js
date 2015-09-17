@@ -1,5 +1,4 @@
 module.exports = databind;
-
 function databind(element, data) {
 	var self = $(element);
 
@@ -83,6 +82,9 @@ function databind(element, data) {
 			else if ($(element).is('img') || $(element).is('iframe')) {
 				attr = 'src';
 			}
+			else if ($(element).is('option')) {
+				attr = 'option';
+			}
 		}
 
 		// set value depending on the attr
@@ -109,6 +111,10 @@ function databind(element, data) {
 					$(element).show();
 				else
 					$(element).hide();
+				break;
+			case 'option':
+				$(element).attr('value', value.key);
+				$(element).text(value.value);
 				break;
 			default:
 				$(element).attr(attr, value);
