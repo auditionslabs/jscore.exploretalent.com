@@ -1,6 +1,6 @@
 var _ = require('lodash'),
 	schedule_notes = {},
-	ScheduleNote = require('./ScheduleNote.js');
+	ScheduleNote = require('./schedule_note.js');
 
 schedule_notes.relationship = ScheduleNote.relationship;
 

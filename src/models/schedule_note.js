@@ -10,4 +10,4 @@ ScheduleNote.relationship = [
 	'data:schedule_notes'
 ];
 
-module.exports = Schedule;
+module.exports = ScheduleNote;
