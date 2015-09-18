@@ -12,4 +12,4 @@ schedule_notes.create = function(array) {
 	});
 };
 
-module.exports = schedule_note;
+module.exports = schedule_notes;
