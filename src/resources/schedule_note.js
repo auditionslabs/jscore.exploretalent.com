@@ -1,5 +1,8 @@
 'use strict';
 
-var schedule = require('./schedule.js');
+var api = require('src/config/api.js'),
+	Resource = require('src/services/resource.js');
 
-module.exports = schedule.child('/schedule_notes/:noteId', { model : 'schedule_note' });
+module.exports = new Resource(api.base + api.type + '/schedules/:scheduleId/schedule_notes/:noteId', {
+	model: 'schedule_note'
+});
