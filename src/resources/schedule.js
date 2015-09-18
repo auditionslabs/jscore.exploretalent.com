@@ -1,5 +1,5 @@
 'use strict';
 
-var project = require('./project.js');
+var job = require('./job.js');
 
-module.exports = project.child('/schedules/:scheduleId');
+module.exports = job.child('/schedules/:scheduleId');
