@@ -7,6 +7,7 @@ function ScheduleNote(data) {
 }
 
 ScheduleNote.relationship = [
+	'user',
 	'data:schedule_notes'
 ];
 
