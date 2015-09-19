@@ -19,7 +19,7 @@ Role.prototype.getHeightMaxText = function() {
 	return feet + '"' + inches + "'";
 }
 
-Role.prototype.getGenders() = function() {
+Role.prototype.getGenders = function() {
 	var array = [];
 
 	if (this.gender_male == 1)
