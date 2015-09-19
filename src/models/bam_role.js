@@ -34,9 +34,6 @@ Role.prototype.getGenders = function() {
 Role.prototype.getEthnicities = function() {
 	var array = [];
 
-	if (this.ethnicity_any == 1)
-		return array;
-
 	var ethnicities = {
 		african		: 'African',
 		african_am	: 'African American',
@@ -52,6 +49,9 @@ Role.prototype.getEthnicities = function() {
 		east_indian	: 'East Indian'
 	}
 
+	if (this.ethnicity_any == 1)
+		return ethnicities.values();
+
 	for (var e in ethnicities) {
 		if (this['ethnicity_' + e] == 1) {
 			array.push(ethnicities[e]);
@@ -63,9 +63,6 @@ Role.prototype.getEthnicities = function() {
 
 Role.prototype.getHairColors = function() {
 	var array = [];
-
-	if (this.hair_any == 1)
-		return array;
 
 	var haircolors = {
 		auburn		: 'Auburn',
@@ -80,6 +77,9 @@ Role.prototype.getHairColors = function() {
 		salt_pepper : 'Salt&Peppe'
 	};
 
+	if (this.hair_any == 1)
+		return haircolors.values();
+
 	for (var color in haircolors) {
 		if (this['hair_' + color] == 1) {
 			array.push(haircolors[color]);
@@ -91,9 +91,6 @@ Role.prototype.getHairColors = function() {
 
 Role.prototype.getHairStyles = function() {
 	var array = [];
-
-	if (this.hairstyle_any == 1)
-		return array;
 
 	var hairstyles = {
 		afro 	: 'Afro',
@@ -107,6 +104,9 @@ Role.prototype.getHairStyles = function() {
 		short	: 'Short'
 	}
 
+	if (this.hairstyle_any == 1)
+		return hairstyles.values();
+
 	for (var style in hairstyles) {
 		if (this['hairstyle_' + style] == 1) {
 			array.push(hairstyles[style]);
@@ -119,9 +119,6 @@ Role.prototype.getHairStyles = function() {
 Role.prototype.getEyeColors = function() {
 	var array = [];
 
-	if (this.eye_any == 1)
-		return array;
-
 	var eyecolors = {
 		blue	: 'Blue',
 		b_g		: 'Blue-Green',
@@ -132,6 +129,9 @@ Role.prototype.getEyeColors = function() {
 		g_g		: 'Grey-Green',
 		hazel	: 'Hazel'
 	}
+
+	if (this.eye_any == 1)
+		return eyecolors.values();
 
 	for (var color in eyecolors) {
 		if (this['eye_' + color] == 1) {
@@ -145,9 +145,6 @@ Role.prototype.getEyeColors = function() {
 Role.prototype.getBuilds = function() {
 	var array = [];
 
-	if (this.built_any == 1)
-		return array;
-
 	var builds = {
 		medium		: 'Medium',
 		athletic	: 'Athletic',
@@ -159,6 +156,9 @@ Role.prototype.getBuilds = function() {
 		lm			: 'Lean Muscle',
 		average		: 'Average'
 	}
+
+	if (this.built_any == 1)
+		return builds.values();
 
 	for (var b in builds) {
 		if (this['built_' + b] == 1) {
