@@ -52,7 +52,7 @@ Role.prototype.getEthnicities = function() {
 		east_indian	: 'East Indian'
 	}
 
-	var (e in ethnicities) {
+	for (var e in ethnicities) {
 		if (this['ethnicity_' + e] == 1) {
 			array.push(ethnicities[e]);
 		}
@@ -80,7 +80,7 @@ Role.prototype.getHairColors = function() {
 		salt_pepper : 'Salt&Peppe'
 	};
 
-	var (color in haircolors) {
+	for (var color in haircolors) {
 		if (this['hair_' + color] == 1) {
 			array.push(haircolors[color]);
 		}
@@ -107,7 +107,7 @@ Role.prototype.getHairStyles = function() {
 		short	: 'Short'
 	}
 
-	var (style in hairstyles) {
+	for (var style in hairstyles) {
 		if (this['hairstyle_' + style] == 1) {
 			array.push(hairstyles[style]);
 		}
@@ -133,7 +133,7 @@ Role.prototype.getEyeColors = function() {
 		hazel	: 'Hazel'
 	}
 
-	var (color in eyecolors) {
+	for (var color in eyecolors) {
 		if (this['eye_' + color] == 1) {
 			array.push(eyecolors[color]);
 		}
@@ -160,7 +160,7 @@ Role.prototype.getBuilds = function() {
 		average		: 'Average'
 	}
 
-	var (b in builds) {
+	for (var b in builds) {
 		if (this['built_' + b] == 1) {
 			array.push(builds[b]);
 		}
