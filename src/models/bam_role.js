@@ -50,7 +50,7 @@ Role.prototype.getEthnicities = function() {
 	}
 
 	if (this.ethnicity_any == 1)
-		return ethnicities.values();
+		return getValues(ethnicities);
 
 	for (var e in ethnicities) {
 		if (this['ethnicity_' + e] == 1) {
@@ -78,7 +78,7 @@ Role.prototype.getHairColors = function() {
 	};
 
 	if (this.hair_any == 1)
-		return haircolors.values();
+		return getValues(haircolors);
 
 	for (var color in haircolors) {
 		if (this['hair_' + color] == 1) {
@@ -105,7 +105,7 @@ Role.prototype.getHairStyles = function() {
 	}
 
 	if (this.hairstyle_any == 1)
-		return hairstyles.values();
+		return getValues(hairstyles.values);
 
 	for (var style in hairstyles) {
 		if (this['hairstyle_' + style] == 1) {
@@ -131,7 +131,7 @@ Role.prototype.getEyeColors = function() {
 	}
 
 	if (this.eye_any == 1)
-		return eyecolors.values();
+		return getValues(eyecolors);
 
 	for (var color in eyecolors) {
 		if (this['eye_' + color] == 1) {
@@ -158,7 +158,7 @@ Role.prototype.getBuilds = function() {
 	}
 
 	if (this.built_any == 1)
-		return builds.values();
+		return getValues(builds);
 
 	for (var b in builds) {
 		if (this['built_' + b] == 1) {
@@ -167,6 +167,12 @@ Role.prototype.getBuilds = function() {
 	}
 
 	return array;
+}
+
+function getValues(obj) {
+	return Object.keys(obj).map(function (key) {
+		return obj[key];
+	});
 }
 
 Role.relationship = [
