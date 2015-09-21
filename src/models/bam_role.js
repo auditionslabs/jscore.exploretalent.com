@@ -10,13 +10,13 @@ function Role(data) {
 Role.prototype.getHeightMinText = function() {
 	var feet = Math.floor(this.height_min / 12.00);
 	var inches = this.height_min % 12;
-	return feet + '"' + inches + "'";
+	return feet + "'" + inches + '"';
 }
 
 Role.prototype.getHeightMaxText = function() {
 	var feet = Math.floor(this.height_max / 12.00);
 	var inches = this.height_max % 12;
-	return feet + '"' + inches + "'";
+	return feet + "'" + inches + '"';
 }
 
 Role.prototype.getGenders = function() {
