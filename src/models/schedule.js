@@ -12,7 +12,7 @@ Schedule.prototype.convertToFullDate = function(timestamp) {
 };
 
 Schedule.prototype.getTalent = function() {
-	return this.invitee && this.invitee.bam_talentnum ? this.invitee : this.inviter;
+	return this.invitee && parseInt(this.invitee.bam_talentnum) ? this.invitee : this.inviter;
 }
 
 Schedule.relationship = [
