@@ -1,17 +1,17 @@
 'use strict';
 
 var _ = require('lodash'),
-	favorites = {},
-	Favorite = require('./favorite_talent.js');
+	favorite_talents = {},
+	Favorite_talent = require('./favorite_talent.js');
 
-favorites.relationship = Favorite.relationship;
+favorite_talents.relationship = Favorite_talent.relationship;
 
-favorites.create = function(array) {
+favorite_talents.create = function(array) {
 	var modelify = require('../services/model.js');
 
 	return _.map(array || [], function(item) {
-		return modelify('schedule', item);
+		return modelify('favorite_talent', item);
 	});
 };
 
-module.exports = favorites;
+module.exports = favorite_talents;
