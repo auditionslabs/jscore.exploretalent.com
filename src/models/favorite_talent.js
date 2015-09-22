@@ -3,11 +3,11 @@
 var _ = require('lodash'),
 	date = require('../services/date.js');
 
-function Favorite_talent(data) {
+function FavoriteTalent(data) {
 	_.extend(this, data);
 }
 
-Favorite_talent.relationship = [
+FavoriteTalent.relationship = [
 	'user',
 	'bam_talentrecurring',
 	'bam_talenttracking',
@@ -23,4 +23,4 @@ Favorite_talent.relationship = [
 	'data:bam_talentcis'
 ];
 
-module.exports = Favorite_talent;
+module.exports = FavoriteTalent;
