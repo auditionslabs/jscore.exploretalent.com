@@ -9,6 +9,7 @@ function FavoriteTalent(data) {
 
 FavoriteTalent.relationship = [
 	'user',
+	'bam_talentci',
 	'bam_talentrecurring',
 	'bam_talenttracking',
 	'bam_talentinfo1',
@@ -20,7 +21,7 @@ FavoriteTalent.relationship = [
 	'bam_talent_general',
 	'bam_talent_social:bam_talent_socials',
 	//if using GET from api, result is in the data property, set model to array of bam_talentcis
-	'data:bam_talentcis'
+	'data:favorite_talents'
 ];
 
 module.exports = FavoriteTalent;
