@@ -7,7 +7,7 @@ modelify.$$models = require('src/models/models.js');
 modelify.$$hashRelation = hashRelation;
 
 function modelify(name, data) {
-	var models = modelify.$$models,
+	var models = require('src/models/models.js'),
 		model = models[name],
 		relationship,
 		relations,
