@@ -1,7 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-	date = require('../services/date.js');
+	date = require('../services/date.js'),
+	scheduleResource = require('../resources/schedule.js';
 
 function Role(data) {
 	_.extend(this, data);
@@ -17,6 +18,32 @@ Role.prototype.getHeightMaxText = function() {
 	var feet = Math.floor(this.height_max / 12.00);
 	var inches = this.height_max % 12;
 	return feet + "'" + inches + '"';
+}
+
+Role.prototype.getLikeItList = function() {
+	var deferred = $.Deferred();
+
+	var data = {
+		jobId : self.roleId,
+		withs : [
+			'invitee.bam_talentci.bam_talentinfo1',
+			'invitee.bam_talentci.bam_talentinfo2',
+			'invitee.bam_talentci.bam_talent_media2',
+			'schedule_notes.user.bam_cd_user'
+		],
+		wheres : [
+			[ 'where', 'rating', '<>', 0 ]
+		]
+	};
+
+	scheduleResource.get(data)
+		.then(function(result) {
+			deferred.resolve(result);
+		}, function(error) {
+			deferred.reject(error);
+		});
+
+	return deferred.promise();
 }
 
 Role.prototype.getGenders = function() {
@@ -79,8 +106,7 @@ Role.prototype.getHairColors = function() {
 
 	if (this.hair_any == 1)
 		return getValues(haircolors);
-
-	for (var color in haircolors) {
+for (var color in haircolors) {
 		if (this['hair_' + color] == 1) {
 			array.push(haircolors[color]);
 		}
