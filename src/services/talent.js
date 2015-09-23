@@ -7,7 +7,6 @@ var  _ = require('lodash'),
 		getExperience: getExperience,
 		getPerformance: getPerformance,
 		getHeight: getHeight,
-		formatFeetInchesFromInches: formatFeetInchesFromInches,
 		getFullName: getFullName
 	};
 
