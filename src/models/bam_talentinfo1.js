@@ -1,8 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-	converter = require('../services/converter.js'),
-	date = require('../services/date.js');
+	converter = require('src/services/converter.js'),
+	date = require('src/services/date.js');
 
 function TalentInfo1(data) {
 	_.extend(this, data);

@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-	talentHelper = require('../services/talent.js');
+	talentHelper = require('src/services/talent.js');
 
 function CdUser(data) {
 	_.extend(this, data || {});

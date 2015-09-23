@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-TalentResume.$$resumeTypes = require('../values/resume_types');
+TalentResume.$$resumeTypes = require('src/values/resume_types');
 
 function TalentResume(data) {
 

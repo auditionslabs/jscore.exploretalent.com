@@ -1,5 +1,5 @@
 'use strict';
 
-var conversation = require('./conversation.js');
+var conversation = require('src/services/conversation.js');
 
 module.exports = conversation.child('/messages/:messageId');

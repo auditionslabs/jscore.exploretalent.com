@@ -1,9 +1,9 @@
 'use strict';
 
 var _ = require('lodash'),
-	talent = require('../services/talent.js');
+	talent = require('src/services/talent.js');
 
-TalentMusic.$$musicTypes = require('../values/resume_types');
+TalentMusic.$$musicTypes = require('src/values/resume_types');
 
 function TalentMusic(data) {
 	_.extend(this, data);

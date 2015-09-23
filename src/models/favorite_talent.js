@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-	date = require('../services/date.js');
+	date = require('src/services/date.js');
 
 function FavoriteTalent(data) {
 	_.extend(this, data);

@@ -2,12 +2,12 @@
 
 var _ = require('lodash'),
 	roles = {},
-	Role = require('./bam_role.js');
+	Role = require('src/models/bam_role.js');
 
 roles.relationship = Role.relationship;
 
 roles.create = function(array) {
-	var modelify = require('../services/model.js');
+	var modelify = require('src/services/model.js');
 	return _.map(array || [], function(item) {
 		return modelify('bam_role', item);
 	});

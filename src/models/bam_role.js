@@ -1,8 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-	date = require('../services/date.js'),
-	scheduleResource = require('../resources/schedule.js');
+	date = require('src/services/date.js'),
+	scheduleResource = require('src/resources/schedule.js');
 
 function Role(data) {
 	_.extend(this, data);

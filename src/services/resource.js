@@ -1,7 +1,7 @@
 'use strict';
 
-var REST = require('./rest.js'),
-	model = require('./model.js'),
+var REST = require('src/services/rest.js'),
+	model = require('src/services/model.js'),
 	_ = require('lodash');
 
 function Resource(url, settings) {

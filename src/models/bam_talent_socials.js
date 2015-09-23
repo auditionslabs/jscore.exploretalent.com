@@ -2,12 +2,12 @@
 
 var _ = require('lodash'),
 	talent_socials = {},
-	TalentSocial = require('./bam_talent_social.js');
+	TalentSocial = require('src/models/bam_talent_social.js');
 
 talent_socials.relationship = TalentSocial.relationship;
 
 talent_socials.create = function(array) {
-	var modelify = require('../services/model.js');
+	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
 		return modelify('bam_talent_social', item);

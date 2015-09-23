@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-modelify.$$models = require('../models/*.*', { hash: true });
+modelify.$$models = require('src/models/*.*', { hash: true });
 modelify.$$hashRelation = hashRelation;
 
 function modelify(name, data) {

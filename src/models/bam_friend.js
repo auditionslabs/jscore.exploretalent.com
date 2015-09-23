@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-	converter = require('../services/converter.js');
+	converter = require('src/services/converter.js');
 
 function Friend(data) {
 	_.extend(this, data);

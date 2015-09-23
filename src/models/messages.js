@@ -1,11 +1,11 @@
 var _ = require('lodash'),
 	messages = {},
-	Message = require('./message.js');
+	Message = require('src/models/message.js');
 
 messages.relationship = Message.relationship;
 
 messages.create = function(array) {
-	var modelify = require('../services/model.js');
+	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
 		return modelify('message', item);

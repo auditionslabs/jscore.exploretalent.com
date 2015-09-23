@@ -1,8 +1,8 @@
 'use strict';
 
 var _ = require('lodash'),
-	talent = require('../services/talent.js'),
-	date = require('../services/date.js');
+	talent = require('src/services/talent.js'),
+	date = require('src/services/date.js');
 
 function Talent(data) {
 	_.extend(this, data || {});

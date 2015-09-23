@@ -1,8 +1,8 @@
 'use strict';
 
 var  _ = require('lodash'),
-	resumeExperience = require('../values/resume_experience'),
-	resumePerformance = require('../values/resume_performance'),
+	resumeExperience = require('src/values/resume_experience'),
+	resumePerformance = require('src/values/resume_performance'),
 	talent = {
 		getExperience: getExperience,
 		getPerformance: getPerformance,
