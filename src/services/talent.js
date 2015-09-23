@@ -19,16 +19,13 @@ function getPerformance(performance) {
 	return resumePerformance[performance] || '';
 }
 
-function getHeight(feet, inches) {
+function getHeight(inches) {
+	var feet = Math.floor(inches / 12);
+	inches %= 12;
+
 	feet = (feet || 0) + '\'';
 	inches = (inches || 0) + '"';
 	return feet + ' ' + inches;
-}
-
-function formatFeetInchesFromInches(inches) {
-	var feet = Math.floor(inches / 12.00);
-	inches -= feet * 12;
-	return talent.getHeight(feet, inches);
 }
 
 function getFullName(fname, lname) {

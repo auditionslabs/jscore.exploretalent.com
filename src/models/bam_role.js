@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash'),
-	date = require('src/services/date.js'),
+	talentService = require('src/services/talent.js'),
 	scheduleResource = require('src/resources/schedule.js');
 
 function Role(data) {
@@ -9,15 +9,11 @@ function Role(data) {
 }
 
 Role.prototype.getHeightMinText = function() {
-	var feet = Math.floor(this.height_min / 12.00);
-	var inches = this.height_min % 12;
-	return feet + "'" + inches + '"';
+	return talentService.getHeight(this.height_min);
 }
 
 Role.prototype.getHeightMaxText = function() {
-	var feet = Math.floor(this.height_max / 12.00);
-	var inches = this.height_max % 12;
-	return feet + "'" + inches + '"';
+	return talentService.getHeight(this.height_max);
 }
 
 Role.prototype.getLikeItList = function() {
@@ -32,7 +28,12 @@ Role.prototype.getLikeItList = function() {
 			'schedule_notes.user.bam_cd_user'
 		],
 		wheres : [
-			[ 'where', 'rating', '<>', 0 ]
+			[ 'where', 'rating', '<>', 0 ],
+			[
+				'whereHas', 'invitee', [
+					[ 'where', 'bam_talentnum', '<>', 0 ]
+				]
+			]
 		]
 	};
 
