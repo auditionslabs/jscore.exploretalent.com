@@ -2,7 +2,7 @@
 
 var _ = require('lodash'),
 	date = require('../services/date.js'),
-	scheduleResource = require('../resources/schedule.js';
+	scheduleResource = require('../resources/schedule.js');
 
 function Role(data) {
 	_.extend(this, data);
