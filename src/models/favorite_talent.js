@@ -21,7 +21,7 @@ FavoriteTalent.relationship = [
 	'bam_talent_general',
 	'bam_talent_social:bam_talent_socials',
 	//if using GET from api, result is in the data property, set model to array of bam_talentcis
-	'data:favorite_talent'
+	'data:favorite_talents'
 ];
 
 module.exports = FavoriteTalent;
