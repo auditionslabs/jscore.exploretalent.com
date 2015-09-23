@@ -2,11 +2,10 @@
 
 var _ = require('lodash');
 
-//modelify.$$models = require('src/models/*.*', { hash: true });
 modelify.$$hashRelation = hashRelation;
 
 function modelify(name, data) {
-	var models = require('src/models/models.js'),
+	var models = require('../models/*.js', { hash: true }),
 		model = models[name],
 		relationship,
 		relations,
