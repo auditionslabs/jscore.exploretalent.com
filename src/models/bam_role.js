@@ -47,6 +47,40 @@ Role.prototype.getLikeItList = function() {
 	return deferred.promise();
 }
 
+Role.prototype.getSelfSubmissions = function(filter) {
+	var deferred = $.Deferred();
+
+	var data = {
+		jobId : this.rold_id,
+		withs : [
+			'inviter.bam_talentci.bam_talentinfo1',
+			'inviter.bam_talentci.bam_talentinfo2',
+			'inviter.bam_talentci.bam_talent_media2',
+			'schedule_notes.user.bam_cd_user'
+		],
+		wheres : [
+			[
+				'whereHas', 'inviter', [
+					[ 'where', 'bam_talentnum', '<>', 0 ]
+				]
+			]
+		]
+	};
+
+	if (filter) {
+		data.wheres = data.wheres.concat(filter);
+	}
+
+	scheduleResource.get(data)
+		.then(function(result) {
+			deferred.resolve(result);
+		}, function(error) {
+			deferred.reject(error);
+		});
+
+	return deferred.promise();
+}
+
 Role.prototype.getGenders = function() {
 	var array = [];
 
