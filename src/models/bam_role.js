@@ -51,7 +51,7 @@ Role.prototype.getSelfSubmissions = function(filter) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : this.rold_id,
+		jobId : this.role_id,
 		withs : [
 			'inviter.bam_talentci.bam_talentinfo1',
 			'inviter.bam_talentci.bam_talentinfo2',
