@@ -71,9 +71,48 @@ Role.prototype.getSelfSubmissions = function(filter) {
 		data.wheres = data.wheres.concat(filter);
 	}
 
+	var selfSubmissions;
+
 	scheduleResource.get(data)
 		.then(function(result) {
-			deferred.resolve(result);
+			selfSubmissions = result;
+
+			var talents = _.map(selfSubmissions.data, function(s) {
+				return s.inviter_id;
+			});
+
+			var data = {
+				jobId : self.roleId,
+				query : [
+					[ 'whereIn', 'invitee_id', talents ],
+					[ 'with',
+						'invitee.bam_talentci.bam_talentinfo1',
+						'invitee.bam_talentci.bam_talentinfo2',
+						'invitee.bam_talentci.bam_talent_media2',
+						'schedule_notes.user.bam_cd_user'
+
+					]
+				]
+			};
+
+			return scheduleResource.get(data)
+		})
+		.then(function(result) {
+			_.each(selfSubmissions, function(selfsubmission, index) {
+				var schedule = _.first(_.filter(result.data, function(likeitlist) {
+					return likeitlist.invitee_id == selfsubmission.inviter_id;
+				}));
+
+				if (schedule) {
+					self.project.role.selfsubmissions.data[index] = schedule;
+				}
+				else {
+					self.project.role.selfsubmissions.data[index].id = 0;
+					self.project.role.selfsubmissions.data[index].rating = 0;
+				}
+			});
+
+			deferred.resolve(selfSubmissions);
 		}, function(error) {
 			deferred.reject(error);
 		});
