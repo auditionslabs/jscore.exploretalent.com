@@ -98,7 +98,7 @@ Role.prototype.getSelfSubmissions = function(filter) {
 			return scheduleResource.get(data)
 		})
 		.then(function(result) {
-			_.each(selfSubmissions, function(selfsubmission, index) {
+			_.each(selfSubmissions.data, function(selfsubmission, index) {
 				var schedule = _.first(_.filter(result.data, function(likeitlist) {
 					return likeitlist.invitee_id == selfsubmission.inviter_id;
 				}));
