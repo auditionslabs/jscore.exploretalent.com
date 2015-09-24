@@ -81,21 +81,25 @@ Role.prototype.getSelfSubmissions = function(filter) {
 				return s.inviter_id;
 			});
 
-			var data = {
-				jobId : self.roleId,
-				query : [
-					[ 'whereIn', 'invitee_id', talents ],
-					[ 'with',
-						'invitee.bam_talentci.bam_talentinfo1',
-						'invitee.bam_talentci.bam_talentinfo2',
-						'invitee.bam_talentci.bam_talent_media2',
-						'schedule_notes.user.bam_cd_user'
-
+			if (talents.length) {
+				var data = {
+					jobId : self.roleId,
+					query : [
+						[ 'whereIn', 'invitee_id', talents ],
+						[ 'with',
+							'invitee.bam_talentci.bam_talentinfo1',
+							'invitee.bam_talentci.bam_talentinfo2',
+							'invitee.bam_talentci.bam_talent_media2',
+							'schedule_notes.user.bam_cd_user'
+						]
 					]
-				]
-			};
+				};
 
-			return scheduleResource.get(data)
+				return scheduleResource.get(data)
+			}
+			else {
+				return $.when({ data : [] });
+			}
 		})
 		.then(function(result) {
 			_.each(selfSubmissions.data, function(selfsubmission, index) {
