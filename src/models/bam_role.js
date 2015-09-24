@@ -104,11 +104,11 @@ Role.prototype.getSelfSubmissions = function(filter) {
 				}));
 
 				if (schedule) {
-					self.project.role.selfsubmissions.data[index] = schedule;
+					selfSubmissions.data[index] = schedule;
 				}
 				else {
-					self.project.role.selfsubmissions.data[index].id = 0;
-					self.project.role.selfsubmissions.data[index].rating = 0;
+					selfSubmissions.data[index].id = 0;
+					selfSubmissions.data[index].rating = 0;
 				}
 			});
 
