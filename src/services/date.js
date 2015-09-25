@@ -7,10 +7,10 @@ function toUnixTimeStamp(date) {
 }
 
 function formatYMD(unixTimeStamp) {
-	var date = new Date(+(unixTimeStamp || 0) * 1000);
+	var date = new Date((unixTimeStamp || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
 	return date.getUTCFullYear() + '-' +
 		_.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
-		_.padLeft(date.getDate(), 2, 0);
+		_.padLeft(date.getUTCDate(), 2, 0);
 }
 
 function calculateAge(year, month, day) {
