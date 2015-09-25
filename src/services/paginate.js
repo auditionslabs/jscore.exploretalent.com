@@ -3,7 +3,7 @@ var query_string = require('./query_string.js');
 
 //this -> element to paginate
 //per_page - default: 25
-//count
+//total
 //page - default: 1
 //name
 module.exports = function(element, options) {
@@ -21,7 +21,7 @@ module.exports = function(element, options) {
 		options.page = 1;
 
 	var url = window.location.href.replace(window.location.search, '');
-	var page_count = Math.ceil(options.count / options.per_page);
+	var page_count = Math.ceil(options.total / options.per_page);
 
 	if (page_count > 1) {
 		var ul = $('<ul>').addClass(options.class);
