@@ -51,7 +51,7 @@ Role.prototype.getLikeItList = function(options) {
 	return deferred.promise();
 }
 
-Role.prototype.getSelfSubmissions = function(filter) {
+Role.prototype.getSelfSubmissions = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
@@ -71,8 +71,8 @@ Role.prototype.getSelfSubmissions = function(filter) {
 		]
 	};
 
-	if (filter) {
-		data.wheres = data.wheres.concat(filter);
+	if (options)
+		data = _.merge(data, options);
 	}
 
 	var selfSubmissions;

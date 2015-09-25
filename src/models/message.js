@@ -23,6 +23,7 @@ Message.prototype.getOtherUser = function() {
 }
 
 Message.relationship = [
+	'user',
 	'users',
 	'data:messages'
 ];
