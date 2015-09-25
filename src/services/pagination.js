@@ -1,5 +1,5 @@
 'use strict';
-var query_string = requrie('./query_string.js');
+var query_string = require('./query_string.js');
 
 //this -> element to paginate
 //per_page - default: 25
