@@ -71,7 +71,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 		]
 	};
 
-	if (options)
+	if (options) {
 		data = _.merge(data, options);
 	}
 
