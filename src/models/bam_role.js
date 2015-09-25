@@ -16,7 +16,7 @@ Role.prototype.getHeightMaxText = function() {
 	return talentService.getHeight(this.height_max);
 }
 
-Role.prototype.getLikeItList = function() {
+Role.prototype.getLikeItList = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
@@ -36,6 +36,10 @@ Role.prototype.getLikeItList = function() {
 			]
 		]
 	};
+
+	if (options) {
+		data = _.merge(data, options);
+	}
 
 	scheduleResource.get(data)
 		.then(function(result) {

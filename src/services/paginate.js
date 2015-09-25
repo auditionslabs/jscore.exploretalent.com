@@ -7,7 +7,7 @@ var query_string = require('./query_string.js');
 //page - default: 1
 //name
 module.exports = function(element, options) {
-	var qs = query_string.toObject();
+	var qs = query_string();
 	var $this = $(element);
 
 	if (!options)
