@@ -20,7 +20,7 @@ Role.prototype.getLikeItList = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : self.role_id,
+		jobId : this.casting_id,
 		withs : [
 			'invitee.bam_talentci.bam_talentinfo1',
 			'invitee.bam_talentci.bam_talentinfo2',
@@ -55,7 +55,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : this.role_id,
+		jobId : this.casting_id,
 		withs : [
 			'inviter.bam_talentci.bam_talentinfo1',
 			'inviter.bam_talentci.bam_talentinfo2',
