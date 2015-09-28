@@ -52,10 +52,11 @@ Role.prototype.getLikeItList = function(options) {
 }
 
 Role.prototype.getSelfSubmissions = function(options) {
+	var self = this;
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : this.role_id,
+		jobId : self.role_id,
 		withs : [
 			'inviter.bam_talentci.bam_talentinfo1',
 			'inviter.bam_talentci.bam_talentinfo2',
@@ -87,7 +88,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 
 			if (talents.length) {
 				var data = {
-					jobId : this.role_id,
+					jobId : self.role_id,
 					query : [
 						[ 'whereIn', 'invitee_id', talents ],
 						[ 'with',
