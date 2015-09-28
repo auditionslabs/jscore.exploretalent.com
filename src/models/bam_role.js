@@ -87,7 +87,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 
 			if (talents.length) {
 				var data = {
-					jobId : self.role_id,
+					jobId : this.role_id,
 					query : [
 						[ 'whereIn', 'invitee_id', talents ],
 						[ 'with',
