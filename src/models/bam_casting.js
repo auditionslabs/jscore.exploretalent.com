@@ -87,8 +87,8 @@ Casting.prototype.getCategory = function() {
 	return categories[this.cat];
 }
 
-Casting.prototype.convertAsapToFullDate = function() {
-	return date.formatYMD(parseInt(this.asap));
+Casting.prototype.convertToFullDate = function(timestamp) {
+	return date.formatYMD(parseInt(timestamp));
 };
 
 Casting.relationship = [
