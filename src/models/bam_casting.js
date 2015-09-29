@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash')<
+var _ = require('lodash'),
 	date = require('src/services/date.js');
 
 function Casting(data) {
