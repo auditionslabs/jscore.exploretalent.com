@@ -87,6 +87,10 @@ Casting.prototype.getCategory = function() {
 	return categories[this.cat];
 }
 
+Casting.prototype.convertAsapToFullDate = function() {
+	return date.formatYMD(parseInt(this.asap));
+};
+
 Casting.relationship = [
 	'data:bam_castings',
 	'bam_roles'
