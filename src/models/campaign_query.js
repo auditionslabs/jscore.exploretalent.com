@@ -9,7 +9,7 @@ function CampaignQuery(data) {
 CampaignQuery.prototype.hasQuery = function(key, type) {
 	var query = JSON.parse(this.query);
 
-	return _.find(query.wheres, function(q) {
+	return _.find(query, function(q) {
 		if (q[0] == 'where') {
 			if (type == 'min')
 				return q[1] == key && q[2] == '>=';
