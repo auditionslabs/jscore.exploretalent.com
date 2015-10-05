@@ -9,11 +9,17 @@ function Role(data) {
 }
 
 Role.prototype.getHeightMinText = function() {
-	return talentService.getHeight(this.height_min);
+	if (parseInt(this.height_min))
+		return talentService.getHeight(this.height_min);
+	else
+		return 'Any';
 }
 
 Role.prototype.getHeightMaxText = function() {
-	return talentService.getHeight(this.height_max);
+	if (parseInt(this.height_max))
+		return talentService.getHeight(this.height_max);
+	else
+		return 'Any';
 }
 
 Role.prototype.getLikeItList = function(options) {
