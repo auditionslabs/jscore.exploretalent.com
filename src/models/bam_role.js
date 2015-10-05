@@ -37,12 +37,7 @@ Role.prototype.getLikeItList = function(options) {
 			'schedule_notes.user.bam_cd_user'
 		],
 		wheres : [
-			[ 'where', 'rating', '<>', 0 ],
-			[
-				'whereHas', 'invitee', [
-					[ 'where', 'bam_talentnum', '<>', 0 ]
-				]
-			]
+			[ 'where', 'rating', '<>', 0 ]
 		]
 	};
 
