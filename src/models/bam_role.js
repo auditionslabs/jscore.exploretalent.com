@@ -31,6 +31,9 @@ Role.prototype.getLikeItList = function(options) {
 			'invitee.bam_talentci.bam_talentinfo1',
 			'invitee.bam_talentci.bam_talentinfo2',
 			'invitee.bam_talentci.bam_talent_media2',
+			'inviter.bam_talentci.bam_talentinfo1',
+			'inviter.bam_talentci.bam_talentinfo2',
+			'inviter.bam_talentci.bam_talent_media2',
 			'schedule_notes.user.bam_cd_user'
 		],
 		wheres : [
@@ -86,48 +89,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 
 	scheduleResource.get(data)
 		.then(function(result) {
-			selfSubmissions = result;
-
-			var talents = _.map(selfSubmissions.data, function(s) {
-				return s.inviter_id;
-			});
-
-			if (talents.length) {
-				var data = {
-					jobId : self.role_id,
-					query : [
-						[ 'whereIn', 'invitee_id', talents ],
-						[ 'with',
-							'invitee.bam_talentci.bam_talentinfo1',
-							'invitee.bam_talentci.bam_talentinfo2',
-							'invitee.bam_talentci.bam_talent_media2',
-							'schedule_notes.user.bam_cd_user'
-						]
-					]
-				};
-
-				return scheduleResource.get(data)
-			}
-			else {
-				return $.when({ data : [] });
-			}
-		})
-		.then(function(result) {
-			_.each(selfSubmissions.data, function(selfsubmission, index) {
-				var schedule = _.first(_.filter(result.data, function(likeitlist) {
-					return likeitlist.invitee_id == selfsubmission.inviter_id;
-				}));
-
-				if (schedule) {
-					selfSubmissions.data[index] = schedule;
-				}
-				else {
-					selfSubmissions.data[index].id = 0;
-					selfSubmissions.data[index].rating = 0;
-				}
-			});
-
-			deferred.resolve(selfSubmissions);
+			deferred.resolve(result);
 		}, function(error) {
 			deferred.reject(error);
 		});
