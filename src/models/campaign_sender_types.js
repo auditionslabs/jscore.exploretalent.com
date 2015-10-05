@@ -10,7 +10,7 @@ campaign_sender_types.create = function(array) {
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
-		return modelify('app', item);
+		return modelify('campaign_sender_type', item);
 	});
 };
 
