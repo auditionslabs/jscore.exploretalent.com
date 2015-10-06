@@ -65,6 +65,8 @@ Role.prototype.getSelfSubmissions = function(options) {
 			'inviter.bam_talentci.bam_talentinfo1',
 			'inviter.bam_talentci.bam_talentinfo2',
 			'inviter.bam_talentci.bam_talent_media2',
+			'inveter.bam_talentci.bam_talent_dance',
+			'inveter.bam_talentci.bam_talent_music',
 			'schedule_notes.user.bam_cd_user'
 		],
 		wheres : [
