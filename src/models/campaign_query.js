@@ -12,9 +12,13 @@ CampaignQuery.prototype.hasQuery = function(key, type) {
 	return _.find(query, function(q) {
 		if (q[0] == 'where') {
 			if (q[1] instanceof Array) {
+				var found = false;
+
 				_.each(q[1], function(subq) {
-					return (subq[1] == key);
+					found = found || (subq[1] == key);
 				});
+
+				return found;
 			}
 			else {
 				if (type == 'min')
