@@ -35,46 +35,6 @@ CampaignQuery.prototype.hasQuery = function(key, type) {
 	});
 }
 
-CampaignQuery.prototype.getQueryValues = function(key, operator) {
-	var query = JSON.parse(this.query);
-
-	query = _.find(query, function(q) {
-		// this is a where, check 2nd item
-		if (q[0] == 'where') {
-			// its a subquery!
-			if (q[1] instance of Array) {
-				var found = false;
-
-				// check if found in subquery
-				_.each(q[1], function(subq) {
-					found = found || (subq[1] == key);
-				});
-
-				return found;
-			}
-			// just a normal where
-			else {
-				// check key and operator is equal to query key and operator
-				if (operator) {
-					return q[1] == key && q[2] == operator;
-				}
-				else {
-					return q[1] == key;
-				}
-			}
-		}
-		else if (q[0] == 'whereHas') {
-			return q[2][1] == key;
-		}
-	});
-
-	return _.map(query, function(q) {
-		if (q[0] == 'where') {
-			return q[3];
-		}
-	});
-}
-
 CampaignQuery.prototype.toObject = function(key, operator) {
 	var query = JSON.parse(this.query);
 
