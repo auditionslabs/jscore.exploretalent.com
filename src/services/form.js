@@ -36,7 +36,6 @@ function validate(form) {
 	_.forEach($form.find('[data-validate]'), function(e) {
 		var $e = $(e);
 		var ok = true;
-
 		switch($e.attr('data-validate')) {
 			case 'phone':
 			case 'number':
@@ -48,12 +47,19 @@ function validate(form) {
 			case 'email':
 				ok = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/.test($e.val());
 				break;
+			case 'email-not-required':
+				ok = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}|^$|^\s$\b/.test($e.val());
+				break;
+			case 'phone-not-required':
+				ok = /^[0-9]+$|^$|^\s$/.test($e.val());
+				break;
 			case 'required':
 				ok = $e.val() ? true : false;
 				break;
 			case 'zip':
-				ok = /^\d+$/.test($e.val());
-				if (ok)
+				ok = /^[0-9]+$|^$|^\s$/.test($e.val());
+			    var okNum = /^[0-9]+$/.test($e.val());
+				if (ok == okNum )
 					ok = parseInt($e.val()) <= 99999;
 			default:
 				break;
