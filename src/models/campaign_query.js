@@ -88,6 +88,7 @@ CampaignQuery.prototype.toObject = function(key, operator) {
 	return obj;
 }
 
+
 CampaignQuery.relationship = [
 	'data:campaign_queries'
 ];
