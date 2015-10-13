@@ -12,7 +12,8 @@ CdUser.prototype.getFullName = function() {
 };
 
 CdUser.relationship = [
-	'user'
+	'user',
+	'data:bam_cd_users'
 ];
 
 module.exports = CdUser;
