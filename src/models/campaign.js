@@ -95,7 +95,6 @@ Campaign.prototype.queryObject = function(key, operator) {
 }
 
 Campaign.relationship = [
-	'campaign_query',
 	'data:campaigns'
 ];
 
