@@ -6,8 +6,14 @@ function toUnixTimeStamp(date) {
 	return new Date(date) / 1000;
 }
 
-function formatYMD(unixTimeStamp) {
-	var date = new Date((unixTimeStamp || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+function formatYMD(value) {
+	if (isNaN(value)) {
+		var date = new Date(value);
+	}
+	else {
+		var date = new Date((value || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+	}
+
 	return date.getUTCFullYear() + '-' +
 		_.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
 		_.padLeft(date.getUTCDate(), 2, 0);
