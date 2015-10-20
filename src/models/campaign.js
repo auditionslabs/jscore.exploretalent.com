@@ -95,7 +95,9 @@ Campaign.prototype.queryObject = function(key, operator) {
 }
 
 Campaign.relationship = [
-	'data:campaigns'
+	'data:campaigns',
+	'bam_role',
+	'bam_cd_user'
 ];
 
 module.exports = Campaign;
