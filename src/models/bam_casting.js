@@ -28,7 +28,7 @@ Casting.prototype.getCategory = function() {
 		11 :  "Feature Film - Student Films",
 		12 :  "Feature Film - Short Film",
 		13 :  "Feature Film - Documentaries",
-		14 :  "Feature Film - :Low Budget/Independent",
+		14 :  "Feature Film - Inde/Low Budget",
 		15 :  "Infomercials",
 		16 :  "Crew - Assistants & Entry Level",
 		17 :  "Industrial/Training Films",
@@ -91,6 +91,53 @@ Casting.prototype.getCategory = function() {
 Casting.prototype.convertToFullDate = function(timestamp) {
 	return date.formatYMD(parseInt(timestamp));
 };
+
+Casting.prototype.getUrl = function() {
+	if (this.zip) {
+		return self.normalize(self.getCategory) + '-' +
+			self.normalize(self.title) + '-' +
+			self.normalize(self.location) + '-' +
+			self.normalize(self.zip) + '_' +
+			self.normalize(self.casting_id);
+	}
+	else {
+		return self.normalize(self.getCategory) + '-' +
+			self.normalize(self.title) + '-' +
+			self.normalize(self.location) + '-' +
+			self.normalize(self.casting_id);
+	}
+}
+
+function normalize(url) {
+	var str = url.replace('/[^a-zA-Z0-9-_ ]/s', '');
+	var strs = str.toLowerCase().split(' ');
+
+	_.each(strs, function(s, i) {
+		if (s.trim() == '') {
+			delete strs[i];
+		}
+	});
+
+	str = strs.join('-');
+	strs = str.toLowerCase().split('-');
+
+	_.each(strs, function(s, i) {
+		if (s.trim() == '' || s.trim() == '-') {
+			delete strs[i];
+		}
+	});
+
+	str = strs.join('_');
+	strs = str.toLowerCase().split('_');
+
+	_.each(strs, function(s, i) {
+		if (s.trim() == '' || s.trim() == '_') {
+			delete strs[i];
+		}
+	});
+
+	return str.join('-');
+}
 
 Casting.relationship = [
 	'data:bam_castings',
