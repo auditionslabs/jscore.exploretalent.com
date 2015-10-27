@@ -94,24 +94,26 @@ Casting.prototype.convertToFullDate = function(timestamp) {
 
 Casting.prototype.getUrl = function() {
 	if (this.zip) {
-		return this.normalize(this.getCategory) + '-' +
-			this.normalize(this.title) + '-' +
+		return 'https://www.exploretalent.com/auditions/' + this.normalize(this.getCategory()) + '-' +
+			this.normalize(this.name) + '-' +
 			this.normalize(this.location) + '-' +
 			this.normalize(this.zip) + '_' +
 			this.normalize(this.casting_id);
 	}
 	else {
-		return this.normalize(this.getCategory) + '-' +
-			this.normalize(this.title) + '-' +
+		return 'https://www.exploretalent.com/auditions/' + this.normalize(this.getCategorly()) + '-' +
+			this.normalize(this.name) + '-' +
 			this.normalize(this.location) + '-' +
 			this.normalize(this.casting_id);
 	}
 }
 
-function normalize(url) {
-	var str = url.replace('/[^a-zA-Z0-9-_ ]/s', '');
+Casting.prototype.normalize = function(url) {
+	url = url + '';
+	var str = url.replace(/[^a-zA-Z0-9-_ ]/, '');
 	var strs = str.toLowerCase().split(' ');
 
+	console.log(strs);
 	_.remove(strs, function(s) {
 		return s.trim() == '';
 	});
