@@ -54,6 +54,7 @@ Role.prototype.deleteLikeItList = function() {
 	var deferred = $.Deferred();
 
 	var data = {
+		with_trashed : 1,
 		query	: [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
