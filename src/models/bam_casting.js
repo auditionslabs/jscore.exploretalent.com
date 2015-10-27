@@ -112,28 +112,22 @@ function normalize(url) {
 	var str = url.replace('/[^a-zA-Z0-9-_ ]/s', '');
 	var strs = str.toLowerCase().split(' ');
 
-	_.each(strs, function(s, i) {
-		if (s.trim() == '') {
-			delete strs[i];
-		}
+	_.remove(strs, function(s) {
+		return s.trim() == '';
 	});
 
 	str = strs.join('-');
 	strs = str.toLowerCase().split('-');
 
-	_.each(strs, function(s, i) {
-		if (s.trim() == '' || s.trim() == '-') {
-			delete strs[i];
-		}
+	_.remove(strs, function(s) {
+		return (s.trim() == '' || s.trim() == '-');
 	});
 
 	str = strs.join('_');
 	strs = str.toLowerCase().split('_');
 
-	_.each(strs, function(s, i) {
-		if (s.trim() == '' || s.trim() == '_') {
-			delete strs[i];
-		}
+	_.remove(strs, function(s) {
+		return (s.trim() == '' || s.trim() == '_');
 	});
 
 	return str.join('-');
