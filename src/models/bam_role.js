@@ -51,6 +51,31 @@ Role.prototype.getLikeItList = function(options) {
 	return deferred.promise();
 }
 
+Role.prototype.deleteLikeItList = function() {
+	var deferred = $.Deferred();
+
+	var data = {
+		jobId	: this.role_id,
+		query	: [
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
+			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
+			[ 'with', 'schedule_notes.user.bam_cd_user' ],
+			[ 'where', 'submission', '=', 0 ]
+		],
+		per_page : 1000000
+	}
+
+	scheduleResource.delete(data)
+		.then(function(result) {
+			deferred.resolve(result);
+		}, function(error) {
+			deferred.reject(error);
+		});
+
+	return deferred.promise();
+}
+
 Role.prototype.getSelfSubmissions = function(options) {
 	var deferred = $.Deferred();
 
