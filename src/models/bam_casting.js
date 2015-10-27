@@ -94,17 +94,17 @@ Casting.prototype.convertToFullDate = function(timestamp) {
 
 Casting.prototype.getUrl = function() {
 	if (this.zip) {
-		return self.normalize(self.getCategory) + '-' +
-			self.normalize(self.title) + '-' +
-			self.normalize(self.location) + '-' +
-			self.normalize(self.zip) + '_' +
-			self.normalize(self.casting_id);
+		return this.normalize(this.getCategory) + '-' +
+			this.normalize(this.title) + '-' +
+			this.normalize(this.location) + '-' +
+			this.normalize(this.zip) + '_' +
+			this.normalize(this.casting_id);
 	}
 	else {
-		return self.normalize(self.getCategory) + '-' +
-			self.normalize(self.title) + '-' +
-			self.normalize(self.location) + '-' +
-			self.normalize(self.casting_id);
+		return this.normalize(this.getCategory) + '-' +
+			this.normalize(this.title) + '-' +
+			this.normalize(this.location) + '-' +
+			this.normalize(this.casting_id);
 	}
 }
 
@@ -130,7 +130,7 @@ function normalize(url) {
 		return (s.trim() == '' || s.trim() == '_');
 	});
 
-	return str.join('-');
+	return strs.join('-');
 }
 
 Casting.relationship = [
