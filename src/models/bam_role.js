@@ -26,7 +26,6 @@ Role.prototype.getLikeItList = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId	: this.role_id,
 		query	: [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
@@ -55,7 +54,6 @@ Role.prototype.deleteLikeItList = function() {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId	: this.role_id,
 		query	: [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
@@ -80,7 +78,6 @@ Role.prototype.getSelfSubmissions = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId	: this.role_id,
 		query : [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
