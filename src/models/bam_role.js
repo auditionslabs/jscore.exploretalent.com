@@ -32,7 +32,8 @@ Role.prototype.getLikeItList = function(options) {
 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
 			[ 'where', 'rating', '<>', 0 ],
-			[ 'where', 'submission', '=', 0 ]
+			[ 'where', 'submission', '=', 0 ],
+			[ 'where', 'bam_role_id', '=', this.role_id ]
 		]
 	}
 
@@ -60,7 +61,8 @@ Role.prototype.deleteLikeItList = function() {
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'where', 'submission', '=', 0 ]
+			[ 'where', 'submission', '=', 0 ],
+			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
 		per_page : 1000000
 	}
@@ -84,7 +86,8 @@ Role.prototype.getSelfSubmissions = function(options) {
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'where', 'submission', '=', 1 ]
+			[ 'where', 'submission', '=', 1 ],
+			[ 'where', 'bam_role_id', '=', this.role_id ]
 		]
 	}
 
