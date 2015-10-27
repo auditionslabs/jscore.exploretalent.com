@@ -51,31 +51,22 @@ Role.prototype.getLikeItList = function(options) {
 }
 
 Role.prototype.getSelfSubmissions = function(options) {
-	var self = this;
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : self.role_id,
-		withs : [
-			'inviter.bam_talentci.bam_talentinfo1',
-			'inviter.bam_talentci.bam_talentinfo2',
-			'inviter.bam_talentci.bam_talent_media2',
-			'schedule_notes.user.bam_cd_user'
-		],
-		wheres : [
-			[
-				'whereHas', 'inviter', [
-					[ 'where', 'bam_talentnum', '<>', 0 ]
-				]
-			]
+		jobId	: this.role_id,
+		query : [
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
+			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
+			[ 'with', 'schedule_notes.user.bam_cd_user' ],
+			[ 'where', 'submission', '=', 1 ]
 		]
-	};
+	}
 
 	if (options) {
 		data = _.merge(data, options);
 	}
-
-	var selfSubmissions;
 
 	scheduleResource.get(data)
 		.then(function(result) {
