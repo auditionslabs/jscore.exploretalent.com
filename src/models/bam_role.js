@@ -26,20 +26,15 @@ Role.prototype.getLikeItList = function(options) {
 	var deferred = $.Deferred();
 
 	var data = {
-		jobId : this.role_id,
-		withs : [
-			'invitee.bam_talentci.bam_talentinfo1',
-			'invitee.bam_talentci.bam_talentinfo2',
-			'invitee.bam_talentci.bam_talent_media2',
-			'inviter.bam_talentci.bam_talentinfo1',
-			'inviter.bam_talentci.bam_talentinfo2',
-			'inviter.bam_talentci.bam_talent_media2',
-			'schedule_notes.user.bam_cd_user'
-		],
-		wheres : [
+		jobId	: this.role_id,
+		query	: [
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
+			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
+			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
+			[ 'with', 'schedule_notes.user.bam_cd_user' ],
 			[ 'where', 'rating', '<>', 0 ]
 		]
-	};
+	}
 
 	if (options) {
 		data = _.merge(data, options);
