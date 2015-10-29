@@ -54,19 +54,15 @@ Role.prototype.deleteLikeItList = function() {
 	var deferred = $.Deferred();
 
 	var data = {
-		with_trashed : 1,
 		query	: [
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'where', 'submission', '=', 0 ],
+			[ 'where', 'rating', '<>', 0 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
+		rating : 0,
 		per_page : 1000000
 	}
 
-	scheduleResource.delete(data)
+	scheduleResource.update(data)
 		.then(function(result) {
 			deferred.resolve(result);
 		}, function(error) {
