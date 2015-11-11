@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 
-function callLogs(data) {
+function CastingCallLogs(data) {
 	_.extend(this, data);
 }
 
-module.exports = cdCallLogs;
+module.exports = CastingCallLogs;
