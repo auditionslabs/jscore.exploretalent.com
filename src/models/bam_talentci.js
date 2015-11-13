@@ -58,6 +58,19 @@ Talent.prototype.getPrimaryPhoto = function() {
 	}
 }
 
+Talent.prototype.getPrimaryPhotoId = function() {
+	var id =
+		_.first(
+			_.pluck(
+				_.uniq(([]).concat(
+					_.where(this.bam_talent_media2, { type : 2 }),
+					_.where(this.bam_talent_media2, { type : '2' })
+				)),
+				'id'
+			)
+		);
+ 	return id;
+}
 Talent.prototype.getSocialAccount = function(type) {
 	var social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'));
 
