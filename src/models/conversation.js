@@ -32,6 +32,7 @@ Conversation.relationship = [
 	'user',
 	'users',
 	'messages',
+	'schedule',
 	'data:conversations'
 ];
 
