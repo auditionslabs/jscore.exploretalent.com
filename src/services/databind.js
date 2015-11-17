@@ -102,9 +102,6 @@ function databind(element, data) {
 			case 'checked':
 				$(element).prop('checked', value);
 				break;
-			case 'rawhtml':
-				$(element).html(value);
-				break;
 			case 'slider':
 				value = eval(value);
 				$(element).slider({ values : value });
