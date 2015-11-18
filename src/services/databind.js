@@ -96,7 +96,6 @@ function databind(element, data) {
 				$(element).text(value);
 				break;
 			case 'html':
-				value = value.replace(/\r\n/g, '<br />');
 				$(element).html(value);
 				break;
 			case 'checked':
