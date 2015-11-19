@@ -7,11 +7,11 @@ module.exports = {
 
 function serializeObject(form) {
 	var str = $(form).serialize();
-	str = decodeURIComponent(str);
-	str = str.replace(/\+/g, ' ');
 	return (str).replace(/(^\?)/,'').split('&').map(
 		function(n)	{
 			n = n.split('=');
+			n[1] = decodeURIComponent(n[1]);
+			n[1] = n[1].replace(/\+/g, ' ');
 
 			if (this[n[0]] != null) {
 				if (this[n[0]] instanceof Array) {
