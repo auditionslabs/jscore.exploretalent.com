@@ -6,7 +6,7 @@ var _ = require('lodash'),
 
 soundboards.relationship = SoundBoard.relationship;
 
-soundboard.create = function(array) {
+soundboards.create = function(array) {
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
