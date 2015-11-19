@@ -1,10 +1,10 @@
 'use strict';
 
 var _ = require('lodash'),
-	schedules = {},
-	Schedule = require('src/models/sound_board.js');
+	soundboards = {},
+	SoundBoard = require('src/models/sound_board.js');
 
-soundboard.relationship = SoundBoard.relationship;
+soundboards.relationship = SoundBoard.relationship;
 
 soundboard.create = function(array) {
 	var modelify = require('src/services/model.js');
@@ -14,4 +14,4 @@ soundboard.create = function(array) {
 	});
 };
 
-module.exports = soundboard;
+module.exports = soundboards;
