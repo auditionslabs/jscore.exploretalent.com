@@ -62,7 +62,30 @@ Role.prototype.deleteLikeItList = function() {
 		per_page : 1000000
 	}
 
-	scheduleResource.update(data)
+	scheduleResource.patch(data)
+		.then(function(result) {
+			deferred.resolve(result);
+		}, function(error) {
+			deferred.reject(error);
+		});
+
+	return deferred.promise();
+}
+
+Role.prototype.copyToLikeItList = function() {
+	var deferred = $.Deferred();
+
+	var data = {
+		query	: [
+			[ 'where', 'rating', '=', 0 ],
+			[ 'where', 'submission', '=', 1 ],
+			[ 'where', 'bam_role_id', '=', this.role_id ]
+		],
+		rating : 3,
+		per_page : 1000000
+	}
+
+	scheduleResource.patch(data)
 		.then(function(result) {
 			deferred.resolve(result);
 		}, function(error) {
