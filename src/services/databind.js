@@ -64,7 +64,7 @@ function databind(element, data) {
 			if ($(element).is('[data-summernote]')) {
 				attr = 'summernote';
 			}
-			elseif ($(element).is('[data-slider]')) {
+			else if ($(element).is('[data-slider]')) {
 				attr = 'slider';
 			}
 			else if ($(element).is('input[type="checkbox"]') || $(element).is('input[type="radio"]')) {
