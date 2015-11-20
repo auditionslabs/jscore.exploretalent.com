@@ -109,7 +109,6 @@ function databind(element, data) {
 				$(element).slider({ values : value });
 				break;
 			case 'summernote':
-				console.log('test');
 				$(element).next().find('.note-editable').html(value);
 				break;
 			case 'visibility':
