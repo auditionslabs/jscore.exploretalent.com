@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
 	talent = require('src/services/talent.js'),
+	scheduleResource = require('src/resources/schedule.js'),
 	date = require('src/services/date.js');
 
 function Talent(data) {
