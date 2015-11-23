@@ -155,6 +155,19 @@ Talent.prototype.stateText = function() {
 	return states[this.state];
 }
 
+Talent.prototype.getSelfSubmissions = function () {
+	var data = {
+		query : [
+			[ 'with', 'bam_role.bam_casting'],
+			[ 'where', 'submission', '=', 1 ],
+			[ 'where', 'invitee_id', '=', this.user.id]
+		]
+	}
+
+  return scheduleResource.get(data);
+
+}
+
 Talent.relationship = [
 	'user',
 	'bam_talentrecurring',
