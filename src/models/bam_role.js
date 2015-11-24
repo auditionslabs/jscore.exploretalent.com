@@ -306,7 +306,8 @@ function getValues(obj) {
 
 Role.relationship = [
 	'data:bam_roles',
-	'schedules'
+	'schedules',
+	'bam_casting'
 ];
 
 module.exports = Role;

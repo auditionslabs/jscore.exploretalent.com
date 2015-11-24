@@ -3,6 +3,7 @@
 var _ = require('lodash'),
 	talent = require('src/services/talent.js'),
 	scheduleResource = require('src/resources/schedule.js'),
+	campaignResource = require('src/resources/campaign.js'),
 	date = require('src/services/date.js');
 
 function Talent(data) {
@@ -167,6 +168,49 @@ Talent.prototype.getSelfSubmissions = function () {
 
   return scheduleResource.get(data);
 
+}
+
+Talent.prototype.getCDInvites = function () {
+	var deferred = $.Deferred()
+
+	var scheduleData = {
+		query : [
+			[ 'with', 'conversation.messages.user.bam_talentci'],
+			[ 'with', 'conversation.messages.user.bam_cd_user'],
+			[ 'where', 'rating', '>', 0],
+			[ 'where', 'invitee_id', '=', this.user.id]
+		]
+	}
+
+ 	scheduleResource.get(scheduleData)
+		.then(function (scheduleRes) {
+			var roleIds = _.map(scheduleRes.data, function(s) {
+				return s.bam_role_id;
+			});
+
+			var campaignData = {
+				query : [
+					[ 'whereIn', 'bam_role_id', roleIds ],
+					[ 'where', 'status', '=', 1 ],
+					[ 'with', 'bam_role.bam_casting' ]
+				]
+			}
+
+			campaignResource.get(campaignData)
+				.then(function(campaignRes) {
+					for(var i = 0; i < campaignRes.data.length; i++) {
+						for(var j = 0; j < scheduleRes.data.length; j++) {
+							if (campaignRes.data[i].bam_role_id == scheduleRes.data[j].bam_role_id) {
+								campaignRes.data[i].schedule = scheduleRes.data[j];
+							}
+						}
+					}
+					deferred.resolve(campaignRes);
+				});
+
+		});
+
+	return deferred.promise();
 }
 
 Talent.relationship = [
