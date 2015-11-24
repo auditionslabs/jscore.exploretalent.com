@@ -61,7 +61,10 @@ function databind(element, data) {
 
 		// if data-bind-target is not set, set default value depending on what type of element it is
 		if (!attr) {
-			if ($(element).is('[data-slider]')) {
+			if ($(element).is('[data-summernote]')) {
+				attr = 'summernote';
+			}
+			else if ($(element).is('[data-slider]')) {
 				attr = 'slider';
 			}
 			else if ($(element).is('input[type="checkbox"]') || $(element).is('input[type="radio"]')) {
@@ -104,6 +107,9 @@ function databind(element, data) {
 			case 'slider':
 				value = eval(value);
 				$(element).slider({ values : value });
+				break;
+			case 'summernote':
+				$(element).next().find('.note-editable').html(value);
 				break;
 			case 'visibility':
 				if (parseInt(value))
