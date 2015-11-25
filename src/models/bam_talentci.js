@@ -210,7 +210,7 @@ Talent.prototype.getCDInvites = function () {
 					});
 			}
 			else
-				defferred.resolve(scheduleRes);
+				deferred.resolve(scheduleRes);
 
 		});
 
