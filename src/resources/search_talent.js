@@ -4,5 +4,5 @@ var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
 module.exports = new Resource(api.base + '/search/talents', {
-	model: 'bam_talentci'
+	model: 'search_talent'
 });

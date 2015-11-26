@@ -109,7 +109,7 @@ Talent.prototype.getState = function() {
 }
 
 Talent.relationship = [
-	'data:talent_search'
+	'data:search_talents'
 ];
 
 module.exports = Talent;
