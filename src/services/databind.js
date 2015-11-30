@@ -68,7 +68,7 @@ function databind(element, data) {
 				attr = 'slider';
 			}
 			else if ($(element).is('input[type="checkbox"]') || $(element).is('input[type="radio"]')) {
-				if (value == 1) {
+				if (value == 1 || value === 'true') {
 					attr = 'checked';
 					value = true;
 				}
