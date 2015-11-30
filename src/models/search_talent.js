@@ -17,15 +17,39 @@ Talent.prototype.getAge = function() {
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
-	if (this.primary_photo) {
-		return 'https://etdownload.s3.amazonaws.com/' + this.primary_photo.bam_media_path_full;
+	var media_path =
+		_.first(
+			_.pluck(
+				_.uniq(([]).concat(
+					_.where(this.bam_talent_media2, { type : 2 }),
+					_.where(this.bam_talent_media2, { type : '2' })
+				)),
+				'bam_media_path_full'
+			)
+		);
+
+	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male';
+
+	if (media_path) {
+		return 'https://etdownload.s3.amazonaws.com/' + media_path;
 	}
 	else {
-		if (this.sex == 'Female') {
-			return '/images/filler_women.jpg';
-		}
-		else {
+		if(gender == "Male") {
+			var imgsrc = $('.profile-pic-primary').attr('src');
+			if(imgsrc == '/images/filler.jpg') {
+				$('a.fancybox').addClass('show-upload-primary-photo-btn');
+				$('a.fancybox').removeClass('fancybox');
+			}
 			return '/images/filler.jpg';
+		}
+
+		else {
+			var imgsrc = $('.profile-pic-primary').attr('src');
+			if(imgsrc == '/images/filler_women.jpg') {
+				$('a.fancybox').addClass('show-upload-primary-photo-btn');
+				$('a.fancybox').removeClass('fancybox');
+			}
+			return '/images/filler_women.jpg';
 		}
 	}
 }
