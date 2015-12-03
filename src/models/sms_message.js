@@ -1,9 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
+	date = require('src/services/date.js');
 
 function SmsMessage(data) {
 	_.extend(this, data || {});
+}
+
+SmsMessage.prototype.getDate = function() {
+	return data.formatYMD(parseInt(this.timestamp));
 }
 
 SmsMessage.relationship = [
