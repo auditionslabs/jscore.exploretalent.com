@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-function CallBack(data) {
+function ETLeads(data) {
 	_.extend(this, data);
 }
 
