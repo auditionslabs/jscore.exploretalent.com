@@ -6,7 +6,7 @@ var _ = require('lodash'),
 
 callbacks.relationship = Callback.relationship;
 
-trm_call_logs.create = function(array) {
+callbacks.create = function(array) {
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
