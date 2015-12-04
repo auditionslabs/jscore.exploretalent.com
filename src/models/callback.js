@@ -6,7 +6,7 @@ function CallBack(data) {
 	_.extend(this, data);
 }
 
-CallBack..prototype.formatToDateTime = function(timestamp) {
+CallBack.prototype.formatToDateTime = function(timestamp) {
 
 	var date = new Date(timestamp*1000);
 
