@@ -49,4 +49,8 @@ CallBack.prototype.formatToDateTime = function(timestamp) {
 	return formatFull;
 };
 
+CallBack.relationship = [
+	'data:callbacks'
+];
+
 module.exports = CallBack;
