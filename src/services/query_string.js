@@ -1,9 +1,13 @@
 'use strict';
 
 module.exports = function(str) {
-
 	return (str || document.location.search).replace(/(^\?)/,'').split('&').map(
 		function(n)	{
+			if (!n) {
+				// return if empty
+				return this;
+			}
+
 			n = n.split('=');
 			n[1] = decodeURIComponent(n[1]);
 			n[1] = n[1].replace(/\+/g, ' ');
