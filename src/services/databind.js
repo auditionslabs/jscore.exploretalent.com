@@ -1,15 +1,17 @@
 module.exports = databind;
-function databind(element, data) {
+function databind(element, data, append) {
 	var self = $(element);
 
-	//remove elements of parent element which are not templates
-	_.forEach(self.find('[data-bind-template]'), function(e) {
-		_.forEach($($(e).attr('data-bind-template')).children(), function(el) {
-			if (!$(el).attr('data-bind-template')) {
-				$(el).remove();
-			}
+	//remove elements of parent element which are not templates if append flag is not true
+	if (!append) {
+		_.forEach(self.find('[data-bind-template]'), function(e) {
+			_.forEach($($(e).attr('data-bind-template')).children(), function(el) {
+				if (!$(el).attr('data-bind-template')) {
+					$(el).remove();
+				}
+			});
 		});
-	});
+	}
 
 	_.each(self.find('[data-bind]:not([data-bind-template])').addBack('[data-bind]'), function(element) {
 		var element = $(element);
@@ -50,6 +52,8 @@ function databind(element, data) {
 			clone.removeAttr('data-bind-value');
 			// call databind on the cloned element
 			databind(clone, data);
+			// remove all data-bind attributes so it wont affect on next databind call
+			clone.find('[data-bind]').removeAttr('data-bind');
 			// add cloned element to the target
 			self.find(appendTo).addBack(appendTo).append(clone);
 		});
