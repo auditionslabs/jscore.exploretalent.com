@@ -39,6 +39,26 @@ function now() {
 	};
 }
 
+function formatDateTime(value) {
+	if (isNaN(value)) {
+		var date = new Date(value);
+	}
+	else {
+		var date = new Date((value || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+	}
+
+	if (date == 'Invalid Date') {
+		return '';
+	}
+	else {
+		return date.getUTCFullYear() + '-' +
+			_.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
+			_.padLeft(date.getUTCDate(), 2, 0) + ' ' +
+			_.padLeft(date.getUTCHourse(), 2, 0) + ':' +
+			_.padLeft(date.getUTCMinutes(), 2, 0);
+	}
+}
+
 module.exports = {
 	toUnixTimeStamp: toUnixTimeStamp,
 	formatYMD: formatYMD,
