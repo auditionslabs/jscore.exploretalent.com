@@ -53,6 +53,7 @@ function databind(element, data, append) {
 			// call databind on the cloned element
 			databind(clone, data);
 			// remove all data-bind attributes so it wont affect on next databind call
+			clone.removeAttr('data-bind');
 			clone.find('[data-bind]').removeAttr('data-bind');
 			// add cloned element to the target
 			self.find(appendTo).addBack(appendTo).append(clone);
