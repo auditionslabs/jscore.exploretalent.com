@@ -62,6 +62,7 @@ function formatDateTime(value) {
 module.exports = {
 	toUnixTimeStamp: toUnixTimeStamp,
 	formatYMD: formatYMD,
+	formatDateTime: formatDateTime,
 	calculateAge: calculateAge,
 	now: now
 };
