@@ -70,8 +70,8 @@ Talent.prototype.getLocation = function() {
 }
 
 Talent.prototype.getHeight = function() {
-	var feet = Math.floor(this.heightinches / 12.00);
-	var inches = feet % 12;
+	var feet = Math.floor(this.heightinches / 12);
+	var inches = this.heightinches % 12;
 	return feet + "'" + inches + '"';
 }
 
