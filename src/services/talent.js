@@ -24,6 +24,13 @@ function getHeight(inches) {
 
 	feet = (feet || 0) + '\'';
 	inches = (inches || 0) + '"';
+
+	// for minimum height display (22 or 23 inches)
+	if((feet == "1'" && inches == "10\"") || feet == "1'" && inches == "11\"") {
+		feet = "< 2'";
+		inches = "0\"";
+	}
+
 	return feet + ' ' + inches;
 }
 
