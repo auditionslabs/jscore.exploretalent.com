@@ -15,7 +15,7 @@ Sales.prototype.commaSeparateNumber = function(val) {
 
 };
 
-Sales.prototype.formatToYMDT = function(timestamp) {
+Sales.prototype.formatToYMDT = function(timestamp, canceled) {
 
 	var date = new Date(timestamp*1000);
 
@@ -56,7 +56,13 @@ Sales.prototype.formatToYMDT = function(timestamp) {
 
 	var formattedTime = hours + ':' + minutes + ':' + seconds;
 
-	var formatFull = formattedDate + " " + formattedTime;
+	// if canceled date, return just date with no time
+	if(canceled) {
+		var formatFull = formattedDate;
+	}
+	else {
+		var formatFull = formattedDate + " " + formattedTime;
+	}
 
 	return formatFull;
 }
