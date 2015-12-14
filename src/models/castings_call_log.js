@@ -7,6 +7,6 @@ function CastingCallLogs(data) {
 }
 
 CastingCallLogs.relationship = [
-	'data:casting_call_logs'
+	'data:castings_call_logs'
 ];
 module.exports = CastingCallLogs;
