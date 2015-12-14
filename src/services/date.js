@@ -24,6 +24,24 @@ function formatYMD(value) {
 	}
 }
 
+function formatMDY(value) {
+	if (isNaN(value)) {
+		var date = new Date(value);
+	}
+	else {
+		var date = new Date((value || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+	}
+
+	if (date == 'Invalid Date') {
+		return '';
+	}
+	else {
+		return date.getUTCMonth() + 1 + '-' +
+			_.padLeft(date.getUTCDate(), 2, 0) + '-' +
+			_.padLeft(date.getUTCFullYear(), 2, 0);
+	}
+}
+
 function calculateAge(year, month, day) {
 	var difference = Date.now() - new Date(year, month - 1, day).getTime(),
 		fromEpoch = new Date(difference);
@@ -39,9 +57,32 @@ function now() {
 	};
 }
 
+function formatDateTime(value) {
+	if (isNaN(value)) {
+		var date = new Date(value);
+	}
+	else {
+		var date = new Date((value || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+	}
+
+	if (date == 'Invalid Date') {
+		return '';
+	}
+	else {
+		return date.getUTCFullYear() + '-' +
+			_.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
+			_.padLeft(date.getUTCDate(), 2, 0) + ' ' +
+			_.padLeft((date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours()), 2, 0) + ':' +
+			_.padLeft(date.getUTCMinutes(), 2, 0) + ' ' +
+			(date.getUTCHours() < 12 ? 'AM' : 'PM');
+	}
+}
+
 module.exports = {
 	toUnixTimeStamp: toUnixTimeStamp,
 	formatYMD: formatYMD,
+	formatMDY: formatMDY,
+	formatDateTime: formatDateTime,
 	calculateAge: calculateAge,
 	now: now
 };

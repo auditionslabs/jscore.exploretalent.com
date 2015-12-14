@@ -7,8 +7,8 @@ function SmsMessage(data) {
 	_.extend(this, data || {});
 }
 
-SmsMessage.prototype.getDate = function() {
-	return date.formatYMD(parseInt(this.timestamp));
+SmsMessage.prototype.getDateTime = function() {
+	return date.formatDateTime(parseInt(this.timestamp));
 }
 
 SmsMessage.relationship = [
