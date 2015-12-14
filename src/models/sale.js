@@ -15,13 +15,13 @@ Sales.prototype.commaSeparateNumber = function(val) {
 
 };
 
-Sales.prototype.formatToYMDT = function(timestamp) {
+Sales.prototype.formatToYMDT = function(timestamp, canceled) {
 
 	var date = new Date(timestamp*1000);
 
-	var month = date.getMonth();
-	var day = date.getDate();
-	var year = date.getFullYear();
+	var month = date.getUTCMonth();
+	var day = date.getUTCDate();
+	var year = date.getUTCFullYear();
 
 	year = year.toString().substr(2,2);
 
@@ -40,20 +40,29 @@ Sales.prototype.formatToYMDT = function(timestamp) {
 	    day = "0" + day;
 	}
 
-	var formattedDate = month + "-" + day + "-" + year;
+	var formattedDate = month + "/" + day + "/" + year;
 
 	var hours = date.getHours();
+		hours = hours + 8;
 	var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
 
-	var ampm = hours >= 12 ? 'pm' : 'am';
+	// var ampm = hours >= 12 ? 'pm' : 'am';
 
 	hours = hours % 12;
 	hours = hours ? hours : 12;
 	minutes = minutes < 10 ? '0' + minutes : minutes;
+	seconds = seconds < 10 ? '0' + seconds : seconds;
 
-	var formattedTime = hours + ':' + minutes + ' ' + ampm;
+	var formattedTime = hours + ':' + minutes + ':' + seconds;
 
-	var formatFull = formattedDate + " " + formattedTime;
+	// if canceled date, return just date with no time
+	if(canceled) {
+		var formatFull = formattedDate;
+	}
+	else {
+		var formatFull = formattedDate + " " + formattedTime;
+	}
 
 	return formatFull;
 }
