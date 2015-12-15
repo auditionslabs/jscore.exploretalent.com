@@ -31,7 +31,7 @@ Role.prototype.getLikeItList = function(options) {
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'with', 'conversation.messages.user' ],
+			[ 'with', 'conversation.messages.user.bam_talentci' ],
 			[ 'with', 'bam_role' ],
 			[ 'where', 'rating', '<>', 0 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
