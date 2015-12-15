@@ -20,7 +20,7 @@ Schedule.relationship = [
 	'inviter:user',
 	'bam_role',
 	'schedule_notes',
-	'conversation'
+	'conversation',
 	'data:schedules'
 ];
 
