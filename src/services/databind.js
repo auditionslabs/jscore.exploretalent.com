@@ -114,6 +114,7 @@ function databind(element, data, append) {
 				$(element).slider({ values : value });
 				break;
 			case 'summernote':
+				$(element).text(value);
 				$(element).next().find('.note-editable').html(value);
 				break;
 			case 'visibility':
