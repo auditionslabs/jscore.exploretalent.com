@@ -7,12 +7,15 @@ function Sales(data) {
 }
 
 Sales.prototype.commaSeparateNumber = function(val) {
-
-	while (/(\d+)(\d{3})/.test(val.toString())){
-    	val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-    }
-    return val;
-
+	if (val) {
+		while (/(\d+)(\d{3})/.test(val.toString())){
+			val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+		}
+		return val;
+	}
+	else {
+		return '';
+	}
 };
 
 Sales.prototype.formatToYMDT = function(timestamp, canceled) {
