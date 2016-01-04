@@ -101,7 +101,7 @@ Casting.prototype.getUrl = function() {
 			this.normalize(this.casting_id);
 	}
 	else {
-		return 'https://www.exploretalent.com/auditions/' + this.normalize(this.getCategorly()) + '-' +
+		return 'https://www.exploretalent.com/auditions/' + this.normalize(this.getCategory()) + '-' +
 			this.normalize(this.name) + '-' +
 			this.normalize(this.location) + '-' +
 			this.normalize(this.casting_id);
@@ -113,7 +113,6 @@ Casting.prototype.normalize = function(url) {
 	var str = url.replace(/[^a-zA-Z0-9-_ ]/, '');
 	var strs = str.toLowerCase().split(' ');
 
-	console.log(strs);
 	_.remove(strs, function(s) {
 		return s.trim() == '';
 	});
