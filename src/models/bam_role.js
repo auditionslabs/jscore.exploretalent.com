@@ -60,7 +60,9 @@ Role.prototype.deleteLikeItList = function() {
 			[ 'where', 'rating', '<>', 0 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
-		rating : 0,
+		fields  : {
+			rating : 0
+		},
 		per_page : 1000000
 	}
 
@@ -83,7 +85,9 @@ Role.prototype.copyToLikeItList = function() {
 			[ 'where', 'submission', '=', 1 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
-		rating : 3,
+		fields : {
+			rating : 3
+		},
 		per_page : 1000000
 	}
 
