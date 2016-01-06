@@ -2,7 +2,8 @@
 
 var _ = require('lodash'),
 	talentService = require('src/services/talent.js'),
-	scheduleResource = require('src/resources/schedule.js');
+	scheduleResource = require('src/resources/schedule.js'),
+	searchTalentResource = require('src/resources/search_talent.js');
 
 function Role(data) {
 	_.extend(this, data);
@@ -23,8 +24,6 @@ Role.prototype.getHeightMaxText = function() {
 }
 
 Role.prototype.getLikeItList = function(options) {
-	var deferred = $.Deferred();
-
 	var data = {
 		query	: [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
@@ -42,19 +41,10 @@ Role.prototype.getLikeItList = function(options) {
 		data = _.merge(data, options);
 	}
 
-	scheduleResource.get(data)
-		.then(function(result) {
-			deferred.resolve(result);
-		}, function(error) {
-			deferred.reject(error);
-		});
-
-	return deferred.promise();
+	return scheduleResource.get(data);
 }
 
 Role.prototype.deleteLikeItList = function() {
-	var deferred = $.Deferred();
-
 	var data = {
 		query	: [
 			[ 'where', 'rating', '<>', 0 ],
@@ -66,19 +56,10 @@ Role.prototype.deleteLikeItList = function() {
 		per_page : 1000000
 	}
 
-	scheduleResource.patch(data)
-		.then(function(result) {
-			deferred.resolve(result);
-		}, function(error) {
-			deferred.reject(error);
-		});
-
-	return deferred.promise();
+	return scheduleResource.patch(data);
 }
 
 Role.prototype.copyToLikeItList = function() {
-	var deferred = $.Deferred();
-
 	var data = {
 		query	: [
 			[ 'where', 'rating', '=', 0 ],
@@ -91,45 +72,23 @@ Role.prototype.copyToLikeItList = function() {
 		per_page : 1000000
 	}
 
-	scheduleResource.patch(data)
-		.then(function(result) {
-			deferred.resolve(result);
-		}, function(error) {
-			deferred.reject(error);
-		});
-
-	return deferred.promise();
+	return scheduleResource.patch(data);
 }
 
 Role.prototype.deleteSelfSubmissions = function() {
-	var deferred = $.Deferred();
-
 	var data = {
 		with_trashed : 1,
 		query	: [
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-			[ 'with', 'schedule_notes.user.bam_cd_user' ],
 			[ 'where', 'submission', '=', 1 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
 		per_page : 1000000
 	}
 
-	scheduleResource.delete(data)
-		.then(function(result) {
-			deferred.resolve(result);
-		}, function(error) {
-			deferred.reject(error);
-		});
-
-	return deferred.promise();
+	return scheduleResource.delete(data);
 }
 
 Role.prototype.getSelfSubmissions = function(options) {
-	var deferred = $.Deferred();
-
 	var data = {
 		query : [
 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
@@ -145,14 +104,76 @@ Role.prototype.getSelfSubmissions = function(options) {
 		data = _.merge(data, options);
 	}
 
-	scheduleResource.get(data)
-		.then(function(result) {
-			deferred.resolve(result);
-		}, function(error) {
-			deferred.reject(error);
+	return scheduleResource.get(data);
+}
+
+Role.prototype.getMatches = function(pro) {
+	var data = {
+		query : [
+			[ 'where', 'dobyyyy', '<=', new Date().getFullYear() - parseInt(this.age_min) ],
+			[ 'where', 'dobyyyy', '>=', new Date().getFullYear() - parseInt(this.age_max) ],
+			[ 'where', 'heightinches', '>=', this.height_min ],
+			[ 'where', 'heightinches', '<=', this.height_max ],
+			[ 'where', 'is_pro', '=', pro ? 1 : 0 ],
+		]
+	}
+
+	var subquery = [];
+
+	// markets
+	var markets = self.project.market.split('>');
+
+	if (markets.length) {
+		subquery = [];
+
+		_.each(markets, function(market) {
+			if (subquery.length == 0) {
+				subquery.push([ 'where', 'city1', 'like', '%' + market + '%' ]);
+			}
+			else {
+				subquery.push([ 'orWhere', 'city1', 'like', '%' + market + '%' ]);
+			}
+			subquery.push([ 'orWhere', 'city2', 'like', '%' + market + '%' ]);
 		});
 
-	return deferred.promise();
+		data.query.push([ 'where', subquery ]);
+	}
+
+	var genders = this.getGenders();
+
+	if (genders.length) {
+		subquery = [];
+
+		_.each(genders, function(gender) {
+			if (subquery.length == 0) {
+				subquery.push([ 'where', 'sex', '=', gender ]);
+			}
+			else {
+				subquery.push([ 'orWhere', 'sex', '=', gender ]);
+			}
+		});
+
+		data.query.push([ 'where', subquery ]);
+	}
+
+	var ethnicities = this.getEthnicities();
+
+	if (ethnicities.length) {
+		subquery = [];
+
+		_.each(ethnicities, function(ethnicity) {
+			if (subquery.length == 0) {
+				subquery.push([ 'where', 'ethnicity', '=', ethnicity ]);
+			}
+			else {
+				subquery.push([ 'orWhere', 'ethnicity', '=', ethnicity ]);
+			}
+		});
+
+		data.query.push([ 'where', subquery ]);
+	}
+
+	return searchTalentResource.get(data);
 }
 
 Role.prototype.getGenders = function() {
