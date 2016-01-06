@@ -2,6 +2,7 @@
 
 var _ = require('lodash'),
 	talentService = require('src/services/talent.js'),
+	restService = require('src/services/rest.js'),
 	scheduleResource = require('src/resources/schedule.js'),
 	searchTalentResource = require('src/resources/search_talent.js');
 
@@ -107,7 +108,19 @@ Role.prototype.getSelfSubmissions = function(options) {
 	return scheduleResource.get(data);
 }
 
+Role.prototype.addMatchesToLikeItList = function(pro) {
+	var data = getMatchesFilter(pro);
+
+	return restService.post(self.core.config.api.base + '/cd/talentci/import/' + this.role_id, data);
+}
+
 Role.prototype.getMatches = function(pro) {
+	var data = this.getMatchesFilter(pro);
+
+	return searchTalentResource.get(data);
+}
+
+Role.prototype.getMatchesFilter = function(pro) {
 	var data = {
 		query : [
 			[ 'where', 'dobyyyy', '<=', new Date().getFullYear() - parseInt(this.age_min) ],
@@ -173,7 +186,7 @@ Role.prototype.getMatches = function(pro) {
 		data.query.push([ 'where', subquery ]);
 	}
 
-	return searchTalentResource.get(data);
+	return data;
 }
 
 Role.prototype.getGenders = function() {
