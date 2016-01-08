@@ -111,7 +111,7 @@ Role.prototype.getSelfSubmissions = function(options) {
 
 Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 	var data = {
-		query 		: JSON.stringify(this.getMatchesFilter(pro).query),
+		query 		: this.getMatchesFilter(pro).query,
 		bam_role_id : this.role_id,
 		bam_user_id : user_id
 	}
