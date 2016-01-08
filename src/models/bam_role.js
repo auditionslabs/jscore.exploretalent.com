@@ -113,7 +113,8 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 	var data = {
 		query 		: this.getMatchesFilter(pro).query,
 		bam_role_id : this.role_id,
-		bam_user_id : user_id
+		bam_user_id : user_id,
+		bam_cd_user_id : this.bam_casting.user_id
 	}
 
 	return scheduleImportResource.post(data);
