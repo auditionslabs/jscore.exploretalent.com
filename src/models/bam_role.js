@@ -4,6 +4,7 @@ var _ = require('lodash'),
 	talentService = require('src/services/talent.js'),
 	restService = require('src/services/rest.js'),
 	scheduleResource = require('src/resources/schedule.js'),
+	scheduleImportResource = require('src/resources/schedule_import.js'),
 	searchTalentResource = require('src/resources/search_talent.js');
 
 function Role(data) {
@@ -108,10 +109,14 @@ Role.prototype.getSelfSubmissions = function(options) {
 	return scheduleResource.get(data);
 }
 
-Role.prototype.addMatchesToLikeItList = function(pro) {
-	var data = getMatchesFilter(pro);
+Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
+	var data = {
+		query 		: JSON.stringify(getMatchesFilter(pro).query),
+		bam_role_id : this.role_id,
+		bam_user_id : user_id
+	}
 
-	return restService.post(self.core.config.api.base + '/cd/talentci/import/' + this.role_id, data);
+	return scheduleImportResource.post(data);
 }
 
 Role.prototype.getMatches = function(pro) {
