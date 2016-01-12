@@ -49,5 +49,8 @@
       "src": "./src",
       "test": "./test"
     }
+  },
+  "bin" : {
+	  "jscore" : "bin/index.js"
   }
 }
