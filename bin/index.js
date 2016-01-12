@@ -32,7 +32,7 @@ for(i=2; i<process.argv.length; i++) {
 createResource();
 
 function createResource() {
-	fs.readFile('src/resources/sample.js', function(err, data) {
+	fs.readFile('src/samples/resource.js', function(err, data) {
 		var template = _.template(data);
 		var str = template(params);
 
@@ -47,7 +47,7 @@ createModels();
 
 function createModels() {
 	// singular model
-	fs.readFile('src/models/sample.js', function(err, data) {
+	fs.readFile('src/samples/model.js', function(err, data) {
 		var template = _.template(data);
 		var str = template(params);
 
@@ -57,7 +57,7 @@ function createModels() {
 	});
 
 	// plural model
-	fs.readFile('src/models/samples.js', function(err, data) {
+	fs.readFile('src/samples/models.js', function(err, data) {
 		var template = _.template(data);
 		var str = template(params);
 
