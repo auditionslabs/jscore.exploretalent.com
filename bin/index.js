@@ -4,7 +4,7 @@ var fs 	= require('fs');
 var _ 	= require('lodash');
 
 var params = {
-	toTitleCase : toTitleCase
+	toTitleCase : toTitleCase,
 	resource 	: '',
 	model 		: '',
 	url 		: '',
