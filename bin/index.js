@@ -70,7 +70,8 @@ function createModels() {
 function toTitleCase(str)
 {
 	str = str.replace(/_/g, ' ');
-	return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	str = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	return str.replace(/ /g, '');
 }
 
 // resource : talent

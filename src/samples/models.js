@@ -7,7 +7,7 @@ var _ = require('lodash'),
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
-		return modelify('<%= resource %>', item);
+		return modelify('<%= model %>', item);
 	});
 };
 
