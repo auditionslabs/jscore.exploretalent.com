@@ -5,6 +5,10 @@ var _ 	= require('lodash');
 
 var params = {
 	toTitleCase : toTitleCase
+	resource 	: '',
+	model 		: '',
+	url 		: '',
+	key 		: ''
 };
 
 if (process.argv.length % 2 > 0) {
