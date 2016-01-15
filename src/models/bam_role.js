@@ -194,7 +194,7 @@ Role.prototype.getMatchesFilter = function(pro) {
 
 	var builds = this.getBuilds();
 
-	if (build.length) {
+	if (builds.length) {
 		subquery = [];
 
 		_.each(builds, function(build) {
@@ -202,7 +202,7 @@ Role.prototype.getMatchesFilter = function(pro) {
 				subquery.push([ 'where', 'build', '=', build ]);
 			}
 			else {
-				subquery.push([ 'orWhere', 'build', '=' build ]);
+				subquery.push([ 'orWhere', 'build', '=', build ]);
 			}
 		});
 
