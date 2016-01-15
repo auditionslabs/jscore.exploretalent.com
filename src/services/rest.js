@@ -18,7 +18,15 @@ REST.interceptor = {
 	responseSuccess: _.identity,
 	responseError: _.identity
 };
-REST.settings = {};
+
+REST.settings = {
+};
+
+if (localStorage.getItem('access_token')) {
+	REST.settings.headers = {
+		Authorization : localStorage.getItem('access_token')
+	}
+}
 
 REST.$$runInterceptors = runInterceptors;
 REST.$$restMethod = restMethod;
