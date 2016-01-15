@@ -192,6 +192,23 @@ Role.prototype.getMatchesFilter = function(pro) {
 		data.query.push([ 'where', subquery ]);
 	}
 
+	var builds = this.getBuilds();
+
+	if (build.length) {
+		subquery = [];
+
+		_.each(builds, function(build) {
+			if (subquery.length == 0) {
+				subquery.push([ 'where', 'build', '=', build ]);
+			}
+			else {
+				subquery.push([ 'orWhere', 'build', '=' build ]);
+			}
+		});
+
+		data.query.push([ 'where', subquery ]);
+	}
+
 	return data;
 }
 
