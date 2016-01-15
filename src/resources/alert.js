@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + api.type + '/staff_alerts/:alertId', {
+module.exports = new Resource(api.base + api.type + '/alerts/:alertId', {
 	model: 'alert'
 });
