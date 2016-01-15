@@ -147,12 +147,15 @@ Role.prototype.getMatchesFilter = function(pro) {
 
 		_.each(markets, function(market) {
 			if (subquery.length == 0) {
-				subquery.push([ 'where', 'city1', 'like', '%' + market + '%' ]);
+				subquery.push([ 'where', 'city', 'like', '%' + market + '%' ]);
 			}
 			else {
-				subquery.push([ 'orWhere', 'city1', 'like', '%' + market + '%' ]);
+				subquery.push([ 'orWhere', 'city', 'like', '%' + market + '%' ]);
 			}
+
+			subquery.push([ 'orWhere', 'city1', 'like', '%' + market + '%' ]);
 			subquery.push([ 'orWhere', 'city2', 'like', '%' + market + '%' ]);
+			subquery.push([ 'orWhere', 'city3', 'like', '%' + market + '%' ]);
 		});
 
 		data.query.push([ 'where', subquery ]);
