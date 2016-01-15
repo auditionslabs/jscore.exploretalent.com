@@ -343,11 +343,11 @@ Role.prototype.getBuilds = function() {
 	var builds = {
 		medium		: 'Medium',
 		athletic	: 'Athletic',
-		bb			: 'Body Builder',
+		bb			: 'Muscular',
 		xlarge		: 'Extra Large',
 		large		: 'Large',
 		petite		: 'Petite',
-		thin		: 'Thin',
+		thin		: 'Slim',
 		lm			: 'Lean Muscle',
 		average		: 'Average'
 	}
