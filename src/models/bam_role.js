@@ -55,7 +55,7 @@ Role.prototype.deleteLikeItList = function() {
 		fields  : {
 			rating : 0
 		},
-		per_page : 1000000
+		paginate : false
 	}
 
 	return scheduleResource.patch(data);
