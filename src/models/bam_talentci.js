@@ -183,7 +183,7 @@ Talent.prototype.getCDInvites = function () {
 
 	jobResource.get(jobData)
 	.then(function(res) {
-		var scheduleIds = _.each(res.data, function(job) {
+		var scheduleIds = _.map(res.data, function(job) {
 			return job.schedule_id;
 		});
 
@@ -193,7 +193,7 @@ Talent.prototype.getCDInvites = function () {
 			query : [
 				[ 'with', 'conversation.messages.user.bam_talentci'],
 				[ 'with', 'conversation.messages.user.bam_cd_user'],
-				[ 'whereIn', scheduleIds ]
+				[ 'whereIn', 'bam_role_id', scheduleIds ]
 			]
 		}
 
