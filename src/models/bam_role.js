@@ -64,7 +64,10 @@ Role.prototype.deleteLikeItList = function() {
 Role.prototype.copyToLikeItList = function() {
 	var data = {
 		query	: [
-			[ 'where', 'rating', '=', 0 ],
+			[ 'where',
+				[ 'where', 'rating', '=', 0 ],
+				[ 'orWhereNull', 'rating' ]
+			],
 			[ 'where', 'submission', '=', 1 ],
 			[ 'where', 'bam_role_id', '=', this.role_id ]
 		],
