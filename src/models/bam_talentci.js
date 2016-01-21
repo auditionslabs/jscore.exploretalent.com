@@ -9,9 +9,7 @@ var _ = require('lodash'),
 
 function Talent(data) {
 	_.extend(this, data || {});
-}
-
-Talent.prototype.getFullName = function() {
+} Talent.prototype.getFullName = function() {
 	return talent.getFullName(this.fname, this.lname);
 };
 
@@ -176,7 +174,7 @@ Talent.prototype.getCDInvites = function () {
 
 	var jobData = {
 		query : [
-			[ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'role.role_id' ],
+			[ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
 			[ 'where', 'laret_schedules.rating', '<>', 0 ],
 			[ 'where', 'laret_schedules.invitee_id', '=', this.user.id ],
 			[ 'select', 'laret_schedules.id AS schedule_id' ]
