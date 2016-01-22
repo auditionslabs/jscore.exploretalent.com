@@ -193,7 +193,7 @@ Talent.prototype.getCDInvites = function () {
 			query : [
 				[ 'with', 'conversation.messages.user.bam_talentci'],
 				[ 'with', 'conversation.messages.user.bam_cd_user'],
-				[ 'whereIn', 'bam_role_id', scheduleIds ]
+				[ 'whereIn', 'id', scheduleIds ]
 			]
 		}
 
@@ -208,7 +208,7 @@ Talent.prototype.getCDInvites = function () {
 			var campaignData = {
 				query : [
 					[ 'whereIn', 'bam_role_id', roleIds ],
-					[ 'where', 'status', '=', 1 ],
+					[ 'where', 'status', '>=', 1 ],
 					[ 'with', 'bam_role.bam_casting' ]
 				]
 			}
