@@ -2,8 +2,12 @@
 
 var _ = require('lodash');
 
-function TalentTracking(data) {
-	_.extend(this, data);
+function Talenttracking(data) {
+	_.extend(this, data || {});
 }
 
-module.exports = TalentTracking;
+Talenttracking.relationship = [
+	'data:bam_talenttrackings'
+];
+
+module.exports = Talenttracking;
