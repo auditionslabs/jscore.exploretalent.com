@@ -72,7 +72,7 @@ function formatDateTime(value) {
 		return date.getUTCFullYear() + '-' +
 			_.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
 			_.padLeft(date.getUTCDate(), 2, 0) + ' ' +
-			_.padLeft((date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours()), 2, 0) + ':' +
+			_.padLeft((date.getUTCHours() > 12 ? date.getUTCHours() - 12 : (date.getUTCHours() == '00') ? '12' : date.getUTCHours()), 2, 0) + ':' +
 			_.padLeft(date.getUTCMinutes(), 2, 0) + ' ' +
 			(date.getUTCHours() < 12 ? 'AM' : 'PM');
 	}
