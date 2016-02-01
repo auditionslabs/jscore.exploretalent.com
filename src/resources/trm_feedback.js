@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + '/feedbacks/:feedbackId', {
-	model: 'feedback'
+module.exports = new Resource(api.base + api.type + '/feedbacks/:feedbackId', {
+	model: 'trm_feedback'
 });
