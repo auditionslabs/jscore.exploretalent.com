@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery'), _ = require('lodash'),
+	api = require('src/config/api.js'),
 
 	REST = {};
 
@@ -22,8 +23,7 @@ REST.interceptor = {
 REST.settings = {
 };
 
-if (localStorage.getItem('access_token')) {
-	REST.settings.headers = {
+if (localStorage.getItem('access_token')) { REST.settings.headers = {
 		Authorization : localStorage.getItem('access_token')
 	}
 }
@@ -70,17 +70,52 @@ function restMethod(object, method) {
 
 		config = runInterceptors(interceptors, config, 'request', this);
 
-		promise = $.ajax(config).then(function() {
-			return runInterceptors(interceptors, arguments, 'responseSuccess', this);
-		}, function() {
-			return runInterceptors(interceptors, arguments, 'responseError', this);
+		promise = $.when();
+
+		// check aouth expiry
+		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token') && localStorage.getItem('access_date')) {
+			var access_date = new Date(localStorage.getItem('access_date'));
+			var now = new Date();
+
+			var diff = now - access_date;
+
+			// if last access_date is 1hr30mins old, refresh token
+			if (diff > 5400000) {
+				promise = $.ajax({
+					url : api.config.base + '/oauth/access_token',
+					method : 'POST',
+					data : {
+						refresh_token : localStorage.setItem('refresh_token'),
+						client_secret : api.config.client_secret,
+						client_id     : api.config.client_id,
+						user_type     : api.config.type == '/talent' ? 'bam_talentci' : (api.config.type == '/cd_user' ? 'bam_cd_user' : 'bam_user'),
+						grant_type    : 'refresh_token'
+					}
+				});
+			}
+		}
+
+		return promise.then(function(res) {
+
+			if (res.access_token) {
+				localStorage.setItem('access_token', res.access_token);
+				localStorage.setItem('refresh_token', res.refresh_token);
+				localStorage.setItem('access_date', new Date());
+			}
+
+			var promise2 = $.ajax(config).then(function() {
+				return runInterceptors(interceptors, arguments, 'responseSuccess', this);
+			}, function() {
+				return runInterceptors(interceptors, arguments, 'responseError', this);
+			});
+
+			promise.always(function() {
+				runInterceptors(interceptors, arguments, 'response', this);
+			});
+
+			return promise2;
 		});
 
-		promise.always(function() {
-			runInterceptors(interceptors, arguments, 'response', this);
-		});
-
-		return promise;
 	};
 
 	return object;
