@@ -97,7 +97,7 @@ function restMethod(object, method) {
 
 		return promise.then(function(res) {
 
-			if (res.access_token) {
+			if (res && res.access_token) {
 				localStorage.setItem('access_token', res.access_token);
 				localStorage.setItem('refresh_token', res.refresh_token);
 				localStorage.setItem('access_date', new Date());
