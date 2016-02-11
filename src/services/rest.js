@@ -85,7 +85,7 @@ function restMethod(object, method) {
 					url : api.base + '/oauth/access_token',
 					method : 'POST',
 					data : {
-						refresh_token : localStorage.setItem('refresh_token'),
+						refresh_token : localStorage.getItem('refresh_token'),
 						client_secret : api.config.client_secret,
 						client_id     : api.config.client_id,
 						user_type     : api.config.type == '/talent' ? 'bam_talentci' : (api.config.type == '/cd_user' ? 'bam_cd_user' : 'bam_user'),
