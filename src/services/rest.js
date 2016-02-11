@@ -86,9 +86,9 @@ function restMethod(object, method) {
 					method : 'POST',
 					data : {
 						refresh_token : localStorage.getItem('refresh_token'),
-						client_secret : api.config.client_secret,
-						client_id     : api.config.client_id,
-						user_type     : api.config.type == '/talent' ? 'bam_talentci' : (api.config.type == '/cd_user' ? 'bam_cd_user' : 'bam_user'),
+						client_secret : api.client_secret,
+						client_id     : api.client_id,
+						user_type     : api.type == '/talent' ? 'bam_talentci' : (api.config.type == '/cd_user' ? 'bam_cd_user' : 'bam_user'),
 						grant_type    : 'refresh_token'
 					}
 				});
