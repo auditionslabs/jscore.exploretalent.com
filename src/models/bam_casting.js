@@ -88,6 +88,29 @@ Casting.prototype.getCategory = function() {
 	return categories[this.cat];
 }
 
+Casting.prototype.getProjectType = function() {
+
+	var projectTypes = {
+		0  : "Commercials",
+		1  : "Print",
+		2  : "Music Video",
+		3  : "Feature Film",
+		4  : "SAG Experm",
+		5  : "Episodic",
+		6  : "Pilots",
+		7  : "Voice Over",
+		8  : "Live Event",
+		9  : "Infomercial",
+		10 : "Doc. Short Film",
+		11 : "TV Show",
+		12 : "Music",
+		13 : "Crew",
+		14 : "Dance"
+	}
+
+	return projectTypes[this.project_type];
+}
+
 Casting.prototype.convertToFullDate = function(timestamp) {
 	return date.formatYMD(parseInt(timestamp));
 };
