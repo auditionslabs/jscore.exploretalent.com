@@ -159,6 +159,7 @@ Casting.prototype.normalize = function(url) {
 
 Casting.relationship = [
 	'data:bam_castings',
+	'bam_cd_user',
 	'bam_roles'
 ];
 
