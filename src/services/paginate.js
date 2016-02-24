@@ -84,4 +84,7 @@ module.exports = function(element, options) {
 		$this.empty();
 		$this.append(ul);
 	}
+	else {
+		$this.empty();
+	}
 };
