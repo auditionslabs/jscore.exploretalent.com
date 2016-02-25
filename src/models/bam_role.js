@@ -147,7 +147,11 @@ Role.prototype.getMatchesFilter = function(pro) {
 	// markets
 	var markets = self.project.market.split('>');
 
-	if (markets.length) {
+	var nationwide = _.find(markets, function(market) {
+		return market == 'N/A';
+	});
+
+	if (markets.length && !nationwide) {
 		subquery = [];
 
 		_.each(markets, function(market) {
