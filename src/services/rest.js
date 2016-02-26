@@ -82,7 +82,7 @@ function restMethod(object, method) {
 			// if last access_date is 1hr30mins old, refresh token
 			if (diff > 5400000) {
 				promise = $.ajax({
-					url : api.base + '/oauth/access_token',
+					url : api.base.replace('/v1', '') + '/oauth/access_token',
 					method : 'POST',
 					data : {
 						refresh_token : localStorage.getItem('refresh_token'),
