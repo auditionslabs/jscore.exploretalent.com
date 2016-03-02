@@ -23,7 +23,21 @@ function formatYMD(value) {
 			_.padLeft(date.getUTCDate(), 2, 0);
 	}
 }
+function formatFYMD(value) {
+	if (isNaN(value)) {
+		var date = new Date(value);
+	}
+	else {
+		var date = new Date((value || 0) * 1000 - (7 * 60 * 60)); // set timezone to dev-la (GMT -7)
+	}
 
+	if (date == 'Invalid Date') {
+		return '';
+	}
+	else {
+		return moment(date).format('MMMM DD, YYYY');
+	}
+}
 function formatMDY(value) {
 	if (isNaN(value)) {
 		var date = new Date(value);
@@ -84,5 +98,6 @@ module.exports = {
 	formatMDY: formatMDY,
 	formatDateTime: formatDateTime,
 	calculateAge: calculateAge,
-	now: now
+	now: now,
+	formatFYMD:formatFYMD
 };
