@@ -134,12 +134,24 @@ Role.prototype.getMatches = function(pro) {
 Role.prototype.getMatchesFilter = function(pro) {
 	var data = {
 		query : [
-			[ 'where', 'dobyyyy', '<=', new Date().getFullYear() - parseInt(this.age_min) ],
-			[ 'where', 'dobyyyy', '>=', new Date().getFullYear() - parseInt(this.age_max) ],
-			[ 'where', 'heightinches', '>=', this.height_min ],
-			[ 'where', 'heightinches', '<=', this.height_max ],
-			[ 'where', 'is_pro', '=', pro ? 1 : 0 ],
+			[ 'where', 'is_pro', '=', pro ? 1 : 0 ]
 		]
+	}
+
+	if (parseInt(this.age_min)) {
+		data.query.push([ 'where', 'dobyyyy', '<=', new Date().getFullYear() - parseInt(this.age_min) ]);
+	}
+
+	if (parseInt(this.age_max)) {
+		data.query.push([ 'where', 'dobyyyy', '>=', new Date().getFullYear() - parseInt(this.age_max) ]);
+	}
+
+	if (parseInt(this.height_min)) {
+		data.query.push([ 'where', 'heightinches', '>=', this.height_min ]);
+	}
+
+	if (parseInt(this.height_max)) {
+		data.query.push([ 'where', 'heightinches', '<=', this.height_max ]);
 	}
 
 	var subquery = [];
