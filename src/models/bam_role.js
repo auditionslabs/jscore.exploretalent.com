@@ -125,17 +125,21 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 	return scheduleImportResource.post(data);
 }
 
-Role.prototype.getMatches = function(pro) {
-	var data = this.getMatchesFilter(pro);
+Role.prototype.getMatches = function(pro, options) {
+	var data = this.getMatchesFilter(pro, options);
 
 	return searchTalentResource.get(data);
 }
 
-Role.prototype.getMatchesFilter = function(pro) {
+Role.prototype.getMatchesFilter = function(pro, options) {
 	var data = {
 		query : [
 			[ 'where', 'is_pro', '=', pro ? 1 : 0 ]
 		]
+	}
+
+	if (options) {
+		data = _.merge(data, options);
 	}
 
 	if (parseInt(this.age_min)) {
