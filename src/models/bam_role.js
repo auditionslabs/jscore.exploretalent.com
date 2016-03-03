@@ -325,7 +325,7 @@ Role.prototype.getHairStyles = function() {
 	}
 
 	if (this.hairstyle_any == 1)
-		return getValues(hairstyles.values);
+		return getValues(hairstyles);
 
 	for (var style in hairstyles) {
 		if (this['hairstyle_' + style] == 1) {
