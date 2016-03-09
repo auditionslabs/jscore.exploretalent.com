@@ -24,7 +24,7 @@ REST.settings = {
 };
 
 if (localStorage.getItem('access_token')) { REST.settings.headers = {
-		Authorization : localStorage.getItem('access_token')
+		Authorization : 'Bearer ' + localStorage.getItem('access_token')
 	}
 }
 
