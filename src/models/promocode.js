@@ -1,14 +1,13 @@
 'use strict';
 
-var _ = require('lodash'),
-	promocodes = {};
+var _ = require('lodash');
 
-promocodes.create = function(array) {
-	var modelify = require('src/services/model.js');
+function Promocode(data) {
+	_.extend(this, data || {});
+}
 
-	return _.map(array || [], function(item) {
-		return modelify('promocode', item);
-	});
-};
+Promocode.relationship = [
+	'data:promocodes'
+];
 
-module.exports = promocodes;
+module.exports = Promocode;
