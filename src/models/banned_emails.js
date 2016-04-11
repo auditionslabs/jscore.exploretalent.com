@@ -1,14 +1,14 @@
 'use strict';
 
 var _ = require('lodash'),
-	bannedemails = {};
+	banned_emails = {};
 
-bannedemails.create = function(array) {
+banned_emails.create = function(array) {
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
-		return modelify('bannedemail', item);
+		return modelify('banned_emails', item);
 	});
 };
 
-module.exports = bannedemails;
+module.exports = banned_emails;
