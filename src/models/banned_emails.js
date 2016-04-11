@@ -7,7 +7,7 @@ banned_emails.create = function(array) {
 	var modelify = require('src/services/model.js');
 
 	return _.map(array || [], function(item) {
-		return modelify('banned_emails', item);
+		return modelify('banned_email', item);
 	});
 };
 
