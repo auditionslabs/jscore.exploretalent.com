@@ -78,6 +78,9 @@ function databind(element, data, append) {
 					value = true;
 				}
 			}
+			else if ($(element).is('[data-select]')) {
+				attr = 'select2';
+			}
 			else if ($(element).is('input') || $(element).is('select')) {
 				attr = 'val';
 			}
@@ -98,7 +101,12 @@ function databind(element, data, append) {
 		// set value depending on the attr
 		switch(attr) {
 			case 'val':
-				$(element).val(value);
+				if ($(element).is('select')) {
+					$(element).val(value.split('|'));
+				}
+				else {
+					$(element).val(value);
+				}
 				break;
 			case 'text':
 				$(element).text(value);
@@ -116,6 +124,9 @@ function databind(element, data, append) {
 			case 'summernote':
 				$(element).text(value);
 				$(element).next().find('.note-editable').html(value);
+				break;
+			case 'select2':
+				$(element).val(value.split('|')).select2();
 				break;
 			case 'visibility':
 				if (parseInt(value))
