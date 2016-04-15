@@ -7,7 +7,7 @@ var resource = new Resource(api.base + api.type + '/talentci/:talentId', {
 	model: 'bam_talentci'
 });
 
-resource.searchTalents = function(data) {
+resource.search = function(data) {
 	var deferred = $.Deferred();
 	var talents, talentnums;
 
