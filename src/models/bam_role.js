@@ -48,6 +48,27 @@ Role.prototype.getLikeItList = function(options) {
 	return scheduleResource.get(data);
 }
 
+Role.prototype.getLikeItListCount = function() {
+	var deferred = $.Deferred();
+
+	var data = {
+		per_page : 1,
+		query    : [
+			[ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
+			[ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
+			[ 'where', 'bam.laret_schedules.rating', '<>', 0 ],
+			[ 'where', 'bam.laret_schedules.bam_role_id', '=', this.role_id ]
+		]
+	}
+
+	self.core.resource.search_talent.get(data)
+		.then(function(res) {
+			deferred.resolve(res.total);
+		});
+
+	return deferred.promise();
+}
+
 Role.prototype.deleteLikeItList = function() {
 	var data = {
 		query	: [
