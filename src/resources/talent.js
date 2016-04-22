@@ -46,11 +46,10 @@ resource.search = function(data) {
 				}
 			});
 
-			// if (talents.total) {
-			if (false) {		// TODO: uncomment line above when API is working
+			if (talents.total) {
 				// get favorite talents
 				var data2 = {
-					query : [
+					q : [
 						[ 'whereIn', 'bam_talentnum', talentnums ]
 					]
 				};
