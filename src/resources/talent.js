@@ -84,7 +84,7 @@ resource.search = function(data, options) {
 						[ 'whereIn', 'invitee_id', users ],
 						[ 'where', 'bam_role_id', '=', options.bam_role_id ],
 						[ 'where', 'rating', '<>', 0 ],
-						[ 'with', 'schedule_notes' ]
+						[ 'with', 'schedule_notes.user.bam_cd_user' ]
 					]
 				}
 
