@@ -99,6 +99,12 @@ resource.search = function(data, options) {
 				talent.schedule = _.find(res.data, function(schedule) {
 					return talent.user.id == schedule.invitee_id;
 				});
+
+				if (!talent.schedule) {
+					talent.schedule = {
+						schedule_notes : []
+					}
+				}
 			});
 
 			deferred.resolve(talents);
