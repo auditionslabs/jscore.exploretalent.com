@@ -25,14 +25,6 @@ resource.search = function(data, options) {
 			// add 0 so we dont have an empty array
 			talentnums.push(0);
 
-			// get all user.id
-			users = _.map(talents.data, function(talent) {
-				return talent.user.id;
-			});
-
-			// add 0 so we dont have an empty array
-			users.push(0);
-
 			// get user and bam_talent_media2 objects using talentci resource
 			data = {
 				query : [
@@ -59,6 +51,14 @@ resource.search = function(data, options) {
 				}
 			});
 
+			// get all user.id
+			users = _.map(talents.data, function(talent) {
+				return talent.user.id;
+			});
+
+			// add 0 so we dont have an empty array
+			users.push(0);
+
 			// get favorite talents
 			data = {
 				q : [
@@ -78,7 +78,7 @@ resource.search = function(data, options) {
 			});
 
 			// if bam_role_id is given, search if talent is on likeitlist for it
-			if (options.bam_role_id) {
+			if (options && options.bam_role_id) {
 				data = {
 					q : [
 						[ 'whereIn', 'invitee_id', users ],
