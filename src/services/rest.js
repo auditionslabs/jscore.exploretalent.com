@@ -71,14 +71,14 @@ function restMethod(object, method) {
 		promise = $.when();
 
 		// check aouth expiry
-		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token') && localStorage.getItem('access_date')) {
+		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
 			var access_date = new Date(localStorage.getItem('access_date'));
 			var now = new Date();
 
 			var diff = now - access_date;
 
 			// if last access_date is 1hr30mins old, refresh token
-			if (diff > 5400000 || !access_date || access_date == 'undefined') {
+			if (diff > 5400000 || !localStorage.getItem('access_date') || localStorage.getItem('access_date') == 'undefined') {
 				promise = $.ajax({
 					url : api.base.replace('/v1', '') + '/oauth/access_token',
 					method : 'POST',
