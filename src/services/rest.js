@@ -1,7 +1,5 @@
 'use strict';
-
-var $ = require('jquery'), _ = require('lodash'),
-	api = require('src/config/api.js'),
+var $ = require('jquery'), _ = require('lodash'), api = require('src/config/api.js'),
 
 	REST = {};
 
@@ -80,7 +78,7 @@ function restMethod(object, method) {
 			var diff = now - access_date;
 
 			// if last access_date is 1hr30mins old, refresh token
-			if (diff > 5400000 || !access_date) {
+			if (diff > 5400000 || !access_date || access_date == 'undefined') {
 				promise = $.ajax({
 					url : api.base.replace('/v1', '') + '/oauth/access_token',
 					method : 'POST',
