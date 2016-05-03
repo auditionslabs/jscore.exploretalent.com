@@ -77,13 +77,12 @@ resource.search = function(data, options) {
 				});
 			});
 
-			// if bam_role_id is given, search if talent is on likeitlist for it
+			// if bam_role_id is given, search if talent has schedule for it
 			if (options && options.bam_role_id) {
 				data = {
 					q : [
 						[ 'whereIn', 'invitee_id', users ],
 						[ 'where', 'bam_role_id', '=', options.bam_role_id ],
-						[ 'where', 'rating', '<>', 0 ],
 						[ 'with', 'schedule_notes.user.bam_cd_user' ]
 					]
 				}
