@@ -87,7 +87,7 @@ function databind(element, data, append) {
 			else if ($(element).is('a')) {
 				attr = 'href';
 			}
-			else if ($(element).is('p') || $(element).is('span') || $(element).is('b') || $(element).is('td') || $(element).is('h2') ||  $(element).is('h4') || $(element).is('textarea') || $(element).is('div') || $(element).is('strong')) {
+			else if ($(element).is('p') || $(element).is('span') || $(element).is('b') || $(element).is('td') || $(element).is('h2') ||  $(element).is('h4') || $(element).is('textarea') || $(element).is('div') || $(element).is('strong') $(element).is('i')) {
 				attr = 'text';
 			}
 			else if ($(element).is('img') || $(element).is('iframe')) {
