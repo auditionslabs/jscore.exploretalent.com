@@ -21,7 +21,8 @@ REST.interceptor = {
 REST.settings = {
 };
 
-if (localStorage.getItem('access_token')) { REST.settings.headers = {
+if (localStorage.getItem('access_token')) {
+	REST.settings.headers = {
 		Authorization : 'Bearer ' + localStorage.getItem('access_token')
 	}
 }
@@ -99,6 +100,14 @@ function restMethod(object, method) {
 				localStorage.setItem('access_token', res.access_token);
 				localStorage.setItem('refresh_token', res.refresh_token);
 				localStorage.setItem('access_date', new Date());
+
+				config.headers = {
+					Authorization : 'Bearer ' + localStorage.getItem('access_token')
+				}
+
+				REST.settings.headers = {
+					Authorization : 'Bearer ' + localStorage.getItem('access_token')
+				}
 			}
 
 			var promise2 = $.ajax(config).then(function() {
