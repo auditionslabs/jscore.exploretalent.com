@@ -2,7 +2,6 @@
 var $ = require('jquery'), _ = require('lodash'), api = require('src/config/api.js'),
 
 	REST = {};
-
 //set up ajax to use cross domain
 $.ajaxSetup({
 	xhrFields : {
@@ -116,7 +115,7 @@ function restMethod(object, method) {
 				return runInterceptors(interceptors, arguments, 'responseError', this);
 			});
 
-			promise.always(function() {
+			promise2.always(function() {
 				runInterceptors(interceptors, arguments, 'response', this);
 			});
 
