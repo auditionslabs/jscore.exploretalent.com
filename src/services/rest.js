@@ -73,7 +73,7 @@ function restMethod(object, method) {
 		// check aouth expiry
 		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
 			var expires_in = parseInt(localStorage.getItem('expires_in')) | 0;
-			var now = new Math.round(new Date().getTime()/1000);
+			var now = Math.round(new Date().getTime() / 1000);
 
 			var diff = now - expires_in;
 
