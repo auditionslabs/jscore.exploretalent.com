@@ -72,10 +72,10 @@ function restMethod(object, method) {
 
 		// check aouth expiry
 		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
-			var expires_in = parseInt(localStorage.getItem('expires_in')) | 0;
+			var expires_on = parseInt(localStorage.getItem('expires_on')) | 0;
 			var now = Math.round(new Date().getTime() / 1000);
 
-			var diff = now - expires_in;
+			var diff = expires_on - now;
 
 			// Check if expired
 			if (diff < 1) {
@@ -98,7 +98,7 @@ function restMethod(object, method) {
 			if (res && res.access_token) {
 				localStorage.setItem('access_token', res.access_token);
 				localStorage.setItem('refresh_token', res.refresh_token);
-				localStorage.setItem('expires_in', res.expires_in);
+				localStorage.setItem('expires_on', Math.round(new Date().getTime() / 1000) + res.expires_in);
 
 				config.headers = {
 					Authorization : 'Bearer ' + localStorage.getItem('access_token')
