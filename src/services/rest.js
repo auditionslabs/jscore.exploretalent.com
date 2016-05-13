@@ -71,8 +71,8 @@ function restMethod(object, method) {
 		promise = $.when();
 
 		// check aouth expiry
-		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
-			var expires_on = parseInt(localStorage.getItem('expires_on')) | 0;
+		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token') && localStorage.getItem('expires_on')) {
+			var expires_on = parseInt(localStorage.getItem('expires_on'));
 			var now = Math.round(new Date().getTime() / 1000);
 
 			var diff = expires_on - now;
@@ -98,7 +98,7 @@ function restMethod(object, method) {
 			if (res && res.access_token) {
 				localStorage.setItem('access_token', res.access_token);
 				localStorage.setItem('refresh_token', res.refresh_token);
-				localStorage.setItem('expires_on', Math.round(new Date().getTime() / 1000) + res.expires_in);
+				localStorage.setItem('expires_on', Math.round(new Date().getTime() / 1000) + parseInt(res.expires_in));
 
 				config.headers = {
 					Authorization : 'Bearer ' + localStorage.getItem('access_token')
