@@ -72,13 +72,13 @@ function restMethod(object, method) {
 
 		// check aouth expiry
 		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
-			var access_date = new Date(localStorage.getItem('access_date'));
-			var now = new Date();
+			var expires_in = parseInt(localStorage.getItem('expires_in')) | 0;
+			var now = new Math.round(new Date().getTime()/1000);
 
-			var diff = now - access_date;
+			var diff = now - expires_in;
 
-			// if last access_date is 1hr30mins old, refresh token
-			if (diff > 5400000 || !localStorage.getItem('access_date') || localStorage.getItem('access_date') == 'undefined') {
+			// Check if expired
+			if (diff < 1) {
 				promise = $.ajax({
 					url : api.base.replace('/v1', '') + '/oauth/access_token',
 					method : 'POST',
@@ -98,7 +98,7 @@ function restMethod(object, method) {
 			if (res && res.access_token) {
 				localStorage.setItem('access_token', res.access_token);
 				localStorage.setItem('refresh_token', res.refresh_token);
-				localStorage.setItem('access_date', new Date());
+				localStorage.setItem('expires_in', res.expires_in);
 
 				config.headers = {
 					Authorization : 'Bearer ' + localStorage.getItem('access_token')
