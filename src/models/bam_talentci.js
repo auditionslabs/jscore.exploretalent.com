@@ -17,6 +17,21 @@ Talent.prototype.getAge = function() {
 	return date.calculateAge(this.bam_talentinfo1.dobyyyy, this.bam_talentinfo1.dobmm, this.bam_talentinfo1.dobdd);
 }
 
+Talent.prototype.getXOrigin = function(){
+	if(this.x_origin == 8){
+		return "auditions.com";
+	}
+	if(this.x_origin == 7){
+		return "cebumodeling.com";
+	}
+	if(this.x_origin == 9){
+		return "talent.ph";
+	}
+	if(this.x_origin == 0 || this.x_origin == 1 || this.x_origin == 2 || this.x_origin == 3 || this.x_origin == 4 || this.x_origin == 5 || this.x_origin == 6){
+		return "exploretalent.com";
+	}
+}
+
 Talent.prototype.isPaying = function() {
 	return this.bam_talentrecurring ? true : false;
 }
