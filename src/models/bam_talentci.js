@@ -172,22 +172,56 @@ Talent.prototype.stateText = function() {
 }
 
 Talent.prototype.getSelfSubmissions = function () {
+	var deferred = $.Deferred();
+	var qs = self.core.service.query_string();
+
 	var data = {
+		page: qs.self_submissions || 1,
 		query : [
-			[ 'with', 'bam_role.bam_casting'],
-			[ 'where', 'submission', '=', 1 ],
-			[ 'where', 'invitee_id', '=', this.user.id]
+			[ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
+			[ 'where', 'laret_schedules.submission', '=', 1 ],
+			[ 'where', 'laret_schedules.invitee_id', '=', this.user.id ],
+			[ 'select', 'laret_schedules.id as schedule_id' ],
+			['orderBy', 'laret_schedules.created_at', 'DESC']
 		]
 	}
 
-  return scheduleResource.get(data);
+	var roles;
+
+	jobResource.get(data)
+		.then(function(res) {
+			roles = res;
+			var scheduleIds = _.map(res.data, function(schedule) {
+				return schedule.schedule_id;
+			});
+
+			scheduleIds.push(0);
+
+			var data2 = {
+				query : [
+					[ 'whereIn', 'id', scheduleIds ],
+					[ 'with', 'bam_role.bam_casting' ]
+				]
+			}
+
+			return scheduleResource.get(data2)
+		})
+		.then(function(res) {
+			res.total = roles.total;
+
+			deferred.resolve(res);
+		});
+
+	return deferred.promise();
 
 }
 
 Talent.prototype.getCDInvites = function () {
+	var qs = self.core.service.query_string();
 	var deferred = $.Deferred()
 
 	var jobData = {
+		page: qs.cd_invites || 1,
 		query : [
 			[ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
 			[ 'where', 'laret_schedules.rating', '<>', 0 ],
