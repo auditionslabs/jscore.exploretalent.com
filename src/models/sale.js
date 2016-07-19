@@ -18,6 +18,15 @@ Sales.prototype.commaSeparateNumber = function(val) {
 	}
 };
 
+Sales.prototype.currencyWithDecimal = function(val) {
+	if (val) {
+		parseFloat(val).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	}
+	else {
+		return '';
+	}
+}
+
 Sales.prototype.formatToYMDT = function(timestamp, canceled) {
 
 	var date = new Date(timestamp*1000);
