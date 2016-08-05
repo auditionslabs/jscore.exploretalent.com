@@ -32,6 +32,12 @@ Talent.prototype.getXOrigin = function(){
 	}
 }
 
+Talent.prototype.getHeight = function() {
+	var feet = Math.floor(this.heightinches / 12);
+	var inches = this.heightinches % 12;
+	return feet + "'" + inches + '"';
+}
+
 Talent.prototype.isPaying = function() {
 	return this.bam_talentrecurring ? true : false;
 }
