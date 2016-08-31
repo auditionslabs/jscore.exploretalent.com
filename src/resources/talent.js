@@ -53,7 +53,9 @@ resource.search = function(data, options) {
 
 			// get all user.id
 			users = _.map(talents.data, function(talent) {
-				return talent.user.id;
+				if(talent.user) {
+					return talent.user.id;
+				}
 			});
 
 			// add 0 so we dont have an empty array
