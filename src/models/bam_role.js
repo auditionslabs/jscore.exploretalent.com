@@ -25,27 +25,52 @@ Role.prototype.getHeightMaxText = function() {
 		return 'Any';
 }
 
-Role.prototype.getLikeItList = function(options) {
+// Role.prototype.getLikeItList = function(options) {
+// 	var data = {
+// 		query	: [
+// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talent_dance' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talent_music' ],
+// 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
+// 			[ 'with', 'conversation.messages.user.bam_talentci' ],
+// 			[ 'with', 'bam_role' ],
+// 			[ 'where', 'rating', '<>', 0 ],
+// 			[ 'where', 'bam_role_id', '=', this.role_id ]
+// 		]
+// 	}
+
+// 	if (options) {
+// 		data = _.merge(data, options);
+// 	}
+
+// 	return scheduleResource.get(data);
+// }
+
+Role.prototype.getLikeItList = function(options, app_filter) {
+
 	var data = {
-		query	: [
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_dance' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_music' ],
-			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'with', 'conversation.messages.user.bam_talentci' ],
-			[ 'with', 'bam_role' ],
-			[ 'where', 'rating', '<>', 0 ],
-			[ 'where', 'bam_role_id', '=', this.role_id ]
+		
+		query    : 
+		[
+			[ 'with', 'user' ],
+			[ 'with', 'bam_talentinfo1' ],
+			[ 'with', 'bam_talentinfo2' ],
+			[ 'with', 'bam_talent_media2' ],
+			[ 'with', 'bam_talent_music' ],
+			[ 'with', 'bam_talent_dance' ],
+			[ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
+			[ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
+			[ 'where', 'laret_schedules.rating', '<>', 0 ],
+			[ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
 		]
 	}
-
-	if (options) {
-		data = _.merge(data, options);
+	if(app_filter){
+		data.query.push(['whereIn','x_origin',app_filter])
 	}
 
-	return scheduleResource.get(data);
+	return self.core.resource.talent.get(data)
 }
 
 Role.prototype.getLikeItListCount = function() {
@@ -160,23 +185,48 @@ Role.prototype.deleteSelfSubmissions = function() {
 	return scheduleResource.delete(data);
 }
 
-Role.prototype.getSelfSubmissions = function(options) {
+// Role.prototype.getSelfSubmissions = function(options) {
+// 	var data = {
+// 		query : [
+// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
+// 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
+// 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
+// 			[ 'where', 'submission', '=', 1 ],
+// 			[ 'where', 'bam_role_id', '=', this.role_id ]
+// 		]
+// 	}
+
+// 	if (options) {
+// 		data = _.merge(data, options);
+// 	}
+
+// 	return scheduleResource.get(data);
+// }
+
+Role.prototype.getSelfSubmissions = function(options, app_filter) {
+
 	var data = {
-		query : [
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-			[ 'where', 'submission', '=', 1 ],
-			[ 'where', 'bam_role_id', '=', this.role_id ]
+		
+		query    : 
+		[
+			[ 'with', 'user' ],
+			[ 'with', 'bam_talentinfo1' ],
+			[ 'with', 'bam_talentinfo2' ],
+			[ 'with', 'bam_talent_media2' ],
+			[ 'with', 'bam_talent_music' ],
+			[ 'with', 'bam_talent_dance' ],
+			[ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
+			[ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
+			[ 'where', 'laret_schedules.submission', 1 ],
+			[ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
 		]
 	}
-
-	if (options) {
-		data = _.merge(data, options);
+	if(app_filter){
+		data.query.push(['whereIn','x_origin',app_filter])
 	}
 
-	return scheduleResource.get(data);
+	return self.core.resource.talent.get(data)
 }
 
 Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
