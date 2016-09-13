@@ -25,35 +25,9 @@ Role.prototype.getHeightMaxText = function() {
 		return 'Any';
 }
 
-// Role.prototype.getLikeItList = function(options) {
-// 	var data = {
-// 		query	: [
-// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-// 			[ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-// 			[ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-// 			[ 'with', 'invitee.bam_talentci.bam_talent_dance' ],
-// 			[ 'with', 'invitee.bam_talentci.bam_talent_music' ],
-// 			[ 'with', 'schedule_notes.user.bam_cd_user' ],
-// 			[ 'with', 'conversation.messages.user.bam_talentci' ],
-// 			[ 'with', 'bam_role' ],
-// 			[ 'where', 'rating', '<>', 0 ],
-// 			[ 'where', 'bam_role_id', '=', this.role_id ]
-// 		]
-// 	}
-
-// 	if (options) {
-// 		data = _.merge(data, options);
-// 	}
-
-// 	return scheduleResource.get(data);
-// }
-
 Role.prototype.getLikeItList = function(options, app_filter) {
-
 	var data = {
-		
-		query    : 
-		[
+		query    : [
 			[ 'with', 'user' ],
 			[ 'with', 'bam_talentinfo1' ],
 			[ 'with', 'bam_talentinfo2' ],
@@ -66,8 +40,17 @@ Role.prototype.getLikeItList = function(options, app_filter) {
 			[ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
 		]
 	}
-	if(app_filter){
+
+	if (app_filter){
 		data.query.push(['whereIn','x_origin',app_filter])
+	}
+
+	if (options.filter == 'free') {
+		data.query.push([ 'where', 'join_status', '<', 5 ]);
+	}
+
+	if (options.filter == 'pro') {
+		data.query.push([ 'where', 'join_status', '=', 5 ]);
 	}
 
 	return self.core.resource.talent.get(data)
@@ -207,8 +190,8 @@ Role.prototype.deleteSelfSubmissions = function() {
 Role.prototype.getSelfSubmissions = function(options, app_filter) {
 
 	var data = {
-		
-		query    : 
+
+		query    :
 		[
 			[ 'with', 'user' ],
 			[ 'with', 'bam_talentinfo1' ],
