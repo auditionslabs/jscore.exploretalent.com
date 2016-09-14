@@ -41,6 +41,8 @@ Role.prototype.getLikeItList = function(options, app_filter) {
 		]
 	}
 
+	options = options || { };
+
 	if (app_filter){
 		data.query.push(['whereIn','x_origin',app_filter])
 	}
