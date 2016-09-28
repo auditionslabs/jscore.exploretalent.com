@@ -10,3 +10,5 @@ user_options.create = function(array) {
 		return modelify('user_option', item);
 	});
 };
+
+module.exports = user_options;
