@@ -227,13 +227,13 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 	return scheduleImportResource.post(data);
 }
 
-Role.prototype.getMatches = function(pro, options) {
-	var data = this.getMatchesFilter(pro, options);
+Role.prototype.getMatches = function(pro, options, app_filter) {
+	var data = this.getMatchesFilter(pro, options, app_filter);
 
 	return searchTalentResource.get(data);
 }
 
-Role.prototype.getMatchesFilter = function(pro, options) {
+Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
 	var data = {
 		query : [
 			[ 'where', 'is_pro', '=', pro ? 1 : 0 ]
@@ -242,6 +242,10 @@ Role.prototype.getMatchesFilter = function(pro, options) {
 
 	if (options) {
 		data = _.merge(data, options);
+	}
+
+	if(app_filter){
+		data.query.push([ 'whereIn', 'x_origin', app_filter ]);		
 	}
 
 	if (parseInt(this.age_min)) {
