@@ -226,64 +226,69 @@ Talent.prototype.getCDInvites = function () {
 	var qs = self.core.service.query_string();
 	var deferred = $.Deferred()
 
-	var jobData = {
+	var data = {
 		page: qs.cd_invites || 1,
+		per_page : 10,
 		query : [
 			[ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
+			[ 'join', 'laret_campaigns', 'laret_campaigns.bam_role_id', '=', 'roles.role_id' ],
 			[ 'where', 'laret_schedules.rating', '<>', 0 ],
 			[ 'where', 'laret_schedules.invitee_id', '=', this.user.id ],
-			[ 'select', 'laret_schedules.id AS schedule_id' ]
+			[ 'select', 'laret_campaigns.id AS campaign_id', 'laret_schedules.id AS schedule_id' ],
+			[ 'orderBy', 'laret_campaigns.created_at', 'DESC' ],
+			[ 'groupBy', 'laret_campaigns.bam_role_id' ]
 		]
 	}
 
-	jobResource.get(jobData)
-	.then(function(res) {
-		var scheduleIds = _.map(res.data, function(job) {
-			return job.schedule_id;
-		});
 
-		scheduleIds.push(0);
+	var campaignIds,
+		scheduleIds,
+		invites;
 
-		var scheduleData = {
-			query : [
-				[ 'with', 'conversation.messages.user.bam_talentci'],
-				[ 'with', 'conversation.messages.user.bam_cd_user'],
-				[ 'whereIn', 'id', scheduleIds ]
-			]
-		}
+	jobResource.get(data)
+		.then(function(res) {
+			invites = res;
 
-		return scheduleResource.get(scheduleData);
-	})
-	.then(function (scheduleRes) {
-		if (scheduleRes.total) {
-			var roleIds = _.map(scheduleRes.data, function(s) {
-				return s.bam_role_id;
-			});
+			campaignIds = _.map(res.data, 'campaign_id');
+			campaignIds.push(0);
 
-			var campaignData = {
+			scheduleIds = _.map(res.data, 'schedule_id');
+			scheduleIds.push(0);
+
+			data = {
 				query : [
-					[ 'whereIn', 'bam_role_id', roleIds ],
-					[ 'where', 'status', '>=', 1 ],
-					[ 'with', 'bam_role.bam_casting' ]
+					[ 'whereIn', 'id', campaignIds ],
+					[ 'with', 'bam_role.bam_casting' ],
+					[ 'orderBy', 'created_at', 'DESC' ]
 				]
 			}
 
-			campaignResource.get(campaignData)
-				.then(function(campaignRes) {
-					for(var i = 0; i < campaignRes.data.length; i++) {
-						for(var j = 0; j < scheduleRes.data.length; j++) {
-							if (campaignRes.data[i].bam_role_id == scheduleRes.data[j].bam_role_id) {
-								campaignRes.data[i].schedule = scheduleRes.data[j];
-							}
-						}
+			return campaignResource.get(data);
+		})
+		.then(function(res) {
+			invites.data = res.data;
+
+			data = {
+				query : [
+				[ 'whereIn', 'id', scheduleIds ],
+				[ 'with', 'conversation.messages.user.bam_talentci' ],
+				[ 'with', 'conversation.messages.user.bam_cd_user' ]
+				]
+			}
+
+			return scheduleResource.get(data);
+		})
+		.then(function(res) {
+			for(var i = 0; i < invites.data.length; i++) {
+				for(var j = 0; j < res.data.length; j++) {
+					if (invites.data[i].bam_role_id == res.data[j].bam_role_id) {
+						invites.data[i].schedule = res.data[j];
 					}
-					deferred.resolve(campaignRes);
-				});
-		}
-		else {
-			deferred.resolve(scheduleRes);
-		}
-	});
+				}
+			}
+
+			deferred.resolve(invites);
+		});
 
 	return deferred.promise();
 }
