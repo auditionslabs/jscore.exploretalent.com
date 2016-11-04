@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + api.type + '/verified_contacts/:address', {
+module.exports = new Resource(api.base + api.type + '/verified_contacts/:id', {
 	model: 'verified_contact'
 });
