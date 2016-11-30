@@ -5,6 +5,7 @@ var _ = require('lodash'),
 	scheduleResource = require('src/resources/schedule.js'),
 	campaignResource = require('src/resources/campaign.js'),
 	jobResource = require('src/resources/job.js'),
+	accessTokenResource = require('src/resources/oauth_access_token.js'),
 	date = require('src/services/date.js');
 
 function Talent(data) {
@@ -40,6 +41,43 @@ Talent.prototype.getHeight = function() {
 
 Talent.prototype.isPaying = function() {
 	return this.bam_talentrecurring ? true : false;
+}
+
+Talent.prototype.loginAsTalent = function(redirect_url) {
+	var deferred = $.Deferred();
+
+	// Default has no redirect_url
+	redirect_url = redirect_url || this.talentlogin;
+
+	// The beginning of the end (SUBLIME SUCKS)
+	var login_url = 'http://';
+
+	// Add the domain
+	login_url += this.getXOrigin();
+
+	// Create the access token
+	accessTokenResource.post({ user_id: this.user.id, app_id: 4 })
+		.then(function(res) {
+			// Add the redirect URL to the PARAMS if available
+			if (redirect_url.length > 0) {
+				res.redirect_url = encodeURIComponent(redirect_url);
+			}
+
+			// Add the login syntax
+			login_url += '/verify?';
+
+			// Encode the values and add to the URL
+			login_url += jQuery.param(res);
+
+			// Open the new window/tab
+			window.open(login_url,'_blank');
+
+			// Resolve the deferred promise
+			deferred.resolve(login_url);
+		});
+
+	// Defer the promise
+	return deferred.promise();
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
