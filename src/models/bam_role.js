@@ -27,6 +27,7 @@ Role.prototype.getHeightMaxText = function() {
 
 Role.prototype.getLikeItList = function(options, app_filter) {
 	var data = {
+		per_page: options.per_page,
 		query    : [
 			[ 'with', 'user' ],
 			[ 'with', 'bam_talentinfo1' ],
@@ -245,7 +246,7 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
 	}
 
 	if(app_filter){
-		data.query.push([ 'whereIn', 'x_origin', app_filter ]);		
+		data.query.push([ 'whereIn', 'x_origin', app_filter ]);
 	}
 
 	if (parseInt(this.age_min)) {
