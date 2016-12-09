@@ -26,6 +26,8 @@ Role.prototype.getHeightMaxText = function() {
 }
 
 Role.prototype.getLikeItList = function(options, app_filter) {
+	options = options || { };
+
 	var data = {
 		per_page: options.per_page,
 		query    : [
