@@ -212,6 +212,11 @@ Role.prototype.getSelfSubmissions = function(options, app_filter) {
 			[ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
 		]
 	}
+
+	if (options) {
+		data = _.merge(data, options);
+	}
+
 	if(app_filter){
 		data.query.push(['whereIn','x_origin',app_filter])
 	}
