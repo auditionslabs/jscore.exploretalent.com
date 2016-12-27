@@ -7,4 +7,3 @@ function TalentAutosubs(data) {
 }
 
 module.exports = TalentAutosubs;
-

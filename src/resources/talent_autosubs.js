@@ -3,6 +3,6 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + api.type + '/sales/:saleId', {
+module.exports = new Resource(api.base + api.type + '/talent_autosubs/:subId', {
 	model: 'talent_autosub'
 });
