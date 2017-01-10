@@ -3,6 +3,7 @@
 var api = require('src/config/api.js'),
 	Resource = require('src/services/resource.js');
 
-module.exports = new Resource(api.base + api.type + '/talent_autosubs/:subId', {
-	model: 'talent_autosub'
+module.exports = new Resource(api.base + api.type +'/user_options/:id', {
+	model: 'trm_user_option'
 });
+
