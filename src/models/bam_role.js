@@ -237,6 +237,7 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 
 Role.prototype.getMatches = function(pro, options, app_filter) {
 	var data = this.getMatchesFilter(pro, options, app_filter);
+	data.query = JSON.stringify(data.query);
 
 	return searchTalentResource.get(data);
 }
