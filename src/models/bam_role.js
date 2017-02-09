@@ -225,6 +225,7 @@ Role.prototype.getSelfSubmissions = function(options, app_filter) {
 }
 
 Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
+
 	var data = {
 		query 		: this.getMatchesFilter(pro).query,
 		bam_role_id : this.role_id,
@@ -233,6 +234,19 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 	}
 
 	return scheduleImportResource.post(data);
+}
+
+Role.prototype.copyMatchesToLikeItListwParam = function(pro, param, user_id) {
+
+	var data = {
+		query 		: this.getMatchesFilter(pro, param).query,
+		bam_role_id : this.role_id,
+		bam_user_id : user_id,
+		bam_cd_user_id : this.bam_casting.user_id
+	}
+
+	return scheduleImportResource.post(data);
+
 }
 
 Role.prototype.getMatches = function(pro, options, app_filter) {
@@ -252,11 +266,20 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
 
 	if (options) {
 		data = _.merge(data, options);
+
+		if(options.has_photos){
+			if(options.has_photos==1){
+				data.query.push(['where', 'has_photos', '=', 1 ]);
+			}else{
+				data.query.push(['where', 'has_photos', '=', 0 ]);
+			}
+		}
 	}
 
 	if(app_filter){
 		data.query.push([ 'whereIn', 'x_origin', app_filter ]);
 	}
+
 
 	if (parseInt(this.age_min)) {
 		data.query.push([ 'where', [
