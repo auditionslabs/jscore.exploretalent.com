@@ -54,7 +54,7 @@ function validate(form) {
 				ok = /^[0-9]+$|^$|^\s$/.test($e.val());
 				break;
 			case 'required':
-				ok = $e.val() ? true : false;
+				ok = $e.val().trim() ? true : false;
 				break;
 			case 'zip':
 				ok = /^[0-9]+$|^$|^\s$/.test($e.val());
