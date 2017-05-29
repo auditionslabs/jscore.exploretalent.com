@@ -1,9 +1,14 @@
 'use strict';
 
-var _ = require('lodash');
+var _ = require('lodash'),
+	tag_types = {};
 
-function TagTypes(data) {
-	_.extend(this, data);
-}
+tag_types.create = function(array) {
+	var modelify = require('src/services/model.js');
 
-module.exports = TagTypes;
+	return _.map(array || [], function(item) {
+		return modelify('tag_type', item);
+	});
+};
+
+module.exports = tag_types;
