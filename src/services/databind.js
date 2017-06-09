@@ -77,7 +77,7 @@ function databind(element, data, append) {
 					attr = 'checked';
 					value = true;
 				}
-			}
+			}			
 			else if ($(element).is('[data-select]')) {
 				attr = 'select2';
 			}
@@ -138,6 +138,10 @@ function databind(element, data, append) {
 				var value = JSON.parse(value);
 				$(element).attr('value', value.key);
 				$(element).text(value.value);
+				// is this an selected option?
+				if(value.isSelected && value.isSelected.length > 0) {
+					$(element).prop('selected', true);
+				}
 				break;
 			case 'class':
 				$(element).addClass(value);
