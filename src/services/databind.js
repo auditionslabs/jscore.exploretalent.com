@@ -138,6 +138,9 @@ function databind(element, data, append) {
 				var value = JSON.parse(value);
 				$(element).attr('value', value.key);
 				$(element).text(value.value);
+				if (value.selected && value.selected.length > 0) {
+					$(element).attr('selected', 'selected');
+				}
 				break;
 			case 'class':
 				$(element).addClass(value);
