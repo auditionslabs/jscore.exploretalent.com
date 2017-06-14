@@ -126,6 +126,9 @@ resource.search = function(data, options) {
         if (video) {
           talent.video_id = video.video_id;
         }
+        else {
+          talent.video_id = '';
+        }
 			});
 
 			deferred.resolve(talents);
