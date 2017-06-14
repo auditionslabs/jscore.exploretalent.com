@@ -63,7 +63,7 @@ Role.prototype.getLikeItList = function(options, app_filter) {
 	return self.core.resource.talent.get(data)
 }
 
-Role.prototype.getLikeItListCount = function() {
+Role.prototype.getLikeItListCount = function(xorigins) {
 	var deferred = $.Deferred();
 
 	var data = {
@@ -76,6 +76,10 @@ Role.prototype.getLikeItListCount = function() {
 		]
 	}
 
+	if (xorigins instanceof Array) {
+		data.query.push( [ 'whereIn', 'x_origin', xorigins ] );
+	}
+
 	self.core.resource.search_talent.get(data)
 		.then(function(res) {
 			deferred.resolve(res.total);
@@ -84,7 +88,7 @@ Role.prototype.getLikeItListCount = function() {
 	return deferred.promise();
 }
 
-Role.prototype.getSubmissionsCount = function() {
+Role.prototype.getSubmissionsCount = function(xorigins) {
 	var deferred = $.Deferred();
 
 	var data = {
@@ -96,6 +100,10 @@ Role.prototype.getSubmissionsCount = function() {
 			[ 'where', 'bam.laret_schedules.submission', '=', 1 ],
 			[ 'where', 'bam.laret_schedules.bam_role_id', '=', this.role_id ]
 		]
+	}
+
+	if (xorigins instanceof Array) {
+		data.query.push( [ 'whereIn', 'x_origin', xorigins ] );
 	}
 
 	self.core.resource.search_talent.get(data)
