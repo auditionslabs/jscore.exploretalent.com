@@ -108,6 +108,29 @@ resource.search = function(data, options) {
 				}
 			});
 
+      data = {
+        query: [
+          [ 'whereIn', 'talentnum', talentnums ],
+          [ 'where', 'type', '=', '6' ]
+        ]
+      }
+
+      return self.core.resource.talent_videos.get(data);
+    })
+    .then(function(res) {
+			_.each(talents.data, function(talent) {
+				var video = _.find(res.data, function(v) {
+					return talent.talentnum == v.talentnum;
+				});
+
+        if (video) {
+          talent.video_id = video.video_id;
+        }
+        else {
+          talent.video_id = '';
+        }
+			});
+
 			deferred.resolve(talents);
 		});
 
