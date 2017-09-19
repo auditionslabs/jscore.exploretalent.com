@@ -549,6 +549,34 @@ Role.prototype.getBuilds = function() {
 	return array;
 }
 
+Role.prototype.bulkAddToLikeitlist = function (filters) {
+	var data = {
+		bam_cd_user_id	: this.bam_casting.user_id,
+		bam_role_id	: this.role_id,
+		query 		: JSON.stringify(filters),
+		status 		: status,
+	}
+
+	return scheduleImportResource.post(data)
+}
+
+Role.prototype.stopBulkAddToLikeitlist = function () {
+	var data = {
+		query: [
+			['where', 'bam_role_id', '=', this.role_id]
+		]
+	}
+
+	return scheduleImportResource.get(data)
+		.then(function (result) {
+			var promises = result.data.map(function (schedule_import) {
+				return scheduleImportResource.delete({scheduleId: schedule_import.id})
+			})
+
+			return $.when.apply($.when, promises)
+		})
+}
+
 function getValues(obj) {
 	return Object.keys(obj).map(function (key) {
 		return obj[key];
