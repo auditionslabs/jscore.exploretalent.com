@@ -148,6 +148,10 @@ Talent.prototype.getState = function() {
 }
 
 Talent.relationship = [
+	'bam_talentci',
+	'bam_talent_media2',
+	'bam_talent_music',
+	'bam_talent_dance',
 	'data:search_talents'
 ];
 

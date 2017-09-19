@@ -13,6 +13,7 @@ User.prototype.getMediaByType = function(t) {
 User.relationship = [
 	'bam_talentci',
 	'bam_cd_user',
+	'bam_user',
 	'schedules',
 	'invitations:schedules',
 	'media:medias'
