@@ -13,22 +13,20 @@ function databind (element, data, append) {
     })
   }
 
-  _.each(self.find('[data-bind]:not([data-bind-template])').addBack('[data-bind]'), function (element) {
-    element = $(element)
+  _.each(self.find('[data-bind]:not([data-bind-template])').addBack('[data-bind]'), function (_element) {
+    let element = $(element)
 
     // if child of a template, skip it since it will be databind later
     if (element.parents('[data-bind-template]').length) { return }
 
-    // create value from data-bind attribute
-    let template = _.template(element.attr('data-bind')),
-      value = template(data)
-
     // set element value
-    setValue(element, value)
+    setValue(element, _.template(element.attr('data-bind'))(data))
   })
 
-  _.each(self.find('[data-bind-template]'), function (element) {
-    element = $(element)
+  _.each(self.find('[data-bind-template]'), function (_element) {
+    if (typeof _element === 'undefined') { return }
+
+    element = $(_element)
 
     // get only templates not within a template
     if (element.parents('[data-bind-template]').length) { return }
@@ -59,8 +57,13 @@ function databind (element, data, append) {
   })
 
   // sets the value of the element
-  function setValue (element, value) {
+  function setValue (element, _value) {
     let attr = element.attr('data-bind-target')
+    let value = ''
+
+    if (typeof _value !== 'undefined') {
+      value = _value
+    }
 
     // if data-bind-target is not set, set default value depending on what type of element it is
     if (!attr) {
