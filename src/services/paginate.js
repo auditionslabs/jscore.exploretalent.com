@@ -50,7 +50,7 @@ module.exports = function(element, options) {
     let start = options.page - 5,
       end = options.page + 5
 
-    for(let i = starti <= endi++) {
+    for(let i = start; i <= end; i++) {
       if (i > 0 && i <= page_count) {
         qs[options.name] = i
         let li = $('<li>').addClass('display-none-zz-xs').append(

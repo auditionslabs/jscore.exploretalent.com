@@ -317,8 +317,8 @@ Talent.prototype.getCDInvites = function () {
       return scheduleResource.get(data)
     })
     .then(function(res) {
-      for(let i = 0 i < invites.data.length i++) {
-        for(let j = 0 j < res.data.length j++) {
+      for(let i = 0; i < invites.data.length; i++) {
+        for(let j = 0; j < res.data.length; j++) {
           if (invites.data[i].bam_role_id == res.data[j].bam_role_id) {
             invites.data[i].schedule = res.data[j]
           }
