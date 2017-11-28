@@ -120,7 +120,7 @@ function databind (element, data, append) {
         if (parseInt(value)) { $(element).show() } else { $(element).hide() }
         break
       case 'option':
-        let value = JSON.parse(value)
+        value = JSON.parse(value)
         $(element).attr('value', value.key)
         $(element).text(value.value)
         if (value.selected && value.selected.length > 0) {
