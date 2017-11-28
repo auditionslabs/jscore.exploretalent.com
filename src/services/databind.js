@@ -14,7 +14,7 @@ function databind (element, data, append) {
   }
 
   _.each(self.find('[data-bind]:not([data-bind-template])').addBack('[data-bind]'), function (_element) {
-    let element = $(element)
+    let element = $(_element)
 
     // if child of a template, skip it since it will be databind later
     if (element.parents('[data-bind-template]').length) { return }
