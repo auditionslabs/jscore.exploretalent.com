@@ -59,11 +59,7 @@ function databind (element, data, append) {
   // sets the value of the element
   function setValue (element, _value) {
     let attr = element.attr('data-bind-target')
-    let value = ''
-
-    if (typeof _value !== 'undefined') {
-      value = _value
-    }
+    let value = _value || ''
 
     // if data-bind-target is not set, set default value depending on what type of element it is
     if (!attr) {
