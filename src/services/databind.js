@@ -28,7 +28,7 @@ function databind (element, data, append) {
   })
 
   _.each(self.find('[data-bind-template]'), function (element) {
-    let element = $(element)
+    element = $(element)
 
     // get only templates not within a template
     if (element.parents('[data-bind-template]').length) { return }
