@@ -1,7 +1,7 @@
 'use strict';
 var $ = require('jquery'), _ = require('lodash'), api = require('src/config/api.js'),
-
 	REST = {};
+
 //set up ajax to use cross domain
 $.ajaxSetup({
 	xhrFields : {
