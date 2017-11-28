@@ -49,7 +49,7 @@ _.each(REST.$$methods, function(method) {
 		}
 
 		// Check if we are doing a GET request
-		if (method.toUpperCase() = 'GET') {
+		if (method.toUpperCase() == 'GET') {
 			// Check if we have a query or q?
 			if (typeof params.data.query !== 'undefined') {
 				// CLONE to be safe
