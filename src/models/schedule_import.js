@@ -1,9 +1,9 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   date = require('../services/date.js')
 
-function ScheduleImport(data) {
+function ScheduleImport (data) {
   _.extend(this, data)
 }
 

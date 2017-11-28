@@ -1,15 +1,15 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   trm_script_categories = {},
   TrmScriptCategory = require('src/models/trm_script_category.js')
 
 trm_script_categories.relationship = TrmScriptCategory.relationship
 
-trm_script_categories.create = function(array) {
-  var modelify = require('src/services/model.js')
+trm_script_categories.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('trm_script_category', item)
   })
 }

@@ -1,10 +1,9 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TrmUserOption(data) {
+function TrmUserOption (data) {
   _.extend(this, data)
 }
 
 module.exports = TrmUserOption
-

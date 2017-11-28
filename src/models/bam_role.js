@@ -1,36 +1,30 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   talentService = require('src/services/talent.js'),
   restService = require('src/services/rest.js'),
   scheduleResource = require('src/resources/schedule.js'),
   scheduleImportResource = require('src/resources/schedule_import.js'),
   searchTalentResource = require('src/resources/search_talent.js')
 
-function Role(data) {
+function Role (data) {
   _.extend(this, data)
 }
 
-Role.prototype.getHeightMinText = function() {
-  if (parseInt(this.height_min))
-    return talentService.getHeight(this.height_min)
-  else
-    return 'Any'
+Role.prototype.getHeightMinText = function () {
+  if (parseInt(this.height_min)) { return talentService.getHeight(this.height_min) } else { return 'Any' }
 }
 
-Role.prototype.getHeightMaxText = function() {
-  if (parseInt(this.height_max))
-    return talentService.getHeight(this.height_max)
-  else
-    return 'Any'
+Role.prototype.getHeightMaxText = function () {
+  if (parseInt(this.height_max)) { return talentService.getHeight(this.height_max) } else { return 'Any' }
 }
 
-Role.prototype.getLikeItList = function(options, app_filter) {
+Role.prototype.getLikeItList = function (options, app_filter) {
   options = options || { }
 
-  var data = {
+  let data = {
     per_page: options.per_page,
-    query    : [
+    query: [
       [ 'with', 'user' ],
       [ 'with', 'bam_talentinfo1' ],
       [ 'with', 'bam_talentinfo2' ],
@@ -48,8 +42,8 @@ Role.prototype.getLikeItList = function(options, app_filter) {
 
   data.page = options.page
 
-  if (app_filter){
-    data.query.push(['whereIn','x_origin',app_filter])
+  if (app_filter) {
+    data.query.push(['whereIn', 'x_origin', app_filter])
   }
 
   if (options.filter == 'free') {
@@ -63,12 +57,12 @@ Role.prototype.getLikeItList = function(options, app_filter) {
   return self.core.resource.talent.get(data)
 }
 
-Role.prototype.getLikeItListCount = function(xorigins) {
-  var deferred = $.Deferred()
+Role.prototype.getLikeItListCount = function (xorigins) {
+  let deferred = $.Deferred()
 
-  var data = {
-    per_page : 1,
-    query    : [
+  let data = {
+    per_page: 1,
+    query: [
       [ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
       [ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
       [ 'where', 'bam.laret_schedules.rating', '<>', 0 ],
@@ -77,24 +71,24 @@ Role.prototype.getLikeItListCount = function(xorigins) {
   }
 
   if (xorigins instanceof Array) {
-    data.query.push( [ 'whereIn', 'x_origin', xorigins ] )
+    data.query.push([ 'whereIn', 'x_origin', xorigins ])
   }
 
   self.core.resource.search_talent.get(data)
-    .then(function(res) {
+    .then(function (res) {
       deferred.resolve(res.total)
     })
 
   return deferred.promise()
 }
 
-Role.prototype.getSubmissionsCount = function(xorigins) {
-  var deferred = $.Deferred()
+Role.prototype.getSubmissionsCount = function (xorigins) {
+  let deferred = $.Deferred()
 
-  var data = {
-    per_page : 1,
-    page : self.page,
-    query : [
+  let data = {
+    per_page: 1,
+    page: self.page,
+    query: [
       [ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
       [ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
       [ 'where', 'bam.laret_schedules.submission', '=', 1 ],
@@ -103,24 +97,24 @@ Role.prototype.getSubmissionsCount = function(xorigins) {
   }
 
   if (xorigins instanceof Array) {
-    data.query.push( [ 'whereIn', 'x_origin', xorigins ] )
+    data.query.push([ 'whereIn', 'x_origin', xorigins ])
   }
 
   self.core.resource.search_talent.get(data)
-    .then(function(res) {
+    .then(function (res) {
       deferred.resolve(res.total)
     })
 
   return deferred.promise()
 }
 
-Role.prototype.getSchedulesCount = function(status) {
-  var deferred = $.Deferred()
+Role.prototype.getSchedulesCount = function (status) {
+  let deferred = $.Deferred()
 
-  var data = {
-    per_page : 1,
-    page : self.page,
-    query : [
+  let data = {
+    per_page: 1,
+    page: self.page,
+    query: [
       [ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
       [ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
       [ 'where', 'bam.laret_schedules.status', '=', status ],
@@ -129,31 +123,31 @@ Role.prototype.getSchedulesCount = function(status) {
   }
 
   self.core.resource.search_talent.get(data)
-    .then(function(res) {
+    .then(function (res) {
       deferred.resolve(res.total)
     })
 
   return deferred.promise()
 }
 
-Role.prototype.deleteLikeItList = function() {
-  var data = {
-    query  : [
+Role.prototype.deleteLikeItList = function () {
+  let data = {
+    query: [
       [ 'where', 'rating', '<>', 0 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
-    fields  : {
-      rating : 0
+    fields: {
+      rating: 0
     },
-    paginate : false
+    paginate: false
   }
 
   return scheduleResource.patch(data)
 }
 
-Role.prototype.copyToLikeItList = function() {
-  var data = {
-    query  : [
+Role.prototype.copyToLikeItList = function () {
+  let data = {
+    query: [
       [ 'where',
         [ 'where', 'rating', '=', 0 ],
         [ 'orWhereNull', 'rating' ]
@@ -161,30 +155,30 @@ Role.prototype.copyToLikeItList = function() {
       [ 'where', 'submission', '=', 1 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
-    fields : {
-      rating : 3
+    fields: {
+      rating: 3
     },
-    per_page : 1000000
+    per_page: 1000000
   }
 
   return scheduleResource.patch(data)
 }
 
-Role.prototype.deleteSelfSubmissions = function() {
-  var data = {
-    with_trashed : 1,
-    query  : [
+Role.prototype.deleteSelfSubmissions = function () {
+  let data = {
+    with_trashed: 1,
+    query: [
       [ 'where', 'submission', '=', 1 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
-    per_page : 1000000
+    per_page: 1000000
   }
 
   return scheduleResource.delete(data)
 }
 
 // Role.prototype.getSelfSubmissions = function(options) {
-//   var data = {
+//   let data = {
 //     query : [
 //       [ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
 //       [ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
@@ -202,11 +196,10 @@ Role.prototype.deleteSelfSubmissions = function() {
 //   return scheduleResource.get(data)
 // }
 
-Role.prototype.getSelfSubmissions = function(options, app_filter) {
+Role.prototype.getSelfSubmissions = function (options, app_filter) {
+  let data = {
 
-  var data = {
-
-    query    :
+    query:
     [
       [ 'with', 'user' ],
       [ 'with', 'bam_talentinfo1' ],
@@ -225,49 +218,46 @@ Role.prototype.getSelfSubmissions = function(options, app_filter) {
     data = _.merge(data, options)
   }
 
-  if(app_filter){
-    data.query.push(['whereIn','x_origin',app_filter])
+  if (app_filter) {
+    data.query.push(['whereIn', 'x_origin', app_filter])
   }
 
   return self.core.resource.talent.get(data)
 }
 
-Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
-
-  var data = {
-    query     : this.getMatchesFilter(pro).query,
-    bam_role_id : this.role_id,
-    bam_user_id : user_id,
-    bam_cd_user_id : this.bam_casting.user_id
+Role.prototype.copyMatchesToLikeItList = function (pro, user_id) {
+  let data = {
+    query: this.getMatchesFilter(pro).query,
+    bam_role_id: this.role_id,
+    bam_user_id: user_id,
+    bam_cd_user_id: this.bam_casting.user_id
   }
 
   return scheduleImportResource.post(data)
 }
 
-Role.prototype.copyMatchesToLikeItListwParam = function(pro, param, user_id) {
-
-  var data = {
-    query     : this.getMatchesFilter(pro, param).query,
-    bam_role_id : this.role_id,
-    bam_user_id : user_id,
-    bam_cd_user_id : this.bam_casting.user_id
+Role.prototype.copyMatchesToLikeItListwParam = function (pro, param, user_id) {
+  let data = {
+    query: this.getMatchesFilter(pro, param).query,
+    bam_role_id: this.role_id,
+    bam_user_id: user_id,
+    bam_cd_user_id: this.bam_casting.user_id
   }
 
   return scheduleImportResource.post(data)
-
 }
 
-Role.prototype.getMatches = function(pro, options, app_filter) {
-  var data = this.getMatchesFilter(pro, options, app_filter)
+Role.prototype.getMatches = function (pro, options, app_filter) {
+  let data = this.getMatchesFilter(pro, options, app_filter)
   data.q = JSON.stringify(data.query)
   delete data.query
 
   return searchTalentResource.get(data)
 }
 
-Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
-  var data = {
-    query : [
+Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
+  let data = {
+    query: [
       [ 'where', 'is_pro', '=', pro ? 1 : 0 ]
     ]
   }
@@ -275,34 +265,33 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
   if (options) {
     data = _.merge(data, options)
 
-    if(options.has_photos){
-      if(options.has_photos==1){
+    if (options.has_photos) {
+      if (options.has_photos == 1) {
         data.query.push(['where', 'has_photos', '=', 1 ])
-      }else{
+      } else {
         data.query.push(['where', 'has_photos', '=', 0 ])
       }
     }
   }
 
-  if(app_filter){
+  if (app_filter) {
     data.query.push([ 'whereIn', 'x_origin', app_filter ])
   }
-
 
   if (parseInt(this.age_min)) {
     data.query.push([ 'where', [
         [ 'where', 'dobyyyy', '<', new Date().getFullYear() - parseInt(this.age_min) ],
-        [ 'orWhere', [
+      [ 'orWhere', [
           [ 'where', 'dobyyyy', '=', new Date().getFullYear() - parseInt(this.age_min) ],
-          [ 'where', [
+        [ 'where', [
             [ 'where', 'dobmm', '<', new Date().getMonth() + 1 ],
-            [ 'orWhere', [
+          [ 'orWhere', [
               [ 'where', 'dobmm', '=', new Date().getMonth() + 1 ],
               [ 'where', 'dobdd', '<=', new Date().getDate() ]
-            ]]
           ]]
         ]]
-      ]
+      ]]
+    ]
     ])
   }
 
@@ -318,23 +307,22 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
     data.query.push([ 'where', 'heightinches', '<=', this.height_max ])
   }
 
-  var subquery = []
+  let subquery = []
 
   // markets
-  var markets = self.project.market.split('>')
+  let markets = self.project.market.split('>')
 
-  var nationwide = _.find(markets, function(market) {
+  let nationwide = _.find(markets, function (market) {
     return market == 'N/A'
   })
 
   if (markets.length && !nationwide) {
     subquery = []
 
-    _.each(markets, function(market) {
+    _.each(markets, function (market) {
       if (subquery.length == 0) {
         subquery.push([ 'where', 'city', 'like', '%' + market + '%' ])
-      }
-      else {
+      } else {
         subquery.push([ 'orWhere', 'city', 'like', '%' + market + '%' ])
       }
 
@@ -346,16 +334,15 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
-  var genders = this.getGenders()
+  let genders = this.getGenders()
 
   if (genders.length) {
     subquery = []
 
-    _.each(genders, function(gender) {
+    _.each(genders, function (gender) {
       if (subquery.length == 0) {
         subquery.push([ 'where', 'sex', '=', gender ])
-      }
-      else {
+      } else {
         subquery.push([ 'orWhere', 'sex', '=', gender ])
       }
     })
@@ -363,16 +350,15 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
-  var ethnicities = this.getEthnicities()
+  let ethnicities = this.getEthnicities()
 
   if (ethnicities.length) {
     subquery = []
 
-    _.each(ethnicities, function(ethnicity) {
+    _.each(ethnicities, function (ethnicity) {
       if (subquery.length == 0) {
         subquery.push([ 'where', 'ethnicity', '=', ethnicity ])
-      }
-      else {
+      } else {
         subquery.push([ 'orWhere', 'ethnicity', '=', ethnicity ])
       }
     })
@@ -380,16 +366,15 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
-  var builds = this.getBuilds()
+  let builds = this.getBuilds()
 
   if (builds.length) {
     subquery = []
 
-    _.each(builds, function(build) {
+    _.each(builds, function (build) {
       if (subquery.length == 0) {
         subquery.push([ 'where', 'build', '=', build ])
-      }
-      else {
+      } else {
         subquery.push([ 'orWhere', 'build', '=', build ])
       }
     })
@@ -400,40 +385,37 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
   return data
 }
 
-Role.prototype.getGenders = function() {
-  var array = []
+Role.prototype.getGenders = function () {
+  let array = []
 
-  if (this.gender_male == 1)
-    array.push('Male')
+  if (this.gender_male == 1) { array.push('Male') }
 
-  if (this.gender_female == 1)
-    array.push('Female')
+  if (this.gender_female == 1) { array.push('Female') }
 
   return array
 }
 
-Role.prototype.getEthnicities = function() {
-  var array = []
+Role.prototype.getEthnicities = function () {
+  let array = []
 
-  var ethnicities = {
-    african    : 'African',
-    african_am  : 'African American',
-    asian    : 'Asian',
-    carribian  : 'Caribbean',
-    caucasian  : 'Caucasian',
-    hispanic  : 'Hispanic',
-    mediterranean  : 'Mediterranean',
-    middle_est  : 'Middle Eastern',
-    mixed    : 'Mixed',
-    native_am  : 'American',
-    american_in  : 'American Indian',
-    east_indian  : 'East Indian'
+  let ethnicities = {
+    african: 'African',
+    african_am: 'African American',
+    asian: 'Asian',
+    carribian: 'Caribbean',
+    caucasian: 'Caucasian',
+    hispanic: 'Hispanic',
+    mediterranean: 'Mediterranean',
+    middle_est: 'Middle Eastern',
+    mixed: 'Mixed',
+    native_am: 'American',
+    american_in: 'American Indian',
+    east_indian: 'East Indian'
   }
 
-  if (this.ethnicity_any == 1)
-    return getValues(ethnicities)
+  if (this.ethnicity_any == 1) { return getValues(ethnicities) }
 
-  for (var e in ethnicities) {
+  for (let e in ethnicities) {
     if (this['ethnicity_' + e] == 1) {
       array.push(ethnicities[e])
     }
@@ -442,25 +424,24 @@ Role.prototype.getEthnicities = function() {
   return array
 }
 
-Role.prototype.getHairColors = function() {
-  var array = []
+Role.prototype.getHairColors = function () {
+  let array = []
 
-  var haircolors = {
-    auburn    : 'Auburn',
-    black    : 'Black',
-    blonde    : 'Blonde',
-    brown    : 'Brown',
-    chestnut  : 'Chestnut',
-    dark_brown   : 'Dark Brown',
-    grey    : 'Grey',
-    red      : 'Red',
-    white    : 'White',
-    salt_pepper : 'Salt&Peppe'
+  let haircolors = {
+    auburn: 'Auburn',
+    black: 'Black',
+    blonde: 'Blonde',
+    brown: 'Brown',
+    chestnut: 'Chestnut',
+    dark_brown: 'Dark Brown',
+    grey: 'Grey',
+    red: 'Red',
+    white: 'White',
+    salt_pepper: 'Salt&Peppe'
   }
 
-  if (this.hair_any == 1)
-    return getValues(haircolors)
-for (var color in haircolors) {
+  if (this.hair_any == 1) { return getValues(haircolors) }
+  for (let color in haircolors) {
     if (this['hair_' + color] == 1) {
       array.push(haircolors[color])
     }
@@ -469,25 +450,24 @@ for (var color in haircolors) {
   return array
 }
 
-Role.prototype.getHairStyles = function() {
-  var array = []
+Role.prototype.getHairStyles = function () {
+  let array = []
 
-  var hairstyles = {
-    afro   : 'Afro',
-    bald  : 'Bald',
-    buzz  : '',
-    cons  : 'Conservati',
-    dread  : 'Dreadlocks',
-    long  : 'Long',
-    medium  : 'Medium',
-    shaved  : 'Shaved',
-    short  : 'Short'
+  let hairstyles = {
+    afro: 'Afro',
+    bald: 'Bald',
+    buzz: '',
+    cons: 'Conservati',
+    dread: 'Dreadlocks',
+    long: 'Long',
+    medium: 'Medium',
+    shaved: 'Shaved',
+    short: 'Short'
   }
 
-  if (this.hairstyle_any == 1)
-    return getValues(hairstyles)
+  if (this.hairstyle_any == 1) { return getValues(hairstyles) }
 
-  for (var style in hairstyles) {
+  for (let style in hairstyles) {
     if (this['hairstyle_' + style] == 1) {
       array.push(hairstyles[style])
     }
@@ -496,24 +476,23 @@ Role.prototype.getHairStyles = function() {
   return array
 }
 
-Role.prototype.getEyeColors = function() {
-  var array = []
+Role.prototype.getEyeColors = function () {
+  let array = []
 
-  var eyecolors = {
-    blue  : 'Blue',
-    b_g    : 'Blue-Green',
-    brown  : 'Brown',
-    green  : 'Green',
-    grey  : 'Grey',
-    g_b    : 'Grey-Blue',
-    g_g    : 'Grey-Green',
-    hazel  : 'Hazel'
+  let eyecolors = {
+    blue: 'Blue',
+    b_g: 'Blue-Green',
+    brown: 'Brown',
+    green: 'Green',
+    grey: 'Grey',
+    g_b: 'Grey-Blue',
+    g_g: 'Grey-Green',
+    hazel: 'Hazel'
   }
 
-  if (this.eye_any == 1)
-    return getValues(eyecolors)
+  if (this.eye_any == 1) { return getValues(eyecolors) }
 
-  for (var color in eyecolors) {
+  for (let color in eyecolors) {
     if (this['eye_' + color] == 1) {
       array.push(eyecolors[color])
     }
@@ -522,25 +501,24 @@ Role.prototype.getEyeColors = function() {
   return array
 }
 
-Role.prototype.getBuilds = function() {
-  var array = []
+Role.prototype.getBuilds = function () {
+  let array = []
 
-  var builds = {
-    medium    : 'Medium',
-    athletic  : 'Athletic',
-    bb      : 'Muscular',
-    xlarge    : 'Extra Large',
-    large    : 'Large',
-    petite    : 'Petite',
-    thin    : 'Slim',
-    lm      : 'Lean Muscle',
-    average    : 'Average'
+  let builds = {
+    medium: 'Medium',
+    athletic: 'Athletic',
+    bb: 'Muscular',
+    xlarge: 'Extra Large',
+    large: 'Large',
+    petite: 'Petite',
+    thin: 'Slim',
+    lm: 'Lean Muscle',
+    average: 'Average'
   }
 
-  if (this.built_any == 1)
-    return getValues(builds)
+  if (this.built_any == 1) { return getValues(builds) }
 
-  for (var b in builds) {
+  for (let b in builds) {
     if (this['built_' + b] == 1) {
       array.push(builds[b])
     }
@@ -550,18 +528,18 @@ Role.prototype.getBuilds = function() {
 }
 
 Role.prototype.bulkAddToLikeitlist = function (filters) {
-  var data = {
-    bam_cd_user_id  : this.bam_casting.user_id,
-    bam_role_id  : this.role_id,
-    query     : JSON.stringify(filters),
-    status     : status,
+  let data = {
+    bam_cd_user_id: this.bam_casting.user_id,
+    bam_role_id: this.role_id,
+    query: JSON.stringify(filters),
+    status: status
   }
 
   return scheduleImportResource.post(data)
 }
 
 Role.prototype.stopBulkAddToLikeitlist = function () {
-  var data = {
+  let data = {
     query: [
       ['where', 'bam_role_id', '=', this.role_id]
     ]
@@ -569,7 +547,7 @@ Role.prototype.stopBulkAddToLikeitlist = function () {
 
   return scheduleImportResource.get(data)
     .then(function (result) {
-      var promises = result.data.map(function (schedule_import) {
+      let promises = result.data.map(function (schedule_import) {
         return scheduleImportResource.delete({scheduleId: schedule_import.id})
       })
 
@@ -577,7 +555,7 @@ Role.prototype.stopBulkAddToLikeitlist = function () {
     })
 }
 
-function getValues(obj) {
+function getValues (obj) {
   return Object.keys(obj).map(function (key) {
     return obj[key]
   })

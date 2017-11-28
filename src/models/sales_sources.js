@@ -1,12 +1,12 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   sales_sources = {}
 
-sales_sources.create = function(array) {
-  var modelify = require('src/services/model.js')
+sales_sources.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('sales_source', item)
   })
 }

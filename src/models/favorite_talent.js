@@ -1,9 +1,9 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   date = require('src/services/date.js')
 
-function FavoriteTalent(data) {
+function FavoriteTalent (data) {
   _.extend(this, data)
 }
 
@@ -20,7 +20,7 @@ FavoriteTalent.relationship = [
   'bam_talent_dance',
   'bam_talent_general',
   'bam_talent_social:bam_talent_socials',
-  //if using GET from api, result is in the data property, set model to array of bam_talentcis
+  // if using GET from api, result is in the data property, set model to array of bam_talentcis
   'data:favorite_talents'
 ]
 

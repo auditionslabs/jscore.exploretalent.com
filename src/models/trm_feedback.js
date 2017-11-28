@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TrmFeedback(data) {
+function TrmFeedback (data) {
   _.extend(this, data || {})
 }
 

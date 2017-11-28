@@ -5,14 +5,13 @@ var _ = require('lodash'),
 
   REST = require('src/services/rest.js')
 
-describe('SERVICES: REST', function() {
-
+describe('SERVICES: REST', function () {
   var requestSpy,
     responseSpy,
     responseSuccessSpy,
     responseErrorSpy
 
-  beforeEach(function() {
+  beforeEach(function () {
     requestSpy = jasmine.createSpy().and.callFake(_.identity)
     responseSuccessSpy = jasmine.createSpy().and.callFake(_.identity)
     responseErrorSpy = jasmine.createSpy().and.callFake(_.identity)
@@ -26,71 +25,63 @@ describe('SERVICES: REST', function() {
     })
   })
 
-  afterEach(function() {
+  afterEach(function () {
     REST.interceptors = []
   })
 
-  describe('runInterceptors()', function() {
-
-    beforeEach(function() {
+  describe('runInterceptors()', function () {
+    beforeEach(function () {
       REST.interceptors.push({})
     })
 
-    it('should return data passed from request, response, responseSuccess, responseError', function() {
+    it('should return data passed from request, response, responseSuccess, responseError', function () {
       var data = { dummy_key: 'dummy-value' }
       expect(REST.$$runInterceptors(REST.interceptors, data, 'request')).toEqual(data)
       expect(REST.$$runInterceptors(REST.interceptors, data, 'response')).toEqual(data)
       expect(REST.$$runInterceptors(REST.interceptors, data, 'responseSuccess')).toEqual(data)
       expect(REST.$$runInterceptors(REST.interceptors, data, 'responseError')).toEqual(data)
     })
-
   })
 
-  describe('restMethod()', function() {
-
-    it('should return an object with a key `method` associated with a function value', function() {
+  describe('restMethod()', function () {
+    it('should return an object with a key `method` associated with a function value', function () {
       var object = REST.$$restMethod({}, 'method')
       expect(_.isFunction(object.method)).toBeTruthy()
     })
-
   })
 
-  describe('request methods', function() {
-
+  describe('request methods', function () {
     var ajax,
       deferred
 
-    beforeEach(function() {
+    beforeEach(function () {
       ajax = $.ajax
-      $.ajax = jasmine.createSpy().and.callFake(function(settings) {
+      $.ajax = jasmine.createSpy().and.callFake(function (settings) {
         deferred = $.Deferred()
         return deferred
       })
     })
 
-    afterEach(function() {
+    afterEach(function () {
       $.ajax = ajax
     })
 
-    describe('get, post, put, patch, and delete methods', function() {
-
+    describe('get, post, put, patch, and delete methods', function () {
       var methods, dummyObject
 
-      beforeEach(function() {
+      beforeEach(function () {
         methods = _(['get', 'post', 'put', 'patch', 'delete'])
         dummyObject = { dummy: 'value' }
       })
 
-      it('should exist', function() {
-
-        methods.each(function(method) {
+      it('should exist', function () {
+        methods.each(function (method) {
           expect(_.isFunction(REST[method])).toBeTruthy()
         }).commit()
-
       })
 
-      it('should call request interceptor', function() {
-        methods.each(function(method) {
+      it('should call request interceptor', function () {
+        methods.each(function (method) {
           REST[method]('/dummy-url', dummyObject)
           expect(requestSpy).toHaveBeenCalledWith({
             url: '/dummy-url',
@@ -100,16 +91,16 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should call response interceptor when ajax request is resolved', function() {
-        methods.each(function(method) {
+      it('should call response interceptor when ajax request is resolved', function () {
+        methods.each(function (method) {
           REST[method]('/dummy-url', {})
           deferred.resolve(dummyObject)
           expect(responseSpy.calls.mostRecent().args[0]).toEqual(dummyObject)
         }).commit()
       })
 
-      it('should call response interceptor when ajax request is rejected', function() {
-        methods.each(function(method) {
+      it('should call response interceptor when ajax request is rejected', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           REST[method]('/dummy-url', {})
           deferred.reject(dummyObject)
@@ -117,8 +108,8 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should call response error interceptor when ajax request is rejected', function() {
-        methods.each(function(method) {
+      it('should call response error interceptor when ajax request is rejected', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           REST[method]('/dummy-url', {}).then(null, spy)
           deferred.reject(dummyObject)
@@ -127,8 +118,8 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should not call response error interceptor when ajax request is resolved', function() {
-        methods.each(function(method) {
+      it('should not call response error interceptor when ajax request is resolved', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           REST[method]('/dummy-url', {}).then(null, spy)
           deferred.resolve(dummyObject)
@@ -137,8 +128,8 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should call response success interceptor when ajax request is resolved', function() {
-        methods.each(function(method) {
+      it('should call response success interceptor when ajax request is resolved', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           REST[method]('/dummy-url', {}).then(spy)
           deferred.resolve(dummyObject)
@@ -147,8 +138,8 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should not call response success interceptor when ajax request is rejected', function() {
-        methods.each(function(method) {
+      it('should not call response success interceptor when ajax request is rejected', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           REST[method]('/dummy-url', {}).then(spy)
           deferred.reject(dummyObject)
@@ -157,20 +148,16 @@ describe('SERVICES: REST', function() {
         }).commit()
       })
 
-      it('should add settins.interceptor as an interceptor', function() {
-        methods.each(function(method) {
+      it('should add settins.interceptor as an interceptor', function () {
+        methods.each(function (method) {
           var spy = jasmine.createSpy()
           var interceptor = { 'request': jasmine.createSpy().and.callFake(_.identity) }
-          REST[method]('/dummy-url', {},  {
+          REST[method]('/dummy-url', {}, {
             interceptors: [interceptor]
           })
           expect(interceptor.request).toHaveBeenCalled()
         }).commit()
       })
-
     })
-
-
   })
-
 })

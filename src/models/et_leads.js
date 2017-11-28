@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function ETLeads(data) {
+function ETLeads (data) {
   _.extend(this, data)
 }
 

@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function LegacyPackages(data) {
+function LegacyPackages (data) {
   _.extend(this, data || {})
 }
 

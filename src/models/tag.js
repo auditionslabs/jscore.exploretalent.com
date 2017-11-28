@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function Tags(data) {
+function Tags (data) {
   _.extend(this, data)
 }
 

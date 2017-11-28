@@ -1,7 +1,7 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
   karma = require('karma').server
 
-gulp.task('test', function(done) {
+gulp.task('test', function (done) {
   karma.start({
     files: [
       'src/**/*.js',
@@ -11,8 +11,8 @@ gulp.task('test', function(done) {
     frameworks: ['browserify', 'jasmine'],
     browsers: ['PhantomJS'],
     preprocessors: {
-       'src/**/*.js': ['jshint', 'coverage', 'browserify'],
-       'test/stub/**/*.js': ['jshint', 'coverage', 'browserify'],
+      'src/**/*.js': ['jshint', 'coverage', 'browserify'],
+      'test/stub/**/*.js': ['jshint', 'coverage', 'browserify'],
       'test/unit/**/*.spec.js': ['jshint', 'browserify']
     },
 

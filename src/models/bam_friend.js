@@ -1,24 +1,22 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   converter = require('src/services/converter.js')
 
-function Friend(data) {
+function Friend (data) {
   _.extend(this, data)
 }
 
-Friend.prototype.getOtherUser = function() {
+Friend.prototype.getOtherUser = function () {
   if (this.owner) {
-    var owner = this.owner
+    let owner = this.owner
 
     if (this.talentnum1 == owner.bam_talentci.talentnum) {
       return this.bam_talentci2
-    }
-    else {
+    } else {
       return this.bam_talentci1
     }
-  }
-  else {
+  } else {
     return null
   }
 }

@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function FeaturedCasting(data) {
+function FeaturedCasting (data) {
   _.extend(this, data || {})
 }
 

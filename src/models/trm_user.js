@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TrmUser(data) {
+function TrmUser (data) {
   _.extend(this, data)
 }
 

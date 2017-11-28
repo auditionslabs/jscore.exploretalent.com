@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TalentMedia2(data) {
+function TalentMedia2 (data) {
   _.extend(this, data)
 }
 

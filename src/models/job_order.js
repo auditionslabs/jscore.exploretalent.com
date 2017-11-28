@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function JobOrder(data) {
+function JobOrder (data) {
   _.extend(this, data)
 }
 

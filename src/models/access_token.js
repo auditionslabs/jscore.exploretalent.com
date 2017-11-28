@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function AccessToken(data) {
+function AccessToken (data) {
   _.extend(this, data || {})
 }
 

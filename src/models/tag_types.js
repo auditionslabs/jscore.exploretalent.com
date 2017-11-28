@@ -1,12 +1,12 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   tag_types = {}
 
-tag_types.create = function(array) {
-  var modelify = require('src/services/model.js')
+tag_types.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('tag_type', item)
   })
 }

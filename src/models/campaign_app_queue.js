@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function CampaignAppQueue(data) {
+function CampaignAppQueue (data) {
   _.extend(this, data || {})
 }
 

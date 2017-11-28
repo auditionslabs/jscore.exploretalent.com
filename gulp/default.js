@@ -1,11 +1,11 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
   spawn = require('child_process').spawn
 
-gulp.task('default', function() {
-  var gulpServe = spawn('gulp', ['test']),
+gulp.task('default', function () {
+  let gulpServe = spawn('gulp', ['test']),
     gulpTest = spawn('gulp', ['serve'])
 
-  var killServers = function() {
+  let killServers = function () {
     console.log('Server Killed')
     gulpServe.kill()
     gulpTest.kill()
@@ -23,6 +23,6 @@ gulp.task('default', function() {
   process.on('SIGINT', killServers)
 })
 
-function consoleData(data) {
+function consoleData (data) {
   process.stdout.write(data.toString())
 }

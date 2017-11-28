@@ -3,7 +3,7 @@
 
 var _ = require('lodash')
 
-function DummyModel3(data) {
+function DummyModel3 (data) {
   _.extend(this, data)
 }
 

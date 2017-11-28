@@ -1,24 +1,24 @@
 'use strict'
 
-var api = require('src/config/api.js'),
+let api = require('src/config/api.js'),
   Resource = require('src/services/resource.js')
 
-var resource = new Resource(api.base + api.type + '/talentci/:talentId', {
+let resource = new Resource(api.base + api.type + '/talentci/:talentId', {
   model: 'bam_talentci'
 })
 
-resource.search = function(data, options) {
-  var deferred = $.Deferred()
-  var talents, talentnums, users
+resource.search = function (data, options) {
+  let deferred = $.Deferred()
+  let talents, talentnums, users
 
   // search talent from search/talents
   self.core.resource.search_talent.get(data)
-    .then(function(res) {
-      // assign to a variable
+    .then(function (res) {
+      // assign to a letiable
       talents = res
 
       // get all talentnums
-      talentnums = _.map(talents.data, function(talent) {
+      talentnums = _.map(talents.data, function (talent) {
         return talent.talentnum
       })
 
@@ -27,7 +27,7 @@ resource.search = function(data, options) {
 
       // get user and bam_talent_media2 objects using talentci resource
       data = {
-        query : [
+        query: [
           [ 'whereIn', 'talentci.talentnum', talentnums ],
           [ 'with', 'bam_talent_media2' ],
           [ 'with', 'user' ]
@@ -38,9 +38,9 @@ resource.search = function(data, options) {
     })
     .then(function (res) {
       // loop through talents and find talent_media2 object
-      _.each(talents.data, function(talent) {
+      _.each(talents.data, function (talent) {
         // find talentci object
-        var talentci = _.find(res.data, function(t) {
+        let talentci = _.find(res.data, function (t) {
           return talent.talentnum == t.talentnum
         })
 
@@ -52,8 +52,8 @@ resource.search = function(data, options) {
       })
 
       // get all user.id
-      users = _.map(talents.data, function(talent) {
-        if(talent.user) {
+      users = _.map(talents.data, function (talent) {
+        if (talent.user) {
           return talent.user.id
         }
       })
@@ -63,18 +63,18 @@ resource.search = function(data, options) {
 
       // get favorite talents
       data = {
-        q : [
+        q: [
           [ 'whereIn', 'bam_talentnum', talentnums ]
         ]
       }
 
       return self.core.resource.favorite_talent.get(data)
     })
-    .then(function(res) {
-      //assign favorite talents to talent
-      _.each(talents.data, function(talent) {
+    .then(function (res) {
+      // assign favorite talents to talent
+      _.each(talents.data, function (talent) {
         // find favorite object and assign it
-        talent.favorite = _.find(res.data, function(favorite) {
+        talent.favorite = _.find(res.data, function (favorite) {
           return talent.talentnum == favorite.bam_talentnum
         })
       })
@@ -82,7 +82,7 @@ resource.search = function(data, options) {
       // if bam_role_id is given, search if talent has schedule for it
       if (options && options.bam_role_id) {
         data = {
-          q : [
+          q: [
             [ 'whereIn', 'invitee_id', users ],
             [ 'where', 'bam_role_id', '=', options.bam_role_id ],
             [ 'with', 'schedule_notes.user.bam_cd_user' ]
@@ -90,20 +90,19 @@ resource.search = function(data, options) {
         }
 
         return self.core.resource.schedule.get(data)
-      }
-      else {
-        return $.when({ data : [] })
+      } else {
+        return $.when({ data: [] })
       }
     })
-    .then(function(res) {
-      _.each(talents.data, function(talent) {
-        talent.schedule = _.find(res.data, function(schedule) {
+    .then(function (res) {
+      _.each(talents.data, function (talent) {
+        talent.schedule = _.find(res.data, function (schedule) {
           return talent.user.id == schedule.invitee_id
         })
 
         if (!talent.schedule) {
           talent.schedule = {
-            schedule_notes : []
+            schedule_notes: []
           }
         }
       })
@@ -117,16 +116,15 @@ resource.search = function(data, options) {
 
       return self.core.resource.talent_videos.get(data)
     })
-    .then(function(res) {
-      _.each(talents.data, function(talent) {
-        var video = _.find(res.data, function(v) {
+    .then(function (res) {
+      _.each(talents.data, function (talent) {
+        let video = _.find(res.data, function (v) {
           return talent.talentnum == v.talentnum
         })
 
         if (video) {
           talent.video_id = video.video_id
-        }
-        else {
+        } else {
           talent.video_id = ''
         }
       })

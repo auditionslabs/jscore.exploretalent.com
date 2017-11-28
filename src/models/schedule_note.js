@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function ScheduleNote(data) {
+function ScheduleNote (data) {
   _.extend(this, data)
 }
 

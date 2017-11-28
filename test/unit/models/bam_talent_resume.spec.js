@@ -2,11 +2,10 @@
 
 var TalentResume = require('src/models/bam_talent_resume.js')
 
-describe('MODELS: TalentResume', function() {
-
+describe('MODELS: TalentResume', function () {
   var resumeTypes
 
-  beforeEach(function() {
+  beforeEach(function () {
     resumeTypes = TalentResume.$$resumeTypes
     TalentResume.$$resumeTypes = {
       1: 'dummy1',
@@ -15,7 +14,7 @@ describe('MODELS: TalentResume', function() {
     }
   })
 
-  it('should extend the data object argument as instance variables', function() {
+  it('should extend the data object argument as instance variables', function () {
     var data = [
       {type: 1},
       {type: 2},
@@ -29,8 +28,7 @@ describe('MODELS: TalentResume', function() {
       }))
   })
 
-  it('should return an empty object when data argument is undefined', function() {
+  it('should return an empty object when data argument is undefined', function () {
     expect(new TalentResume()).toEqual(jasmine.objectContaining({}))
   })
-
 })

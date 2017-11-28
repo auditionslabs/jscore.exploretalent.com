@@ -1,15 +1,15 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   featured_castings = {},
   FeaturedCasting = require('src/models/featured_casting.js')
 
 featured_castings.relationship = FeaturedCasting.relationship
 
-featured_castings.create = function(array) {
-  var modelify = require('src/services/model.js')
+featured_castings.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('featured_casting', item)
   })
 }

@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function ContestMedia(data) {
+function ContestMedia (data) {
   _.extend(this, data || {})
 }
 

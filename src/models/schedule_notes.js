@@ -1,13 +1,13 @@
-var _ = require('lodash'),
+let _ = require('lodash'),
   schedule_notes = {},
   ScheduleNote = require('src/models/schedule_note.js')
 
 schedule_notes.relationship = ScheduleNote.relationship
 
-schedule_notes.create = function(array) {
-  var modelify = require('src/services/model.js')
+schedule_notes.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('schedule_note', item)
   })
 }

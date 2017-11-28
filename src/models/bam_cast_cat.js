@@ -1,10 +1,10 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   converter = require('src/services/converter.js'),
   date = require('src/services/date.js')
 
-function CastCat(data) {
+function CastCat (data) {
   _.extend(this, data)
 }
 

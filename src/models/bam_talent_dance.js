@@ -1,17 +1,17 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   talentHelper = require('src/services/talent.js')
 
-function TalentDance(data) {
+function TalentDance (data) {
   _.extend(this, data)
 }
 
-TalentDance.prototype.getExperience = function() {
+TalentDance.prototype.getExperience = function () {
   return talentHelper.getExperience(this.experience)
 }
 
-TalentDance.prototype.getPerformance = function() {
+TalentDance.prototype.getPerformance = function () {
   return talentHelper.getPerformance(this.num_of_perform)
 }
 

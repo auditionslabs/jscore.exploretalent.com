@@ -1,15 +1,15 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   trm_call_logs = {},
   TrmCallLog = require('src/models/trm_call_log.js')
 
 trm_call_logs.relationship = TrmCallLog.relationship
 
-trm_call_logs.create = function(array) {
-  var modelify = require('src/services/model.js')
+trm_call_logs.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('trm_call_log', item)
   })
 }

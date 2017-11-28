@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function BannedEmail(data) {
+function BannedEmail (data) {
   _.extend(this, data || {})
 }
 

@@ -1,8 +1,8 @@
 'use strict'
 
-module.exports = function(str) {
-  return (str || document.location.search).replace(/(^\?)/,'').split('&').map(
-    function(n)  {
+module.exports = function (str) {
+  return (str || document.location.search).replace(/(^\?)/, '').split('&').map(
+    function (n) {
       if (!n) {
         // return if empty
         return this
@@ -15,12 +15,10 @@ module.exports = function(str) {
       if (this[n[0]] != null) {
         if (this[n[0]] instanceof Array) {
           this[n[0]] = this[n[0]].concat(n[1])
-        }
-        else {
+        } else {
           this[n[0]] = [ this[n[0]], n[1] ]
         }
-      }
-      else {
+      } else {
         this[n[0]] = n[1]
       }
 

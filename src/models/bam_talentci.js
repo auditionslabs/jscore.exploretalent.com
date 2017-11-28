@@ -1,6 +1,6 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   talent = require('src/services/talent.js'),
   scheduleResource = require('src/resources/schedule.js'),
   campaignResource = require('src/resources/campaign.js'),
@@ -34,8 +34,8 @@ Talent.prototype.getXOrigin = function(){
 }
 
 Talent.prototype.getHeight = function() {
-  var feet = Math.floor(this.heightinches / 12)
-  var inches = this.heightinches % 12
+  let feet = Math.floor(this.heightinches / 12)
+  let inches = this.heightinches % 12
   return feet + "'" + inches + '"'
 }
 
@@ -44,13 +44,13 @@ Talent.prototype.isPaying = function() {
 }
 
 Talent.prototype.loginAsTalent = function(redirect_url) {
-  var deferred = $.Deferred()
+  let deferred = $.Deferred()
 
   // Default has no redirect_url
   redirect_url = redirect_url || this.talentlogin
 
   // The beginning of the end (SUBLIME SUCKS)
-  var login_url = 'http://'
+  let login_url = 'http://'
 
   // Add the domain
   login_url += this.getXOrigin()
@@ -81,7 +81,7 @@ Talent.prototype.loginAsTalent = function(redirect_url) {
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
-  var media_path =
+  let media_path =
     _.first(
       _.pluck(
         _.uniq(([]).concat(
@@ -92,14 +92,14 @@ Talent.prototype.getPrimaryPhoto = function() {
       )
     )
 
-  var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male'
+  let gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male'
 
   if (media_path) {
     return 'https://etdownload.s3.amazonaws.com/' + media_path
   }
   else {
     if(gender == "Male") {
-      var imgsrc = $('.profile-pic-primary').attr('src')
+      let imgsrc = $('.profile-pic-primary').attr('src')
       if(imgsrc == '/images/filler.jpg') {
         $('a.fancybox').addClass('show-upload-primary-photo-btn')
         $('a.fancybox').removeClass('fancybox')
@@ -108,7 +108,7 @@ Talent.prototype.getPrimaryPhoto = function() {
     }
 
     else {
-      var imgsrc = $('.profile-pic-primary').attr('src')
+      let imgsrc = $('.profile-pic-primary').attr('src')
       if(imgsrc == '/images/filler_women.jpg') {
         $('a.fancybox').addClass('show-upload-primary-photo-btn')
         $('a.fancybox').removeClass('fancybox')
@@ -119,7 +119,7 @@ Talent.prototype.getPrimaryPhoto = function() {
 }
 
 Talent.prototype.getPrimaryPhotoId = function() {
-  var id =
+  let id =
     _.first(
       _.pluck(
         _.uniq(([]).concat(
@@ -132,7 +132,7 @@ Talent.prototype.getPrimaryPhotoId = function() {
    return id
 }
 Talent.prototype.getSocialAccount = function(type) {
-  var social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'))
+  let social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'))
 
   return social
 }
@@ -153,13 +153,13 @@ Talent.prototype.getLocation = function() {
 }
 
 Talent.prototype.heightText = function() {
-  var feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00)
-  var inches = this.bam_talentinfo1.heightinches % 12
+  let feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00)
+  let inches = this.bam_talentinfo1.heightinches % 12
   return feet + "'" + inches + '"'
 }
 
 Talent.prototype.stateText = function() {
-  var states = {
+  let states = {
     'AL' : 'Alabama',
     'AK' : 'Alaska',
     'AZ' : 'Arizona',
@@ -216,10 +216,10 @@ Talent.prototype.stateText = function() {
 }
 
 Talent.prototype.getSelfSubmissions = function () {
-  var deferred = $.Deferred()
-  var qs = self.core.service.query_string()
+  let deferred = $.Deferred()
+  let qs = self.core.service.query_string()
 
-  var data = {
+  let data = {
     page: qs.self_submissions || 1,
     query : [
       [ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
@@ -230,18 +230,18 @@ Talent.prototype.getSelfSubmissions = function () {
     ]
   }
 
-  var roles
+  let roles
 
   jobResource.get(data)
     .then(function(res) {
       roles = res
-      var scheduleIds = _.map(res.data, function(schedule) {
+      let scheduleIds = _.map(res.data, function(schedule) {
         return schedule.schedule_id
       })
 
       scheduleIds.push(0)
 
-      var data2 = {
+      let data2 = {
         query : [
           [ 'whereIn', 'id', scheduleIds ],
           [ 'with', 'bam_role.bam_casting' ]
@@ -261,10 +261,10 @@ Talent.prototype.getSelfSubmissions = function () {
 }
 
 Talent.prototype.getCDInvites = function () {
-  var qs = self.core.service.query_string()
-  var deferred = $.Deferred()
+  let qs = self.core.service.query_string()
+  let deferred = $.Deferred()
 
-  var data = {
+  let data = {
     page: qs.cd_invites || 1,
     per_page : 10,
     query : [
@@ -279,7 +279,7 @@ Talent.prototype.getCDInvites = function () {
   }
 
 
-  var campaignIds,
+  let campaignIds,
     scheduleIds,
     invites
 
@@ -317,8 +317,8 @@ Talent.prototype.getCDInvites = function () {
       return scheduleResource.get(data)
     })
     .then(function(res) {
-      for(var i = 0 i < invites.data.length i++) {
-        for(var j = 0 j < res.data.length j++) {
+      for(let i = 0 i < invites.data.length i++) {
+        for(let j = 0 j < res.data.length j++) {
           if (invites.data[i].bam_role_id == res.data[j].bam_role_id) {
             invites.data[i].schedule = res.data[j]
           }

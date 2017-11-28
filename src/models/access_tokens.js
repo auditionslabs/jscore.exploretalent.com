@@ -1,12 +1,12 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   access_tokens = {}
 
-access_tokens.create = function(array) {
-  var model = require('src/services/model.js')
+access_tokens.create = function (array) {
+  let model = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return model('access_token', item)
   })
 }

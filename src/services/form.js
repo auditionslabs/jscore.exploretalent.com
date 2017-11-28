@@ -1,14 +1,14 @@
 'use strict'
 
 module.exports = {
-  serializeObject : serializeObject,
-  validate    : validate
+  serializeObject: serializeObject,
+  validate: validate
 }
 
-function serializeObject(form) {
-  var str = $(form).serialize()
-  return (str).replace(/(^\?)/,'').split('&').map(
-    function(n)  {
+function serializeObject (form) {
+  let str = $(form).serialize()
+  return (str).replace(/(^\?)/, '').split('&').map(
+    function (n) {
       n = n.split('=')
       n[1] = decodeURIComponent(n[1])
       n[1] = n[1].replace(/\+/g, ' ')
@@ -16,12 +16,10 @@ function serializeObject(form) {
       if (this[n[0]] != null) {
         if (this[n[0]] instanceof Array) {
           this[n[0]] = this[n[0]].concat(n[1])
-        }
-        else {
+        } else {
           this[n[0]] = [ this[n[0]], n[1] ]
         }
-      }
-      else {
+      } else {
         this[n[0]] = n[1]
       }
 
@@ -29,14 +27,14 @@ function serializeObject(form) {
     }.bind({}))[0]
 }
 
-function validate(form) {
-  var $form = $(form)
-  var allOk = true
+function validate (form) {
+  let $form = $(form)
+  let allOk = true
 
-  _.forEach($form.find('[data-validate]'), function(e) {
-    var $e = $(e)
-    var ok = true
-    switch($e.attr('data-validate')) {
+  _.forEach($form.find('[data-validate]'), function (e) {
+    let $e = $(e)
+    let ok = true
+    switch ($e.attr('data-validate')) {
       case 'phone':
       case 'number':
         ok = /^\d+$/.test($e.val())
@@ -54,32 +52,29 @@ function validate(form) {
         ok = /^[0-9]+$|^$|^\s$/.test($e.val())
         break
       case 'required':
-        ok = $e.val().trim() ? true : false
+        ok = !!$e.val().trim()
         break
       case 'zip':
         ok = /^[0-9]+$|^$|^\s$/.test($e.val())
-          var okNum = /^[0-9]+$/.test($e.val())
-        if (ok == okNum )
-          ok = parseInt($e.val()) <= 99999
+        let okNum = /^[0-9]+$/.test($e.val())
+        if (ok == okNum) { ok = parseInt($e.val()) <= 99999 }
       default:
         break
     }
 
-    var $parent = $e.parent()
-    var $help = $parent.find('.help-block')
+    let $parent = $e.parent()
+    let $help = $parent.find('.help-block')
 
     if (ok) {
       $parent.removeClass('has-error')
       $help.remove()
-    }
-    else {
+    } else {
       allOk = false
       $parent.addClass('has-error')
 
       if ($help.length) {
         $help.show()
-      }
-      else {
+      } else {
         $parent.append('<p class="help-block">' + $e.attr('data-validate-error') + '</p>')
       }
     }

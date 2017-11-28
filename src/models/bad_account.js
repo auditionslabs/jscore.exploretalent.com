@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function BadAccounts(data) {
+function BadAccounts (data) {
   _.extend(this, data || {})
 }
 

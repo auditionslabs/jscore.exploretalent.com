@@ -1,15 +1,15 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   contests = {},
   Contest = require('src/models/contest.js')
 
 contests.relationship = Contest.relationship
 
-contests.create = function(array) {
-  var modelify = require('src/services/model.js')
+contests.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('contest', item)
   })
 }

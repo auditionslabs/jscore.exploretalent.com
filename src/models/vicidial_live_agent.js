@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function VicidialLiveAgents(data) {
+function VicidialLiveAgents (data) {
   _.extend(this, data || {})
 }
 

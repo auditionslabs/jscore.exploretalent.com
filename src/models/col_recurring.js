@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function ColRecurring(data) {
+function ColRecurring (data) {
   _.extend(this, data || {})
 }
 

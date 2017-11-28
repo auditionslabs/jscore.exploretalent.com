@@ -6,98 +6,90 @@ var Resource = require('src/services/resource.js'),
   _ = require('lodash'),
   $ = require('jquery')
 
-describe('SERVICES: Resource', function() {
-
+describe('SERVICES: Resource', function () {
   var resource,
     url,
     data,
     settings
 
-  beforeEach(function() {
+  beforeEach(function () {
     settings = {dummy: 'value'}
-    url =  '/users/:userId'
+    url = '/users/:userId'
     data = { userId: '1' }
     resource = new Resource('/users/:userId', settings)
   })
 
-  describe('constructor', function() {
-
-    it('should set $$url', function() {
+  describe('constructor', function () {
+    it('should set $$url', function () {
       expect(resource.$$url).toBe(url)
     })
 
-    it('should set $$settings', function() {
+    it('should set $$settings', function () {
       expect(resource.$$settings).toEqual(settings)
     })
 
-    it('should set $$settings with an empty object when settings is undefined', function() {
+    it('should set $$settings with an empty object when settings is undefined', function () {
       expect(new Resource(url).$$settings).toEqual({})
     })
 
-    it('should set $$keys', function() {
+    it('should set $$keys', function () {
       expect(resource.$$keys).toEqual([':userId'])
     })
-
   })
 
-  describe('interpolate()', function() {
-
+  describe('interpolate()', function () {
     var params
 
-    beforeEach(function() {
+    beforeEach(function () {
       params = resource.interpolate(data)
     })
 
-    it('should return a `data` key value without the keys to be interpolated', function() {
+    it('should return a `data` key value without the keys to be interpolated', function () {
       expect(params.data).toEqual({})
     })
 
-    it('should return a `url` key value with the interpolated `data` values', function() {
+    it('should return a `url` key value with the interpolated `data` values', function () {
       expect(params.url).toBe('/users/1')
     })
 
-    it('should return a `url` removed with double forward slashes left by undefined key values', function() {
+    it('should return a `url` removed with double forward slashes left by undefined key values', function () {
       var child = resource.child('/projects/:projectId')
       params = child.interpolate({ projectId: '1' })
       expect(params.url).toBe('/users//projects/1')
     })
-
   })
 
-  describe('child()', function() {
-
+  describe('child()', function () {
     var child,
       childSettings
 
-    beforeEach(function() {
+    beforeEach(function () {
       childSettings = { childDummy: 'childValue' }
       child = resource.child('/projects/:projectId', childSettings)
     })
 
-    it('should have a url with it\'s parent url prepended', function() {
+    it('should have a url with it\'s parent url prepended', function () {
       expect(child.$$url).toBe('/users/:userId/projects/:projectId')
     })
 
-    it('should set $$settings', function() {
+    it('should set $$settings', function () {
       expect(child.$$settings).toEqual(childSettings)
     })
 
-    it('should be an instance of a Resource', function() {
+    it('should be an instance of a Resource', function () {
       expect(child instanceof Resource).toBeTruthy()
     })
-
   })
 
-  describe('RESTful methods', function() {
-
+  describe('RESTful methods', function () {
     var methods,
       restMethodValue,
       deferred
 
-    beforeEach(function() {
+    beforeEach(function () {
       restMethodValue = {}
       deferred = $.Deferred()
-      methods = _(REST.$$methods).reduce(function(object, method) {
+      methods = _(REST.$$methods).reduce(function (object, method) {
         object[method] = REST[method]
         REST[method] = jasmine.createSpy().and.returnValue(deferred.promise())
         return object
@@ -105,17 +97,16 @@ describe('SERVICES: Resource', function() {
       deferred.resolve(restMethodValue)
     })
 
-    afterEach(function() {
-      _.each(methods, function(method, key) {
+    afterEach(function () {
+      _.each(methods, function (method, key) {
         REST[key] = method
       })
     })
 
-    it('should call the REST methods with the interpolated url, cleaned data and extended settings', function() {
-
+    it('should call the REST methods with the interpolated url, cleaned data and extended settings', function () {
       var newSettings = { other: 'value' }
 
-      _.each(REST.$$methods, function(method) {
+      _.each(REST.$$methods, function (method) {
         resource[method](data, newSettings)
         expect(REST[method]).toHaveBeenCalledWith(
           '/users/1',
@@ -123,40 +114,32 @@ describe('SERVICES: Resource', function() {
           { dummy: 'value', other: 'value' }
         )
       })
-
     })
 
-    describe('with fake ajax', function() {
-
+    describe('with fake ajax', function () {
       var ajax,
         deferred
 
-      beforeEach(function() {
+      beforeEach(function () {
         deferred = $.Deferred()
         ajax = $.ajax
         $.ajax = jasmine.createSpy().and.returnValue(deferred)
         deferred.resolve({})
       })
 
-      afterEach(function() {
+      afterEach(function () {
         $.ajax = ajax
       })
 
-      it('should transform data into a User object when a model is provided', function() {
-
+      it('should transform data into a User object when a model is provided', function () {
         var newResource = new Resource('/users/:userId', { model: 'user' })
 
-        _.each(REST.$$methods, function(method) {
+        _.each(REST.$$methods, function (method) {
           var spy = jasmine.createSpy()
           newResource[method]({}).then(spy)
           // expect(spy.calls.mostRecent().args[0] instanceof User).toBeTruthy()
         })
-
       })
-
     })
-
-
   })
-
 })

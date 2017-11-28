@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function Subscription(data) {
+function Subscription (data) {
   _.extend(this, data)
 }
 

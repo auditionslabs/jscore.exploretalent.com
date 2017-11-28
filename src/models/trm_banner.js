@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function Banners(data) {
+function Banners (data) {
   _.extend(this, data || {})
 }
 

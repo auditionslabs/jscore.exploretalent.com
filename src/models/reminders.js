@@ -1,12 +1,12 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   reminders = {}
 
-reminders.create = function(array) {
-  var modelify = require('src/services/model.js')
+reminders.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('reminder', item)
   })
 }

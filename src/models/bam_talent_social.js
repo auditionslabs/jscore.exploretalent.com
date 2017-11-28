@@ -1,14 +1,14 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TalentSocial(data) {
+function TalentSocial (data) {
   _.extend(this, data || {})
 }
 
-TalentSocial.prototype.getByType = function(type) {
+TalentSocial.prototype.getByType = function (type) {
   if (this.data) {
-    var social = _.first(_.where(this.data, { sm_type : type }))
+    let social = _.first(_.where(this.data, { sm_type: type }))
     return social
   }
 }

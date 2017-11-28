@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function FeaturedCastingAdmin(data) {
+function FeaturedCastingAdmin (data) {
   _.extend(this, data || {})
 }
 

@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function AppXorigins(data) {
+function AppXorigins (data) {
   _.extend(this, data || {})
 }
 

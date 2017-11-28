@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function UserApp(data) {
+function UserApp (data) {
   _.extend(this, data)
 }
 

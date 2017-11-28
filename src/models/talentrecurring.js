@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function Talentrecurring(data) {
+function Talentrecurring (data) {
   _.extend(this, data || {})
 }
 

@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function Talenttracking(data) {
+function Talenttracking (data) {
   _.extend(this, data || {})
 }
 

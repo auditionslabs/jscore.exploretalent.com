@@ -1,12 +1,12 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   admin_alerts = {}
 
-admin_alerts.create = function(array) {
-  var modelify = require('src/services/model.js')
+admin_alerts.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('admin_alert', item)
   })
 }

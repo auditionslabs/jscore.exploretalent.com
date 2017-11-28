@@ -1,7 +1,7 @@
-var gulp = require('gulp'),
+let gulp = require('gulp'),
   browserSync = require('browser-sync')
 
-gulp.task('serve', function() {
+gulp.task('serve', function () {
   browserSync({
     server: ['./coverage/report'],
     files: 'coverage/**/*',

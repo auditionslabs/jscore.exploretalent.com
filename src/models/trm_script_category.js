@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function TrmScriptCategory(data) {
+function TrmScriptCategory (data) {
   _.extend(this, data || {})
 }
 

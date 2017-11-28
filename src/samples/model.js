@@ -1,6 +1,6 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
 function <%= toTitleCase(resource) %>(data) {
   _.extend(this, data || {})

@@ -1,13 +1,13 @@
-var _ = require('lodash'),
+let _ = require('lodash'),
   messages = {},
   Message = require('src/models/message.js')
 
 messages.relationship = Message.relationship
 
-messages.create = function(array) {
-  var modelify = require('src/services/model.js')
+messages.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('message', item)
   })
 }

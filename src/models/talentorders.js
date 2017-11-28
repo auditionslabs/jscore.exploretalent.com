@@ -1,15 +1,15 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   talentorders = {},
   TalentOrder = require('src/models/talentorder.js')
 
 talentorders.relationship = TalentOrder.relationship
 
-talentorders.create = function(array) {
-  var modelify = require('src/services/model.js')
+talentorders.create = function (array) {
+  let modelify = require('src/services/model.js')
 
-  return _.map(array || [], function(item) {
+  return _.map(array || [], function (item) {
     return modelify('talentorder', item)
   })
 }

@@ -1,17 +1,17 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   date = require('../services/date.js')
 
-function Schedule(data) {
+function Schedule (data) {
   _.extend(this, data)
 }
 
-Schedule.prototype.convertToFullDate = function(timestamp) {
+Schedule.prototype.convertToFullDate = function (timestamp) {
   return date.formatYMD(parseInt(timestamp))
 }
 
-Schedule.prototype.getTalent = function() {
+Schedule.prototype.getTalent = function () {
   return this.invitee && parseInt(this.invitee.bam_talentnum) ? this.invitee : this.inviter
 }
 

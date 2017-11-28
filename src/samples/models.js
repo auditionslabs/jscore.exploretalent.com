@@ -1,10 +1,10 @@
 'use strict'
 
-var _ = require('lodash'),
+let _ = require('lodash'),
   <%= resource + 's' %> = {}
 
 <%= resource + 's' %>.create = function(array) {
-  var modelify = require('src/services/model.js')
+  let modelify = require('src/services/model.js')
 
   return _.map(array || [], function(item) {
     return modelify('<%= model %>', item)

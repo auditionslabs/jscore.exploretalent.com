@@ -1,8 +1,8 @@
 'use strict'
 
-var _ = require('lodash')
+let _ = require('lodash')
 
-function FutureRecurring(data) {
+function FutureRecurring (data) {
   _.extend(this, data || {})
 }
 
