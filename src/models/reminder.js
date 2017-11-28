@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function Reminder(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 Reminder.relationship = [
-	'data:reminders'
+  'data:reminders'
 ]
 
 module.exports = Reminder

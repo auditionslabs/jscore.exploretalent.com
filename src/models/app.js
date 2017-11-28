@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function App(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 App.relationship = [
-	'data:apps'
+  'data:apps'
 ]
 
 module.exports = App

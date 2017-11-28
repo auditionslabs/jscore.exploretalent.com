@@ -1,14 +1,14 @@
 'use strict'
 
 var _ = require('lodash'),
-	transactions_stores = {}
+  transactions_stores = {}
 
 transactions_stores.create = function(array) {
-	var modelify = require('src/services/model.js')
+  var modelify = require('src/services/model.js')
 
-	return _.map(array || [], function(item) {
-		return modelify('transactions_store', item)
-	})
+  return _.map(array || [], function(item) {
+    return modelify('transactions_store', item)
+  })
 }
 
 module.exports = transactions_stores

@@ -1,15 +1,15 @@
 'use strict'
 
 var _ = require('lodash'),
-	locations = {}
+  locations = {}
 
 
 locations.create = function(array) {
-	var modelify = require('src/services/model.js')
+  var modelify = require('src/services/model.js')
 
-	return _.map(array || [], function(item) {
-		return modelify('location', item)
-	})
+  return _.map(array || [], function(item) {
+    return modelify('location', item)
+  })
 }
 
 module.exports = locations

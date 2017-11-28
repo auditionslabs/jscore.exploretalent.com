@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function User(data) {
-	_.extend(this, data)
+  _.extend(this, data)
 }
 
 User.relationship = [
-	'user',
+  'user',
 ]
 
 module.exports = User

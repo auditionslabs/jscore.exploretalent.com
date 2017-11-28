@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function LegacyPackages(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 LegacyPackages.relationship = [
-	'data:legacy_packages'
+  'data:legacy_packages'
 ]
 
 module.exports = LegacyPackages

@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function BannedEmail(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 BannedEmail.relationship = [
-	'data:banned_emails'
+  'data:banned_emails'
 ]
 
 module.exports = BannedEmail

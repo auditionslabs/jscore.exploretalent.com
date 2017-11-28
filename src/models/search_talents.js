@@ -1,12 +1,12 @@
 var _ = require('lodash'),
-	talents = {}
+  talents = {}
 
 talents.create = function(array) {
-	var modelify = require('src/services/model.js')
+  var modelify = require('src/services/model.js')
 
-	return _.map(array || [], function(item) {
-		return modelify('search_talent', item)
-	})
+  return _.map(array || [], function(item) {
+    return modelify('search_talent', item)
+  })
 }
 
 module.exports = talents

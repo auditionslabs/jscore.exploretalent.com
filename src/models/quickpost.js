@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function Quickpost(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 Quickpost.relationship = [
-	'data:quickposts'
+  'data:quickposts'
 ]
 
 module.exports = Quickpost

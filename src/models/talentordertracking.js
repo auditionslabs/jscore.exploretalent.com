@@ -3,11 +3,11 @@
 var _ = require('lodash')
 
 function Talentordertracking(data) {
-	_.extend(this, data || {})
+  _.extend(this, data || {})
 }
 
 Talentordertracking.relationship = [
-	'data:talentordertrackings'
+  'data:talentordertrackings'
 ]
 
 module.exports = Talentordertracking
