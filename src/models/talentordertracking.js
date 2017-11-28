@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function Talentordertracking(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 Talentordertracking.relationship = [
 	'data:talentordertrackings'
-];
+]
 
-module.exports = Talentordertracking;
+module.exports = Talentordertracking

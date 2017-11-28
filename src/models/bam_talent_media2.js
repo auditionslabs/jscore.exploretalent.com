@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function TalentMedia2(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
-module.exports = TalentMedia2;
+module.exports = TalentMedia2

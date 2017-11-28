@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 var $ = require('jquery'), _ = require('lodash'), api = require('src/config/api.js'),
-	REST = {};
+	REST = {}
 
 //set up ajax to use cross domain
 $.ajaxSetup({
@@ -8,17 +8,17 @@ $.ajaxSetup({
 		withCredentials : true
 	},
 	crossDomain : true
-});
+})
 
 REST.interceptor = {
 	request: _.identity,
 	response: _.identity,
 	responseSuccess: _.identity,
 	responseError: _.identity
-};
+}
 
 REST.settings = {
-};
+}
 
 if (localStorage.getItem('access_token')) {
 	REST.settings.headers = {
@@ -26,56 +26,56 @@ if (localStorage.getItem('access_token')) {
 	}
 }
 
-REST.$$runInterceptors = runInterceptors;
-REST.$$restMethod = restMethod;
+REST.$$runInterceptors = runInterceptors
+REST.$$restMethod = restMethod
 
 function runInterceptors(interceptors, data, name, context) {
-	data = (_.isArray(data) || _.isArguments(data))? data: [data];
+	data = (_.isArray(data) || _.isArguments(data))? data: [data]
 	return _.reduce(interceptors, function(newData, interceptor) {
-		var fn = (interceptor[name] || _.identity);
-		return fn.apply(context, data);
-	}, data);
+		var fn = (interceptor[name] || _.identity)
+		return fn.apply(context, data)
+	}, data)
 }
 
 function restMethod(object, method) {
 
 	object[method] = function(url, data, settings) {
 
-		var promise, config, interceptors;
+		var promise, config, interceptors
 
-		settings = _.clone(settings || {});
+		settings = _.clone(settings || {})
 
 		config = {
 			url: url,
 			type: method,
 			data: data
-		};
+		}
 
 		if(settings.interceptors) {
-			interceptors = settings.interceptors;
-			delete settings.interceptors;
+			interceptors = settings.interceptors
+			delete settings.interceptors
 		} else {
-			interceptors = [ REST.interceptor ];
+			interceptors = [ REST.interceptor ]
 		}
 
 		//replaced line below to foreach
-		//interceptors = interceptors.concat(REST.interceptors);
+		//interceptors = interceptors.concat(REST.interceptors)
 		_(interceptors).forEach(function(interceptor) {
-			_.assign(interceptor, REST.interceptor);
-		}, interceptors);
+			_.assign(interceptor, REST.interceptor)
+		}, interceptors)
 
-		config = _.assign(config, settings, REST.settings);
+		config = _.assign(config, settings, REST.settings)
 
-		config = runInterceptors(interceptors, config, 'request', this);
+		config = runInterceptors(interceptors, config, 'request', this)
 
-		promise = $.when();
+		promise = $.when()
 
 		// check aouth expiry
 		if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token') && localStorage.getItem('expires_on')) {
-			var expires_on = parseInt(localStorage.getItem('expires_on'));
-			var now = Math.round(new Date().getTime() / 1000);
+			var expires_on = parseInt(localStorage.getItem('expires_on'))
+			var now = Math.round(new Date().getTime() / 1000)
 
-			var diff = expires_on - now;
+			var diff = expires_on - now
 
 			// Check if expired
 			if (diff < 1) {
@@ -89,16 +89,16 @@ function restMethod(object, method) {
 						user_type     : api.type == '/talent' ? 'bam_talentci' : (api.type == '/cd' ? 'bam_cd_user' : 'bam_user'),
 						grant_type    : 'refresh_token'
 					}
-				});
+				})
 			}
 		}
 
 		return promise.then(function(res) {
 
 			if (res && res.access_token) {
-				localStorage.setItem('access_token', res.access_token);
-				localStorage.setItem('refresh_token', res.refresh_token);
-				localStorage.setItem('expires_on', Math.round(new Date().getTime() / 1000) + parseInt(res.expires_in));
+				localStorage.setItem('access_token', res.access_token)
+				localStorage.setItem('refresh_token', res.refresh_token)
+				localStorage.setItem('expires_on', Math.round(new Date().getTime() / 1000) + parseInt(res.expires_in))
 
 				config.headers = {
 					Authorization : 'Bearer ' + localStorage.getItem('access_token')
@@ -110,26 +110,26 @@ function restMethod(object, method) {
 			}
 
 			var promise2 = $.ajax(config).then(function() {
-				return runInterceptors(interceptors, arguments, 'responseSuccess', this);
+				return runInterceptors(interceptors, arguments, 'responseSuccess', this)
 			}, function() {
-				return runInterceptors(interceptors, arguments, 'responseError', this);
-			});
+				return runInterceptors(interceptors, arguments, 'responseError', this)
+			})
 
 			promise2.always(function() {
-				runInterceptors(interceptors, arguments, 'response', this);
-			});
+				runInterceptors(interceptors, arguments, 'response', this)
+			})
 
-			return promise2;
-		});
+			return promise2
+		})
 
-	};
+	}
 
-	return object;
+	return object
 }
 
 
-REST.$$methods = [ 'put', 'patch', 'delete', 'get', 'post' ];
+REST.$$methods = [ 'put', 'patch', 'delete', 'get', 'post' ]
 
-REST = _.reduce(REST.$$methods, restMethod, REST);
+REST = _.reduce(REST.$$methods, restMethod, REST)
 
-module.exports = REST;
+module.exports = REST

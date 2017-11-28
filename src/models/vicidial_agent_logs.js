@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
-	vicidial_agent_logss = {};
+	vicidial_agent_logss = {}
 
 vicidial_agent_logss.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('vicidial_agent_log', item);
-	});
-};
+		return modelify('vicidial_agent_log', item)
+	})
+}
 
-module.exports = vicidial_agent_logss;
+module.exports = vicidial_agent_logss

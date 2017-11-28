@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function Market(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
-module.exports = Market;
+module.exports = Market

@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function VicidialAgentLogs(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 VicidialAgentLogs.relationship = [
 	'data:vicidial_agent_logs'
-];
+]
 
-module.exports = VicidialAgentLogs;
+module.exports = VicidialAgentLogs

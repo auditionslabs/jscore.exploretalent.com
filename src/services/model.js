@@ -1,48 +1,48 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
-modelify.$$hashRelation = hashRelation;
+modelify.$$hashRelation = hashRelation
 
 function modelify(name, data) {
 	var models = require('../models/*.js', { hash: true }),
 		model = models[name],
 		relationship,
 		relations,
-		difference;
+		difference
 
 	if(model && (_.isArray(data) || _.isObject(data))) {
 
-		relationship = hashRelation(model.relationship || []);
+		relationship = hashRelation(model.relationship || [])
 
-		relations = _.pick(data, _.keys(relationship));
+		relations = _.pick(data, _.keys(relationship))
 
 		_.each(relations, function(property, key) {
-			data[key] = modelify(relationship[key], property);
-		});
+			data[key] = modelify(relationship[key], property)
+		})
 
 		if(model.create && _.isFunction(model.create)) {
 			/* jshint newcap: false */
-			data = model.create(data);
+			data = model.create(data)
 		} else {
-			data = new model(data);
+			data = new model(data)
 		}
 
 	}
 
-	return data;
+	return data
 }
 
 function hashRelation(relationships) {
 	return _.reduce(relationships, function(object, relationship) {
 		var keys = relationship.split(':'),
 			modelName = keys.pop(),
-			propertyName = keys.pop() || modelName;
+			propertyName = keys.pop() || modelName
 
-		object[propertyName] = modelName;
+		object[propertyName] = modelName
 
-		return object;
-	}, {});
+		return object
+	}, {})
 }
 
-module.exports = modelify;
+module.exports = modelify

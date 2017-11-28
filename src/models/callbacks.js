@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	callbacks = {},
-	Callback = require('src/models/callback.js');
+	Callback = require('src/models/callback.js')
 
-callbacks.relationship = Callback.relationship;
+callbacks.relationship = Callback.relationship
 
 callbacks.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('callback', item);
-	});
-};
+		return modelify('callback', item)
+	})
+}
 
-module.exports = callbacks;
+module.exports = callbacks

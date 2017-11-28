@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function ProjectApp(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 ProjectApp.relationship = [
 	'data:project_apps'
-];
-module.exports = ProjectApp;
+]
+module.exports = ProjectApp

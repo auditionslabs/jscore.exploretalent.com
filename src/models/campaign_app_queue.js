@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function CampaignAppQueue(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 CampaignAppQueue.relationship = [
 	'data:campaign_app_queues',
 	'bam_talentci'
-];
+]
 
-module.exports = CampaignAppQueue;
+module.exports = CampaignAppQueue

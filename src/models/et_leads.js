@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function ETLeads(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
-module.exports = ETLeads;
+module.exports = ETLeads

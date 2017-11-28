@@ -1,30 +1,30 @@
-'use strict';
+'use strict'
 
 var crossroads = require('crossroads'),
-	_ = require('lodash');
+	_ = require('lodash')
 
 function Router() {
-	var self = this;
-	self.$$controllers = {};
-	self.$$params = [];
+	var self = this
+	self.$$controllers = {}
+	self.$$params = []
 }
 
 Router.prototype.add = function(url, controller) {
-	var self = this;
+	var self = this
 
-	controller = self.$$controllers[controller];
+	controller = self.$$controllers[controller]
 
 	if(_.isFunction(controller)) {
 		crossroads.addRoute(url, function() {
-			controller.apply(null, self.$$params.concat(_.toArray(arguments)));
-		});
+			controller.apply(null, self.$$params.concat(_.toArray(arguments)))
+		})
 	}
 
-	return self;
-};
+	return self
+}
 
 Router.prototype.finalize = function() {
-	crossroads.parse(window.location.pathname);
-};
+	crossroads.parse(window.location.pathname)
+}
 
-module.exports = new Router();
+module.exports = new Router()

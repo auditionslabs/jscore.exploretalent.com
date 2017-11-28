@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function AppXorigins(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 AppXorigins.relationship = [
 	'data:app_xorigins'
-];
+]
 
-module.exports = AppXorigins;
+module.exports = AppXorigins

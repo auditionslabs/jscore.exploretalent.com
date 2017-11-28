@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
-	date = require('src/services/date.js');
+	date = require('src/services/date.js')
 
 function Casting(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 Casting.prototype.getRate = function() {
@@ -15,10 +15,10 @@ Casting.prototype.getRate = function() {
 		3	:	"day",
 		4	:	"week",
 		5	:	"month"
-	};
+	}
 
-	return rates[this.rate_des];
-};
+	return rates[this.rate_des]
+}
 
 Casting.prototype.getCategory = function() {
 	var categories = {
@@ -83,9 +83,9 @@ Casting.prototype.getCategory = function() {
 		7  :  "Episodic TV - AFTRA",
 		8  :  "Episodic TV - Non-Union",
 		9  :  "Feature Film - SAG",
-	};
+	}
 
-	return categories[this.cat];
+	return categories[this.cat]
 }
 
 Casting.prototype.getProjectType = function() {
@@ -108,12 +108,12 @@ Casting.prototype.getProjectType = function() {
 		14 : "Dance"
 	}
 
-	return projectTypes[this.project_type];
+	return projectTypes[this.project_type]
 }
 
 Casting.prototype.convertToFullDate = function(timestamp) {
-	return date.formatYMD(parseInt(timestamp));
-};
+	return date.formatYMD(parseInt(timestamp))
+}
 
 Casting.prototype.getUrl = function() {
 	if (this.zip) {
@@ -121,46 +121,46 @@ Casting.prototype.getUrl = function() {
 			this.normalize(this.name) + '-' +
 			this.normalize(this.location) + '-' +
 			this.normalize(this.zip) + '_' +
-			this.normalize(this.casting_id);
+			this.normalize(this.casting_id)
 	}
 	else {
 		return 'https://www.exploretalent.com/auditions/' + this.normalize(this.getCategory()) + '-' +
 			this.normalize(this.name) + '-' +
 			this.normalize(this.location) + '-' +
-			this.normalize(this.casting_id);
+			this.normalize(this.casting_id)
 	}
 }
 
 Casting.prototype.normalize = function(url) {
-	url = url + '';
-	var str = url.replace(/[^a-zA-Z0-9-_ ]/, '');
-	var strs = str.toLowerCase().split(' ');
+	url = url + ''
+	var str = url.replace(/[^a-zA-Z0-9-_ ]/, '')
+	var strs = str.toLowerCase().split(' ')
 
 	_.remove(strs, function(s) {
-		return s.trim() == '';
-	});
+		return s.trim() == ''
+	})
 
-	str = strs.join('-');
-	strs = str.toLowerCase().split('-');
-
-	_.remove(strs, function(s) {
-		return (s.trim() == '' || s.trim() == '-');
-	});
-
-	str = strs.join('_');
-	strs = str.toLowerCase().split('_');
+	str = strs.join('-')
+	strs = str.toLowerCase().split('-')
 
 	_.remove(strs, function(s) {
-		return (s.trim() == '' || s.trim() == '_');
-	});
+		return (s.trim() == '' || s.trim() == '-')
+	})
 
-	return strs.join('-');
+	str = strs.join('_')
+	strs = str.toLowerCase().split('_')
+
+	_.remove(strs, function(s) {
+		return (s.trim() == '' || s.trim() == '_')
+	})
+
+	return strs.join('-')
 }
 
 Casting.relationship = [
 	'data:bam_castings',
 	'bam_cd_user',
 	'bam_roles'
-];
+]
 
-module.exports = Casting;
+module.exports = Casting

@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
-	talentrecurrings = {};
+	talentrecurrings = {}
 
 talentrecurrings.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('talentrecurring', item);
-	});
-};
+		return modelify('talentrecurring', item)
+	})
+}
 
-module.exports = talentrecurrings;
+module.exports = talentrecurrings

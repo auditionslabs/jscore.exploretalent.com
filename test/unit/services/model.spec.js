@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 
 	model = require('src/services/model.js'),
-	models;
+	models
 
-models = model.$$models = require('../../stub/models/*.js', { hash: true });
+models = model.$$models = require('../../stub/models/*.js', { hash: true })
 
 describe('SERVICES: model', function() {
 
@@ -21,11 +21,11 @@ describe('SERVICES: model', function() {
 				modelKey1: 'modelName1',
 				modelKey2: 'modelKey2',
 				modelKey3: 'modelKey3'
-			});
+			})
 
-		});
+		})
 
-	});
+	})
 
 	describe('modelify()', function() {
 
@@ -38,22 +38,22 @@ describe('SERVICES: model', function() {
 						dummy_model_keys: [ {}, {}, {} ]
 					}
 				}
-			});
+			})
 
-			expect(dummy_model1 instanceof models.dummy_model1).toBeTruthy();
-			expect(dummy_model1.dummy_model2 instanceof models.dummy_model2).toBeTruthy();
-			expect(dummy_model1.dummy_model2.dummy_model3 instanceof models.dummy_model3).toBeTruthy();
-			expect(dummy_model1.dummy_model2.dummy_model3.dummy_model_key instanceof models.dummy_model4).toBeTruthy();
+			expect(dummy_model1 instanceof models.dummy_model1).toBeTruthy()
+			expect(dummy_model1.dummy_model2 instanceof models.dummy_model2).toBeTruthy()
+			expect(dummy_model1.dummy_model2.dummy_model3 instanceof models.dummy_model3).toBeTruthy()
+			expect(dummy_model1.dummy_model2.dummy_model3.dummy_model_key instanceof models.dummy_model4).toBeTruthy()
 			_.each(dummy_model1.dummy_model2.dummy_model3.dummy_model_keys, function(item) {
-				expect(item instanceof models.dummy_model4);
-			});
+				expect(item instanceof models.dummy_model4)
+			})
 
-		});
+		})
 
 		it('should return the data when modelify `data` argument is undefined', function() {
-			expect(model('dummy_model1')).toBeUndefined();
-		});
+			expect(model('dummy_model1')).toBeUndefined()
+		})
 
-	});
+	})
 
-});
+})

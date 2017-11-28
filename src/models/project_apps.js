@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
-	project_apps = {};
+	project_apps = {}
 
 project_apps.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('project_app', item);
-	});
-};
+		return modelify('project_app', item)
+	})
+}
 
-module.exports = project_apps;
+module.exports = project_apps

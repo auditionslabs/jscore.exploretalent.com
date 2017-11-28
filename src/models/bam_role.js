@@ -1,32 +1,32 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	talentService = require('src/services/talent.js'),
 	restService = require('src/services/rest.js'),
 	scheduleResource = require('src/resources/schedule.js'),
 	scheduleImportResource = require('src/resources/schedule_import.js'),
-	searchTalentResource = require('src/resources/search_talent.js');
+	searchTalentResource = require('src/resources/search_talent.js')
 
 function Role(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 Role.prototype.getHeightMinText = function() {
 	if (parseInt(this.height_min))
-		return talentService.getHeight(this.height_min);
+		return talentService.getHeight(this.height_min)
 	else
-		return 'Any';
+		return 'Any'
 }
 
 Role.prototype.getHeightMaxText = function() {
 	if (parseInt(this.height_max))
-		return talentService.getHeight(this.height_max);
+		return talentService.getHeight(this.height_max)
 	else
-		return 'Any';
+		return 'Any'
 }
 
 Role.prototype.getLikeItList = function(options, app_filter) {
-	options = options || { };
+	options = options || { }
 
 	var data = {
 		per_page: options.per_page,
@@ -44,27 +44,27 @@ Role.prototype.getLikeItList = function(options, app_filter) {
 		]
 	}
 
-	options = options || { };
+	options = options || { }
 
-	data.page = options.page;
+	data.page = options.page
 
 	if (app_filter){
 		data.query.push(['whereIn','x_origin',app_filter])
 	}
 
 	if (options.filter == 'free') {
-		data.query.push([ 'where', 'join_status', '<', 5 ]);
+		data.query.push([ 'where', 'join_status', '<', 5 ])
 	}
 
 	if (options.filter == 'pro') {
-		data.query.push([ 'where', 'join_status', '=', 5 ]);
+		data.query.push([ 'where', 'join_status', '=', 5 ])
 	}
 
 	return self.core.resource.talent.get(data)
 }
 
 Role.prototype.getLikeItListCount = function(xorigins) {
-	var deferred = $.Deferred();
+	var deferred = $.Deferred()
 
 	var data = {
 		per_page : 1,
@@ -77,19 +77,19 @@ Role.prototype.getLikeItListCount = function(xorigins) {
 	}
 
 	if (xorigins instanceof Array) {
-		data.query.push( [ 'whereIn', 'x_origin', xorigins ] );
+		data.query.push( [ 'whereIn', 'x_origin', xorigins ] )
 	}
 
 	self.core.resource.search_talent.get(data)
 		.then(function(res) {
-			deferred.resolve(res.total);
-		});
+			deferred.resolve(res.total)
+		})
 
-	return deferred.promise();
+	return deferred.promise()
 }
 
 Role.prototype.getSubmissionsCount = function(xorigins) {
-	var deferred = $.Deferred();
+	var deferred = $.Deferred()
 
 	var data = {
 		per_page : 1,
@@ -103,19 +103,19 @@ Role.prototype.getSubmissionsCount = function(xorigins) {
 	}
 
 	if (xorigins instanceof Array) {
-		data.query.push( [ 'whereIn', 'x_origin', xorigins ] );
+		data.query.push( [ 'whereIn', 'x_origin', xorigins ] )
 	}
 
 	self.core.resource.search_talent.get(data)
 		.then(function(res) {
-			deferred.resolve(res.total);
-		});
+			deferred.resolve(res.total)
+		})
 
-	return deferred.promise();
+	return deferred.promise()
 }
 
 Role.prototype.getSchedulesCount = function(status) {
-	var deferred = $.Deferred();
+	var deferred = $.Deferred()
 
 	var data = {
 		per_page : 1,
@@ -130,10 +130,10 @@ Role.prototype.getSchedulesCount = function(status) {
 
 	self.core.resource.search_talent.get(data)
 		.then(function(res) {
-			deferred.resolve(res.total);
-		});
+			deferred.resolve(res.total)
+		})
 
-	return deferred.promise();
+	return deferred.promise()
 }
 
 Role.prototype.deleteLikeItList = function() {
@@ -148,7 +148,7 @@ Role.prototype.deleteLikeItList = function() {
 		paginate : false
 	}
 
-	return scheduleResource.patch(data);
+	return scheduleResource.patch(data)
 }
 
 Role.prototype.copyToLikeItList = function() {
@@ -167,7 +167,7 @@ Role.prototype.copyToLikeItList = function() {
 		per_page : 1000000
 	}
 
-	return scheduleResource.patch(data);
+	return scheduleResource.patch(data)
 }
 
 Role.prototype.deleteSelfSubmissions = function() {
@@ -180,7 +180,7 @@ Role.prototype.deleteSelfSubmissions = function() {
 		per_page : 1000000
 	}
 
-	return scheduleResource.delete(data);
+	return scheduleResource.delete(data)
 }
 
 // Role.prototype.getSelfSubmissions = function(options) {
@@ -196,10 +196,10 @@ Role.prototype.deleteSelfSubmissions = function() {
 // 	}
 
 // 	if (options) {
-// 		data = _.merge(data, options);
+// 		data = _.merge(data, options)
 // 	}
 
-// 	return scheduleResource.get(data);
+// 	return scheduleResource.get(data)
 // }
 
 Role.prototype.getSelfSubmissions = function(options, app_filter) {
@@ -222,7 +222,7 @@ Role.prototype.getSelfSubmissions = function(options, app_filter) {
 	}
 
 	if (options) {
-		data = _.merge(data, options);
+		data = _.merge(data, options)
 	}
 
 	if(app_filter){
@@ -241,7 +241,7 @@ Role.prototype.copyMatchesToLikeItList = function(pro, user_id) {
 		bam_cd_user_id : this.bam_casting.user_id
 	}
 
-	return scheduleImportResource.post(data);
+	return scheduleImportResource.post(data)
 }
 
 Role.prototype.copyMatchesToLikeItListwParam = function(pro, param, user_id) {
@@ -253,16 +253,16 @@ Role.prototype.copyMatchesToLikeItListwParam = function(pro, param, user_id) {
 		bam_cd_user_id : this.bam_casting.user_id
 	}
 
-	return scheduleImportResource.post(data);
+	return scheduleImportResource.post(data)
 
 }
 
 Role.prototype.getMatches = function(pro, options, app_filter) {
-	var data = this.getMatchesFilter(pro, options, app_filter);
-	data.q = JSON.stringify(data.query);
-	delete data.query;
+	var data = this.getMatchesFilter(pro, options, app_filter)
+	data.q = JSON.stringify(data.query)
+	delete data.query
 
-	return searchTalentResource.get(data);
+	return searchTalentResource.get(data)
 }
 
 Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
@@ -273,19 +273,19 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
 	}
 
 	if (options) {
-		data = _.merge(data, options);
+		data = _.merge(data, options)
 
 		if(options.has_photos){
 			if(options.has_photos==1){
-				data.query.push(['where', 'has_photos', '=', 1 ]);
+				data.query.push(['where', 'has_photos', '=', 1 ])
 			}else{
-				data.query.push(['where', 'has_photos', '=', 0 ]);
+				data.query.push(['where', 'has_photos', '=', 0 ])
 			}
 		}
 	}
 
 	if(app_filter){
-		data.query.push([ 'whereIn', 'x_origin', app_filter ]);
+		data.query.push([ 'whereIn', 'x_origin', app_filter ])
 	}
 
 
@@ -303,117 +303,117 @@ Role.prototype.getMatchesFilter = function(pro, options, app_filter) {
 					]]
 				]]
 			]
-		]);
+		])
 	}
 
 	if (parseInt(this.age_max)) {
-		data.query.push([ 'where', 'dobyyyy', '>=', new Date().getFullYear() - parseInt(this.age_max) ]);
+		data.query.push([ 'where', 'dobyyyy', '>=', new Date().getFullYear() - parseInt(this.age_max) ])
 	}
 
 	if (parseInt(this.height_min)) {
-		data.query.push([ 'where', 'heightinches', '>=', this.height_min ]);
+		data.query.push([ 'where', 'heightinches', '>=', this.height_min ])
 	}
 
 	if (parseInt(this.height_max)) {
-		data.query.push([ 'where', 'heightinches', '<=', this.height_max ]);
+		data.query.push([ 'where', 'heightinches', '<=', this.height_max ])
 	}
 
-	var subquery = [];
+	var subquery = []
 
 	// markets
-	var markets = self.project.market.split('>');
+	var markets = self.project.market.split('>')
 
 	var nationwide = _.find(markets, function(market) {
-		return market == 'N/A';
-	});
+		return market == 'N/A'
+	})
 
 	if (markets.length && !nationwide) {
-		subquery = [];
+		subquery = []
 
 		_.each(markets, function(market) {
 			if (subquery.length == 0) {
-				subquery.push([ 'where', 'city', 'like', '%' + market + '%' ]);
+				subquery.push([ 'where', 'city', 'like', '%' + market + '%' ])
 			}
 			else {
-				subquery.push([ 'orWhere', 'city', 'like', '%' + market + '%' ]);
+				subquery.push([ 'orWhere', 'city', 'like', '%' + market + '%' ])
 			}
 
-			subquery.push([ 'orWhere', 'city1', 'like', '%' + market + '%' ]);
-			subquery.push([ 'orWhere', 'city2', 'like', '%' + market + '%' ]);
-			subquery.push([ 'orWhere', 'city3', 'like', '%' + market + '%' ]);
-		});
+			subquery.push([ 'orWhere', 'city1', 'like', '%' + market + '%' ])
+			subquery.push([ 'orWhere', 'city2', 'like', '%' + market + '%' ])
+			subquery.push([ 'orWhere', 'city3', 'like', '%' + market + '%' ])
+		})
 
-		data.query.push([ 'where', subquery ]);
+		data.query.push([ 'where', subquery ])
 	}
 
-	var genders = this.getGenders();
+	var genders = this.getGenders()
 
 	if (genders.length) {
-		subquery = [];
+		subquery = []
 
 		_.each(genders, function(gender) {
 			if (subquery.length == 0) {
-				subquery.push([ 'where', 'sex', '=', gender ]);
+				subquery.push([ 'where', 'sex', '=', gender ])
 			}
 			else {
-				subquery.push([ 'orWhere', 'sex', '=', gender ]);
+				subquery.push([ 'orWhere', 'sex', '=', gender ])
 			}
-		});
+		})
 
-		data.query.push([ 'where', subquery ]);
+		data.query.push([ 'where', subquery ])
 	}
 
-	var ethnicities = this.getEthnicities();
+	var ethnicities = this.getEthnicities()
 
 	if (ethnicities.length) {
-		subquery = [];
+		subquery = []
 
 		_.each(ethnicities, function(ethnicity) {
 			if (subquery.length == 0) {
-				subquery.push([ 'where', 'ethnicity', '=', ethnicity ]);
+				subquery.push([ 'where', 'ethnicity', '=', ethnicity ])
 			}
 			else {
-				subquery.push([ 'orWhere', 'ethnicity', '=', ethnicity ]);
+				subquery.push([ 'orWhere', 'ethnicity', '=', ethnicity ])
 			}
-		});
+		})
 
-		data.query.push([ 'where', subquery ]);
+		data.query.push([ 'where', subquery ])
 	}
 
-	var builds = this.getBuilds();
+	var builds = this.getBuilds()
 
 	if (builds.length) {
-		subquery = [];
+		subquery = []
 
 		_.each(builds, function(build) {
 			if (subquery.length == 0) {
-				subquery.push([ 'where', 'build', '=', build ]);
+				subquery.push([ 'where', 'build', '=', build ])
 			}
 			else {
-				subquery.push([ 'orWhere', 'build', '=', build ]);
+				subquery.push([ 'orWhere', 'build', '=', build ])
 			}
-		});
+		})
 
-		data.query.push([ 'where', subquery ]);
+		data.query.push([ 'where', subquery ])
 	}
 
-	return data;
+	return data
 }
 
 Role.prototype.getGenders = function() {
-	var array = [];
+	var array = []
 
 	if (this.gender_male == 1)
-		array.push('Male');
+		array.push('Male')
 
 	if (this.gender_female == 1)
-		array.push('Female');
+		array.push('Female')
 
-	return array;
+	return array
 }
 
 Role.prototype.getEthnicities = function() {
-	var array = [];
+	var array = []
 
 	var ethnicities = {
 		african		: 'African',
@@ -431,19 +431,19 @@ Role.prototype.getEthnicities = function() {
 	}
 
 	if (this.ethnicity_any == 1)
-		return getValues(ethnicities);
+		return getValues(ethnicities)
 
 	for (var e in ethnicities) {
 		if (this['ethnicity_' + e] == 1) {
-			array.push(ethnicities[e]);
+			array.push(ethnicities[e])
 		}
 	}
 
-	return array;
+	return array
 }
 
 Role.prototype.getHairColors = function() {
-	var array = [];
+	var array = []
 
 	var haircolors = {
 		auburn		: 'Auburn',
@@ -456,21 +456,21 @@ Role.prototype.getHairColors = function() {
 		red			: 'Red',
 		white		: 'White',
 		salt_pepper : 'Salt&Peppe'
-	};
+	}
 
 	if (this.hair_any == 1)
-		return getValues(haircolors);
+		return getValues(haircolors)
 for (var color in haircolors) {
 		if (this['hair_' + color] == 1) {
-			array.push(haircolors[color]);
+			array.push(haircolors[color])
 		}
 	}
 
-	return array;
+	return array
 }
 
 Role.prototype.getHairStyles = function() {
-	var array = [];
+	var array = []
 
 	var hairstyles = {
 		afro 	: 'Afro',
@@ -485,19 +485,19 @@ Role.prototype.getHairStyles = function() {
 	}
 
 	if (this.hairstyle_any == 1)
-		return getValues(hairstyles);
+		return getValues(hairstyles)
 
 	for (var style in hairstyles) {
 		if (this['hairstyle_' + style] == 1) {
-			array.push(hairstyles[style]);
+			array.push(hairstyles[style])
 		}
 	}
 
-	return array;
+	return array
 }
 
 Role.prototype.getEyeColors = function() {
-	var array = [];
+	var array = []
 
 	var eyecolors = {
 		blue	: 'Blue',
@@ -511,19 +511,19 @@ Role.prototype.getEyeColors = function() {
 	}
 
 	if (this.eye_any == 1)
-		return getValues(eyecolors);
+		return getValues(eyecolors)
 
 	for (var color in eyecolors) {
 		if (this['eye_' + color] == 1) {
-			array.push(eyecolors[color]);
+			array.push(eyecolors[color])
 		}
 	}
 
-	return array;
+	return array
 }
 
 Role.prototype.getBuilds = function() {
-	var array = [];
+	var array = []
 
 	var builds = {
 		medium		: 'Medium',
@@ -538,15 +538,15 @@ Role.prototype.getBuilds = function() {
 	}
 
 	if (this.built_any == 1)
-		return getValues(builds);
+		return getValues(builds)
 
 	for (var b in builds) {
 		if (this['built_' + b] == 1) {
-			array.push(builds[b]);
+			array.push(builds[b])
 		}
 	}
 
-	return array;
+	return array
 }
 
 Role.prototype.bulkAddToLikeitlist = function (filters) {
@@ -579,14 +579,14 @@ Role.prototype.stopBulkAddToLikeitlist = function () {
 
 function getValues(obj) {
 	return Object.keys(obj).map(function (key) {
-		return obj[key];
-	});
+		return obj[key]
+	})
 }
 
 Role.relationship = [
 	'data:bam_roles',
 	'schedules',
 	'bam_casting'
-];
+]
 
-module.exports = Role;
+module.exports = Role

@@ -1,15 +1,15 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	converter = require('src/services/converter.js'),
-	date = require('src/services/date.js');
+	date = require('src/services/date.js')
 
 function TalentInfo1(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 TalentInfo1.relationship = [
 	'bam_talentci'
-];
+]
 
-module.exports = TalentInfo1;
+module.exports = TalentInfo1

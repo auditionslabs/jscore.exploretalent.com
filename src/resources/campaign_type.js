@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
 	NORMAL      : 1, // normal campaigns

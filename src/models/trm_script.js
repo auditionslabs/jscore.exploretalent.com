@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function TrmScript(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 TrmScript.relationship = [
 	'data:trm_scripts'
-];
+]
 
-module.exports = TrmScript;
+module.exports = TrmScript

@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	trm_script_categories = {},
-	TrmScriptCategory = require('src/models/trm_script_category.js');
+	TrmScriptCategory = require('src/models/trm_script_category.js')
 
-trm_script_categories.relationship = TrmScriptCategory.relationship;
+trm_script_categories.relationship = TrmScriptCategory.relationship
 
 trm_script_categories.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('trm_script_category', item);
-	});
-};
+		return modelify('trm_script_category', item)
+	})
+}
 
-module.exports = trm_script_categories;
+module.exports = trm_script_categories

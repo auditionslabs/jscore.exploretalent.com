@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function JobOrder(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
-module.exports = JobOrder;
+module.exports = JobOrder
 
 //

@@ -1,34 +1,34 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	talent = require('src/services/talent.js'),
-	date = require('src/services/date.js');
+	date = require('src/services/date.js')
 
 function Talent(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 Talent.prototype.getXOrigin = function(){
 	if(this.x_origin == 8){
-		return "auditions.com";
+		return "auditions.com"
 	}
 	if(this.x_origin == 7){
-		return "cebumodeling.com";
+		return "cebumodeling.com"
 	}
 	if(this.x_origin == 9){
-		return "talent.ph";
+		return "talent.ph"
 	}
 	if(this.x_origin == 0 || this.x_origin == 1 || this.x_origin == 2 || this.x_origin == 3 || this.x_origin == 4 || this.x_origin == 5 || this.x_origin == 6){
-		return "exploretalent.com";
+		return "exploretalent.com"
 	}
 }
 
 Talent.prototype.getFullName = function() {
-	return talent.getFullName(this.fname, this.lname);
-};
+	return talent.getFullName(this.fname, this.lname)
+}
 
 Talent.prototype.getAge = function() {
-	return date.calculateAge(this.dobyyyy, this.dobmm, this.dobdd);
+	return date.calculateAge(this.dobyyyy, this.dobmm, this.dobdd)
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
@@ -41,53 +41,53 @@ Talent.prototype.getPrimaryPhoto = function() {
 				)),
 				'bam_media_path_full'
 			)
-		);
+		)
 
-	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male';
+	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male'
 
 	if (media_path) {
-		return 'https://etdownload.s3.amazonaws.com/' + media_path;
+		return 'https://etdownload.s3.amazonaws.com/' + media_path
 	}
 	else {
 		if(gender == "Male") {
-			var imgsrc = $('.profile-pic-primary').attr('src');
+			var imgsrc = $('.profile-pic-primary').attr('src')
 			if(imgsrc == '/images/filler.jpg') {
-				$('a.fancybox').addClass('show-upload-primary-photo-btn');
-				$('a.fancybox').removeClass('fancybox');
+				$('a.fancybox').addClass('show-upload-primary-photo-btn')
+				$('a.fancybox').removeClass('fancybox')
 			}
-			return '/images/filler.jpg';
+			return '/images/filler.jpg'
 		}
 
 		else {
-			var imgsrc = $('.profile-pic-primary').attr('src');
+			var imgsrc = $('.profile-pic-primary').attr('src')
 			if(imgsrc == '/images/filler_women.jpg') {
-				$('a.fancybox').addClass('show-upload-primary-photo-btn');
-				$('a.fancybox').removeClass('fancybox');
+				$('a.fancybox').addClass('show-upload-primary-photo-btn')
+				$('a.fancybox').removeClass('fancybox')
 			}
-			return '/images/filler_women.jpg';
+			return '/images/filler_women.jpg'
 		}
 	}
 }
 
 Talent.prototype.getLocation = function() {
 	if (this.city1) {
-		return this.city1;
+		return this.city1
 	}
 	else if(this.city && this.state && this.state.length > 2) {
-		return this.city + ', ' + this.state;
+		return this.city + ', ' + this.state
 	}
 	else if(this.state && this.state.length > 2) {
-		return this.city;
+		return this.city
 	}
 	else {
-		return 'Not Set';
+		return 'Not Set'
 	}
 }
 
 Talent.prototype.getHeight = function() {
-	var feet = Math.floor(this.heightinches / 12);
-	var inches = this.heightinches % 12;
-	return feet + "'" + inches + '"';
+	var feet = Math.floor(this.heightinches / 12)
+	var inches = this.heightinches % 12
+	return feet + "'" + inches + '"'
 }
 
 Talent.prototype.getState = function() {
@@ -142,9 +142,9 @@ Talent.prototype.getState = function() {
 		'WV' : 'West Virginia',
 		'WI' : 'Wisconsin',
 		'WY' : 'Wyoming'
-	};
+	}
 
-	return states[this.state];
+	return states[this.state]
 }
 
 Talent.relationship = [
@@ -153,6 +153,6 @@ Talent.relationship = [
 	'bam_talent_music',
 	'bam_talent_dance',
 	'data:search_talents'
-];
+]
 
-module.exports = Talent;
+module.exports = Talent

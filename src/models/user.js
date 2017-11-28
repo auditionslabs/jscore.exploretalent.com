@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function User(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 User.prototype.getMediaByType = function(t) {
-	return _.where(this.media, { media_type_id : t });
-};
+	return _.where(this.media, { media_type_id : t })
+}
 
 User.relationship = [
 	'bam_talentci',
@@ -17,6 +17,6 @@ User.relationship = [
 	'schedules',
 	'invitations:schedules',
 	'media:medias'
-];
+]
 
-module.exports = User;
+module.exports = User

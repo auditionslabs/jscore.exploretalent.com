@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	talent = require('src/services/talent.js'),
@@ -6,78 +6,78 @@ var _ = require('lodash'),
 	campaignResource = require('src/resources/campaign.js'),
 	jobResource = require('src/resources/job.js'),
 	accessTokenResource = require('src/resources/oauth_access_token.js'),
-	date = require('src/services/date.js');
+	date = require('src/services/date.js')
 
 function Talent(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 } Talent.prototype.getFullName = function() {
-	return talent.getFullName(this.fname, this.lname);
-};
+	return talent.getFullName(this.fname, this.lname)
+}
 
 Talent.prototype.getAge = function() {
-	return date.calculateAge(this.bam_talentinfo1.dobyyyy, this.bam_talentinfo1.dobmm, this.bam_talentinfo1.dobdd);
+	return date.calculateAge(this.bam_talentinfo1.dobyyyy, this.bam_talentinfo1.dobmm, this.bam_talentinfo1.dobdd)
 }
 
 Talent.prototype.getXOrigin = function(){
 	if(this.x_origin == 8){
-		return "auditions.com";
+		return "auditions.com"
 	}
 	if(this.x_origin == 7){
-		return "cebumodeling.com";
+		return "cebumodeling.com"
 	}
 	if(this.x_origin == 9){
-		return "talent.ph";
+		return "talent.ph"
 	}
 	if(this.x_origin == 0 || this.x_origin == 1 || this.x_origin == 2 || this.x_origin == 3 || this.x_origin == 4 || this.x_origin == 5 || this.x_origin == 6){
-		return "exploretalent.com";
+		return "exploretalent.com"
 	}
 }
 
 Talent.prototype.getHeight = function() {
-	var feet = Math.floor(this.heightinches / 12);
-	var inches = this.heightinches % 12;
-	return feet + "'" + inches + '"';
+	var feet = Math.floor(this.heightinches / 12)
+	var inches = this.heightinches % 12
+	return feet + "'" + inches + '"'
 }
 
 Talent.prototype.isPaying = function() {
-	return this.bam_talentrecurring ? true : false;
+	return this.bam_talentrecurring ? true : false
 }
 
 Talent.prototype.loginAsTalent = function(redirect_url) {
-	var deferred = $.Deferred();
+	var deferred = $.Deferred()
 
 	// Default has no redirect_url
-	redirect_url = redirect_url || this.talentlogin;
+	redirect_url = redirect_url || this.talentlogin
 
 	// The beginning of the end (SUBLIME SUCKS)
-	var login_url = 'http://';
+	var login_url = 'http://'
 
 	// Add the domain
-	login_url += this.getXOrigin();
+	login_url += this.getXOrigin()
 
 	// Create the access token
 	accessTokenResource.post({ user_id: this.user.id, app_id: 4 })
 		.then(function(res) {
 			// Add the redirect URL to the PARAMS if available
 			if (redirect_url.length > 0) {
-				res.redirect_url = encodeURIComponent(redirect_url);
+				res.redirect_url = encodeURIComponent(redirect_url)
 			}
 
 			// Add the login syntax
-			login_url += '/verify?';
+			login_url += '/verify?'
 
 			// Encode the values and add to the URL
-			login_url += jQuery.param(res);
+			login_url += jQuery.param(res)
 
 			// Open the new window/tab
-			window.open(login_url,'_blank');
+			window.open(login_url,'_blank')
 
 			// Resolve the deferred promise
-			deferred.resolve(login_url);
-		});
+			deferred.resolve(login_url)
+		})
 
 	// Defer the promise
-	return deferred.promise();
+	return deferred.promise()
 }
 
 Talent.prototype.getPrimaryPhoto = function() {
@@ -90,30 +90,30 @@ Talent.prototype.getPrimaryPhoto = function() {
 				)),
 				'bam_media_path_full'
 			)
-		);
+		)
 
-	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male';
+	var gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male'
 
 	if (media_path) {
-		return 'https://etdownload.s3.amazonaws.com/' + media_path;
+		return 'https://etdownload.s3.amazonaws.com/' + media_path
 	}
 	else {
 		if(gender == "Male") {
-			var imgsrc = $('.profile-pic-primary').attr('src');
+			var imgsrc = $('.profile-pic-primary').attr('src')
 			if(imgsrc == '/images/filler.jpg') {
-				$('a.fancybox').addClass('show-upload-primary-photo-btn');
-				$('a.fancybox').removeClass('fancybox');
+				$('a.fancybox').addClass('show-upload-primary-photo-btn')
+				$('a.fancybox').removeClass('fancybox')
 			}
-			return '/images/filler.jpg';
+			return '/images/filler.jpg'
 		}
 
 		else {
-			var imgsrc = $('.profile-pic-primary').attr('src');
+			var imgsrc = $('.profile-pic-primary').attr('src')
 			if(imgsrc == '/images/filler_women.jpg') {
-				$('a.fancybox').addClass('show-upload-primary-photo-btn');
-				$('a.fancybox').removeClass('fancybox');
+				$('a.fancybox').addClass('show-upload-primary-photo-btn')
+				$('a.fancybox').removeClass('fancybox')
 			}
-			return '/images/filler_women.jpg';
+			return '/images/filler_women.jpg'
 		}
 	}
 }
@@ -128,34 +128,34 @@ Talent.prototype.getPrimaryPhotoId = function() {
 				)),
 				'id'
 			)
-		);
- 	return id;
+		)
+ 	return id
 }
 Talent.prototype.getSocialAccount = function(type) {
-	var social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'));
+	var social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'))
 
-	return social;
+	return social
 }
 
 Talent.prototype.getLocation = function() {
 	if (this.bam_talentinfo2 && this.bam_talentinfo2.city1) {
-		return this.bam_talentinfo2.city1;
+		return this.bam_talentinfo2.city1
 	}
 	else if(this.city && this.state && this.state.length > 2) {
-		return this.city + ', ' + this.state;
+		return this.city + ', ' + this.state
 	}
 	else if(this.state && this.state.length > 2) {
-		return this.city;
+		return this.city
 	}
 	else {
-		return 'Not Set';
+		return 'Not Set'
 	}
 }
 
 Talent.prototype.heightText = function() {
-	var feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00);
-	var inches = this.bam_talentinfo1.heightinches % 12;
-	return feet + "'" + inches + '"';
+	var feet = Math.floor(this.bam_talentinfo1.heightinches / 12.00)
+	var inches = this.bam_talentinfo1.heightinches % 12
+	return feet + "'" + inches + '"'
 }
 
 Talent.prototype.stateText = function() {
@@ -210,14 +210,14 @@ Talent.prototype.stateText = function() {
 		'WV' : 'West Virginia',
 		'WI' : 'Wisconsin',
 		'WY' : 'Wyoming'
-	};
+	}
 
-	return states[this.state];
+	return states[this.state]
 }
 
 Talent.prototype.getSelfSubmissions = function () {
-	var deferred = $.Deferred();
-	var qs = self.core.service.query_string();
+	var deferred = $.Deferred()
+	var qs = self.core.service.query_string()
 
 	var data = {
 		page: qs.self_submissions || 1,
@@ -230,16 +230,16 @@ Talent.prototype.getSelfSubmissions = function () {
 		]
 	}
 
-	var roles;
+	var roles
 
 	jobResource.get(data)
 		.then(function(res) {
-			roles = res;
+			roles = res
 			var scheduleIds = _.map(res.data, function(schedule) {
-				return schedule.schedule_id;
-			});
+				return schedule.schedule_id
+			})
 
-			scheduleIds.push(0);
+			scheduleIds.push(0)
 
 			var data2 = {
 				query : [
@@ -251,17 +251,17 @@ Talent.prototype.getSelfSubmissions = function () {
 			return scheduleResource.get(data2)
 		})
 		.then(function(res) {
-			res.total = roles.total;
+			res.total = roles.total
 
-			deferred.resolve(res);
-		});
+			deferred.resolve(res)
+		})
 
-	return deferred.promise();
+	return deferred.promise()
 
 }
 
 Talent.prototype.getCDInvites = function () {
-	var qs = self.core.service.query_string();
+	var qs = self.core.service.query_string()
 	var deferred = $.Deferred()
 
 	var data = {
@@ -281,17 +281,17 @@ Talent.prototype.getCDInvites = function () {
 
 	var campaignIds,
 		scheduleIds,
-		invites;
+		invites
 
 	jobResource.get(data)
 		.then(function(res) {
-			invites = res;
+			invites = res
 
-			campaignIds = _.map(res.data, 'campaign_id');
-			campaignIds.push(0);
+			campaignIds = _.map(res.data, 'campaign_id')
+			campaignIds.push(0)
 
-			scheduleIds = _.map(res.data, 'schedule_id');
-			scheduleIds.push(0);
+			scheduleIds = _.map(res.data, 'schedule_id')
+			scheduleIds.push(0)
 
 			data = {
 				query : [
@@ -301,10 +301,10 @@ Talent.prototype.getCDInvites = function () {
 				]
 			}
 
-			return campaignResource.get(data);
+			return campaignResource.get(data)
 		})
 		.then(function(res) {
-			invites.data = res.data;
+			invites.data = res.data
 
 			data = {
 				query : [
@@ -314,21 +314,21 @@ Talent.prototype.getCDInvites = function () {
 				]
 			}
 
-			return scheduleResource.get(data);
+			return scheduleResource.get(data)
 		})
 		.then(function(res) {
-			for(var i = 0; i < invites.data.length; i++) {
-				for(var j = 0; j < res.data.length; j++) {
+			for(var i = 0 i < invites.data.length i++) {
+				for(var j = 0 j < res.data.length j++) {
 					if (invites.data[i].bam_role_id == res.data[j].bam_role_id) {
-						invites.data[i].schedule = res.data[j];
+						invites.data[i].schedule = res.data[j]
 					}
 				}
 			}
 
-			deferred.resolve(invites);
-		});
+			deferred.resolve(invites)
+		})
 
-	return deferred.promise();
+	return deferred.promise()
 }
 
 Talent.relationship = [
@@ -345,6 +345,6 @@ Talent.relationship = [
 	'bam_talent_social:bam_talent_socials',
 	//if using GET from api, result is in the data property, set model to array of bam_talentcis
 	'data:bam_talentcis'
-];
+]
 
-module.exports = Talent;
+module.exports = Talent

@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	karma = require('karma').server;
+	karma = require('karma').server
 
 gulp.task('test', function(done) {
 	karma.start({
@@ -38,5 +38,5 @@ gulp.task('test', function(done) {
 			transform: ['browserify-istanbul']
 		}
 
-	});
-});
+	})
+})

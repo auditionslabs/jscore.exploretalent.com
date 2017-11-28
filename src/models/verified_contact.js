@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function VerifiedContact(data) {
-	_.extend(this, data || {});
+	_.extend(this, data || {})
 }
 
 VerifiedContact.relationship = [
 	'data:verified_contacts'
-];
+]
 
-module.exports = VerifiedContact;
+module.exports = VerifiedContact

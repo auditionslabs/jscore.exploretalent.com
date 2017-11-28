@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
+var _ = require('lodash')
 
 function User(data) {
-	_.extend(this, data);
+	_.extend(this, data)
 }
 
 User.relationship = [
 	'user',
-];
+]
 
-module.exports = User;
+module.exports = User

@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
-	<%= resource + 's' %> = {};
+	<%= resource + 's' %> = {}
 
 <%= resource + 's' %>.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('<%= model %>', item);
-	});
-};
+		return modelify('<%= model %>', item)
+	})
+}
 
-module.exports = <%= resource + 's' %>;
+module.exports = <%= resource + 's' %>

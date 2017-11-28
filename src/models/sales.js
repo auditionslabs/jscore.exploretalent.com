@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
 var _ = require('lodash'),
 	sales = {},
-	Sales = require('src/models/sale.js');
+	Sales = require('src/models/sale.js')
 
-sales.relationship = Sales.relationship;
+sales.relationship = Sales.relationship
 
 sales.create = function(array) {
-	var modelify = require('src/services/model.js');
+	var modelify = require('src/services/model.js')
 
 	return _.map(array || [], function(item) {
-		return modelify('sale', item);
-	});
-};
+		return modelify('sale', item)
+	})
+}
 
-module.exports = sales;
+module.exports = sales
