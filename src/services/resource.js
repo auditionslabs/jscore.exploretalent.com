@@ -50,7 +50,10 @@ _.each(REST.$$methods, function (method) {
     // Check if we are doing a GET request
     if (method.toUpperCase() == 'GET') {
       // Check if we have a query or q?
-      if (typeof params.data.query !== 'undefined') {
+      if (
+        typeof params.data !== 'undefined' &&
+        typeof params.data.query !== 'undefined'
+      ) {
         // CLONE to be safe
         params.data.q = _.clone(params.data.query)
 
