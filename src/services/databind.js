@@ -99,6 +99,13 @@ function databind (element, data, append) {
       case 'text':
         $(element).text(value)
         break
+      case 'title':
+      case 'title-suf':
+        $(element).text($(element).text() + ' - ' +  value)
+        break
+      case 'title-pre':
+        $(element).text(value + ' - ' +  $(element).text())
+        break
       case 'html':
         $(element).html(value)
         break
