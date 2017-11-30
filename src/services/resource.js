@@ -62,7 +62,10 @@ _.each(REST.$$methods, function (method) {
       }
 
       // Check for the old query format
-      if (typeof params.data.q !== 'undefined') {
+      if (
+        typeof params.data !== 'undefined' &&
+        typeof params.data.q !== 'undefined'
+      ) {
         // Check if we have a string/json already
         if (typeof params.data.q !== 'string') {
           params.data.q = JSON.stringify(params.data.q)
