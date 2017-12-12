@@ -62,12 +62,11 @@ Sales.prototype.formatToYMDT = function (timestamp, canceled) {
   seconds = seconds < 10 ? '0' + seconds : seconds
 
   let formattedTime = hours + ':' + minutes + ':' + seconds
+  let formatFull = formattedDate + ' ' + formattedTime
 
   // if canceled date, return just date with no time
   if (canceled) {
-    let formatFull = formattedDate
-  } else {
-    let formatFull = formattedDate + ' ' + formattedTime
+    formatFull = formattedDate
   }
 
   return formatFull
