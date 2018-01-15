@@ -7,61 +7,48 @@ function toUnixTimeStamp (date) {
 }
 
 function formatYMD (value) {
+  let date
   if (isNaN(value)) {
-    let date = new Date(value)
+    date = new Date(value)
   } else {
-    let date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
+    date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
   }
 
-  if (typeof date == 'undefined') {
-    return ''
+  if (typeof date == 'undefined' || date == 'Invalid Date') {
+    return 'Invalid Date'
   }
 
-  if (date == 'Invalid Date') {
-    return ''
-  }
-
-  return date.getUTCFullYear() + '-' +
-    _.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' +
-    _.padLeft(date.getUTCDate(), 2, 0)
+  return date.getUTCFullYear() + '-' + _.padLeft(date.getUTCMonth() + 1, 2, 0) + '-' + _.padLeft(date.getUTCDate(), 2, 0)
 }
 
 function formatFYMD (value) {
+  let date
   if (isNaN(value)) {
-    let date = new Date(value)
+    date = new Date(value)
   } else {
-    let date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
+    date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
   }
 
-  if (typeof date == 'undefined') {
-    return ''
-  }
-
-  if (date == 'Invalid Date') {
-    return ''
+  if (typeof date == 'undefined' || date == 'Invalid Date') {
+    return 'Invalid Date'
   }
 
   return moment(date).format('MMMM DD, YYYY')
 }
 
 function formatMDY (value) {
+  let date
   if (isNaN(value)) {
-    let date = new Date(value)
+    date = new Date(value)
   } else {
-    let date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
+    date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
   }
 
-  if (typeof date == 'undefined') {
-    return ''
+  if (typeof date == 'undefined' || date == 'Invalid Date') {
+    return 'Invalid Date'
   }
 
-  if (date == 'Invalid Date') {
-    return ''
-  }
-
-  return date.getUTCMonth() + 1 + '-' +
-    _.padLeft(date.getUTCDate(), 2, 0) + '-' +
-    _.padLeft(date.getUTCFullYear(), 2, 0)
+  return date.getUTCMonth() + 1 + '-' + _.padLeft(date.getUTCDate(), 2, 0) + '-' + _.padLeft(date.getUTCFullYear(), 2, 0)
 }
 
 function calculateAge (year, month, day) {
@@ -80,18 +67,15 @@ function now () {
 }
 
 function formatDateTime (value) {
+  let date
   if (isNaN(value)) {
-    let date = new Date(value)
+    date = new Date(value)
   } else {
-    let date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
+    date = new Date((value || 0) * 1000 - (7 * 60 * 60)) // set timezone to dev-la (GMT -7)
   }
 
-  if (typeof date == 'undefined') {
-    return ''
-  }
-
-  if (date == 'Invalid Date') {
-    return ''
+  if (typeof date == 'undefined' || date == 'Invalid Date') {
+    return 'Invalid Date'
   }
 
   return date.getUTCFullYear() + '-' +
