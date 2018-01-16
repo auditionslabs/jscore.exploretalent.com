@@ -93,7 +93,7 @@ function databind (element, data, append) {
     switch (attr) {
       case 'val':
         if ($(element).is('select')) {
-          if (value.length === 1) {
+          if (typeof value === 'String') {
             value = value.split('|')
           }
         }
@@ -124,13 +124,13 @@ function databind (element, data, append) {
         $(element).next().find('.note-editable').html(value)
         break
       case 'select':
-        if (value.length === 1) {
+        if (typeof value === 'String') {
           value = value.split('|')
         }
         $(element).val(value).select2()
         break
       case 'multiselect':
-        if (value.length === 1) {
+        if (typeof value === 'String') {
           value = value.split('|')
         }
         $(element).val(value).multiselect()
