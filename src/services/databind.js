@@ -93,8 +93,13 @@ function databind (element, data, append) {
     switch (attr) {
       case 'val':
         if ($(element).is('select')) {
-          if (typeof value === 'String') {
-            value = value.split('|')
+          if (typeof value === 'string') {
+            let delimiter = '|'
+            if (/,/.test(value)) {
+              delimiter = ','
+            }
+
+            value = value.split(delimiter)
           }
         }
         $(element).val(value)
@@ -124,16 +129,26 @@ function databind (element, data, append) {
         $(element).next().find('.note-editable').html(value)
         break
       case 'select':
-        if (typeof value === 'String') {
-          value = value.split('|')
+        if (typeof value === 'string') {
+          let delimiter = '|'
+          if (/,/.test(value)) {
+            delimiter = ','
+          }
+
+          value = value.split(delimiter)
         }
         $(element).val(value).select2()
         break
       case 'multiselect':
-        if (typeof value === 'String') {
-          value = value.split('|')
+        if (typeof value === 'string') {
+          let delimiter = '|'
+          if (/,/.test(value)) {
+            delimiter = ','
+          }
+
+          value = value.split(delimiter)
         }
-        $(element).val(value).multiselect()
+        $(element).val(value).multiselect('refresh')
         break
       case 'visibility':
         if (parseInt(value)) { $(element).show() } else { $(element).hide() }
