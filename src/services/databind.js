@@ -72,8 +72,10 @@ function databind (element, data, append) {
           attr = 'checked'
           value = true
         }
+      } else if ($(element).is('[data-multiselect]')) {
+        attr = 'multiselect'
       } else if ($(element).is('[data-select]')) {
-        attr = 'select2'
+        attr = 'select'
       } else if ($(element).is('input') || $(element).is('select')) {
         attr = 'val'
       } else if ($(element).is('a')) {
@@ -91,10 +93,11 @@ function databind (element, data, append) {
     switch (attr) {
       case 'val':
         if ($(element).is('select')) {
-          $(element).val(value.split('|'))
-        } else {
-          $(element).val(value)
+          if (value.length === 1) {
+            value = value.split('|')
+          }
         }
+        $(element).val(value)
         break
       case 'text':
         $(element).text(value)
@@ -120,8 +123,17 @@ function databind (element, data, append) {
         $(element).text(value)
         $(element).next().find('.note-editable').html(value)
         break
-      case 'select2':
-        $(element).val(value.split('|')).select2()
+      case 'select':
+        if (value.length === 1) {
+          value = value.split('|')
+        }
+        $(element).val(value).select2()
+        break
+      case 'multiselect':
+        if (value.length === 1) {
+          value = value.split('|')
+        }
+        $(element).val(value).multiselect()
         break
       case 'visibility':
         if (parseInt(value)) { $(element).show() } else { $(element).hide() }

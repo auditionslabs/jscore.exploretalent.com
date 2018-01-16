@@ -36,7 +36,7 @@ function formatFYMD (value) {
   return moment(date).format('MMMM DD, YYYY')
 }
 
-function formatMDY (value) {
+function formatMDY (value, seperator = '-') {
   let date
   if (isNaN(value)) {
     date = new Date(value)
@@ -48,7 +48,7 @@ function formatMDY (value) {
     return 'Invalid Date'
   }
 
-  return date.getUTCMonth() + 1 + '-' + _.padLeft(date.getUTCDate(), 2, 0) + '-' + _.padLeft(date.getUTCFullYear(), 2, 0)
+  return date.getUTCMonth() + 1 + seperator + _.padLeft(date.getUTCDate(), 2, 0) + seperator + _.padLeft(date.getUTCFullYear(), 2, 0)
 }
 
 function calculateAge (year, month, day) {
