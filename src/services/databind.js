@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function (element, data, append) {
+function databind (element, data, append) {
   let self = $(element)
 
   // remove elements of parent element which are not templates if append flag is not true
@@ -171,3 +171,5 @@ module.exports = function (element, data, append) {
     }
   }
 }
+
+module.exports = databind

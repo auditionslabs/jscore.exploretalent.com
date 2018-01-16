@@ -57,35 +57,35 @@ module.exports = {
     let cron = "* * * * *".split(' ')
 
     // Check if we have hours
-    if (form.cron_hours_from != 0 || form.cron_hours_to != 23) {
-      cron[1] = form.cron_hours_from
-      if (form.cron_hours_from != form.cron_hours_to) {
-        cron[1] = form.cron_hours_from + '-' + form.cron_hours_to
+    if (data.cron_hours_from != 0 || data.cron_hours_to != 23) {
+      cron[1] = data.cron_hours_from
+      if (data.cron_hours_from != data.cron_hours_to) {
+        cron[1] = data.cron_hours_from + '-' + data.cron_hours_to
       }
     }
 
     // Check if we have dates
-    if (form.cron_days_from != 1 || form.cron_days_to != 31) {
-      cron[2] = form.cron_days_from
-      if (form.cron_days_from != form.cron_days_to) {
-        cron[2] = form.cron_days_from + '-' + form.cron_days_to
+    if (data.cron_days_from != 1 || data.cron_days_to != 31) {
+      cron[2] = data.cron_days_from
+      if (data.cron_days_from != data.cron_days_to) {
+        cron[2] = data.cron_days_from + '-' + data.cron_days_to
       }
     }
 
     // Check if we have months of the year
-    if (form.cron_months && form.cron_months.length != 12) {
-      if (form.cron_months.length == 1) {
-        form.cron_months = [form.cron_months]
+    if (data.cron_months && data.cron_months.length != 12) {
+      if (data.cron_months.length == 1) {
+        data.cron_months = [data.cron_months]
       }
-      cron[3] = form.cron_months.join(',')
+      cron[3] = data.cron_months.join(',')
     }
 
     // Check if we have days of the week
-    if (form.cron_days && form.cron_days.length != 7) {
-      if (form.cron_days.length == 1) {
-        form.cron_days = [form.cron_days]
+    if (data.cron_days && data.cron_days.length != 7) {
+      if (data.cron_days.length == 1) {
+        data.cron_days = [data.cron_days]
       }
-      cron[4] = form.cron_days.join(',')
+      cron[4] = data.cron_days.join(',')
     }
 
     return cron.join(' ')
