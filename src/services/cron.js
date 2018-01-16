@@ -1,15 +1,22 @@
 'use strict'
 
-module.exports = {
+let Cron = {
+  default: '* * * * *',
   parse: (cron) => {
     // Default data is RUN ALL THE TIME
     let data = {}
+
+    if (typeof cron !== 'string') {
+      // Reset the CRON
+      cron = Cron.default
+    }
 
     // Split the CRON
     cron = cron.split(' ')
 
     if (cron.length !== 5) {
-      cron = '* * * * *'.split(' ')
+      // Reset the CRON
+      cron = Cron.default.split(' ')
     }
 
     // Check if we have hours
@@ -54,7 +61,7 @@ module.exports = {
   },
   create: (data) => {
     // Default cron is RUN ALL THE TIME
-    let cron = "* * * * *".split(' ')
+    let cron = Cron.default.split(' ')
 
     // Check if we have hours
     if (data.cron_hours_from != 0 || data.cron_hours_to != 23) {
@@ -91,3 +98,5 @@ module.exports = {
     return cron.join(' ')
   }
 }
+
+module.exports = Cron
