@@ -55,9 +55,6 @@ function databind (element, data, append) {
       // add cloned element to the target
       self.find(appendTo).addBack(appendTo).append(clone)
     })
-
-    // Clean up the template
-    element.remove()
   })
 
   // sets the value of the element
