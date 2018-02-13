@@ -159,7 +159,7 @@ function databind (element, data, append) {
         $(element).attr('value', value.key)
         $(element).text(value.value)
         if (value.selected && value.selected.length > 0) {
-          $(element).parent().val(value.key)
+          $(element).attr('selected', 'selected')
         }
         break
       case 'class':
