@@ -55,6 +55,9 @@ function databind (element, data, append) {
       // add cloned element to the target
       self.find(appendTo).addBack(appendTo).append(clone)
     })
+
+    // Clean up the template
+    element.remove()
   })
 
   // sets the value of the element
@@ -159,7 +162,7 @@ function databind (element, data, append) {
         $(element).attr('value', value.key)
         $(element).text(value.value)
         if (value.selected && value.selected.length > 0) {
-          $(element).attr('selected', 'selected')
+          $(element).parent().val(value.value)
         }
         break
       case 'class':
