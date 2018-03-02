@@ -8,16 +8,25 @@ function Casting (data) {
 }
 
 Casting.prototype.getRate = function () {
-  let rates = {
-    0: '',
-    1: 'event',
-    2: 'hour',
-    3: 'day',
-    4: 'week',
-    5: 'month'
-  }
+  let rates = [
+    'N/A' ,
+    'Per Event',
+    'Per Hour',
+    'Per Day',
+    'Per Week',
+    'Per Month',
+    'Negotiable'
+  ]
 
   return rates[this.rate_des]
+}
+
+Casting.prototype.getRateText = function () {
+  if (this.rate_des == 0 || this.rate_des == 6) {
+    return this.getRate()
+  }
+
+  return this.rate + ' ' + this.getRate()
 }
 
 Casting.prototype.getCategory = function () {
