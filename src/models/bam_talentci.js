@@ -244,7 +244,8 @@ Talent.prototype.getSelfSubmissions = function () {
       let data2 = {
         query : [
           [ 'whereIn', 'id', scheduleIds ],
-          [ 'with', 'bam_role.bam_casting' ]
+          [ 'with', 'bam_role.bam_casting' ],
+          [ 'orderBy', 'created_at', 'DESC' ]
         ]
       }
 
