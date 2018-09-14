@@ -117,9 +117,7 @@ function databind (element, data, append) {
         break
       case 'html':
         if ($(element).is('iframe')) {
-          let iFrame = $(element)
-          let iFrameDoc = iFrame[0].contentDocument || iFrame[0].contentWindow.document
-          iFrameDoc.write(value)
+          $(element).contents().find('html').html(value)
         } else {
           $(element).html(value)
         }
