@@ -24,7 +24,7 @@ module.exports = function(element, options) {
   let page_count = options.total ? Math.ceil(options.total / options.per_page) : options.page
   let infinate = options.total ? false : true
 
-  if (page_count > 1) {
+  if (page_count > 1 || infinate) {
     let ul = $('<ul>').addClass(options.class)
 
     qs[options.name] = 1
