@@ -21,7 +21,8 @@ module.exports = function(element, options) {
     options.page = 1
 
   let url = window.location.href.replace(window.location.search, '')
-  let page_count = Math.ceil(options.total / options.per_page)
+  let page_count = options.total ? Math.ceil(options.total / options.per_page) : options.page
+  let infinate = options.total ? false : true
 
   if (page_count > 1) {
     let ul = $('<ul>').addClass(options.class)
@@ -61,6 +62,7 @@ module.exports = function(element, options) {
     }
 
     qs[options.name] = options.page == page_count ? options.page : options.page + 1
+    qs[options.name] = infinate ? options.page + 1 : qs[options.name]
     let next = $('<li>').append(
       $('<a>').attr('href', url + '?' + $.param(qs)).append(
         $('<span>').text('Next')
@@ -79,6 +81,10 @@ module.exports = function(element, options) {
     if (page_count != options.page) {
       ul.append(next)
       ul.append(nextt)
+    }
+
+    if (infinate) {
+      ul.append(next)
     }
 
     $this.empty()
