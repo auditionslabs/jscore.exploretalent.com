@@ -116,7 +116,13 @@ function databind (element, data, append) {
         $(element).text(value + ' - ' +  $(element).text())
         break
       case 'html':
-        $(element).html(value)
+        if ($(element).is('iframe')) {
+          let iFrame = $(element)
+          let iFrameDoc = iFrame[0].contentDocument || iFrame[0].contentWindow.document
+          iFrameDoc.write(value)
+        } else {
+          $(element).html(value)
+        }
         break
       case 'checked':
         $(element).prop('checked', value)
