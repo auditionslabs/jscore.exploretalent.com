@@ -252,7 +252,6 @@ Role.prototype.getMatches = function (pro, options, app_filter) {
   data.q = JSON.stringify(data.query)
   delete data.query
 
-  console.log('Role.prototype.getMatches', data)
   return searchTalentResource.get(data)
 }
 
@@ -437,7 +436,6 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
-  console.log('Role.prototype.getMatchesFilter', data)
   return data
 }
 
