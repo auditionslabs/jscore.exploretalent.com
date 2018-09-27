@@ -334,6 +334,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // gender
   let genders = this.getGenders()
 
   if (genders.length) {
@@ -350,6 +351,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // ethnicity
   let ethnicities = this.getEthnicities()
 
   if (ethnicities.length) {
@@ -366,6 +368,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // body type/build
   let builds = this.getBuilds()
 
   if (builds.length) {
@@ -376,6 +379,57 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
         subquery.push([ 'where', 'build', '=', build ])
       } else {
         subquery.push([ 'orWhere', 'build', '=', build ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // hair color
+  let haircolors = this.getHairColors()
+
+  if (haircolors.length) {
+    subquery = []
+
+    _.each(haircolors, function (haircolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'haircolor', '=', haircolor ])
+      } else {
+        subquery.push([ 'orWhere', 'haircolor', '=', haircolor ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // hair style
+  let hairstyles = this.getHairStyles()
+
+  if (hairstyles.length) {
+    subquery = []
+
+    _.each(hairstyles, function (hairstyle) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'hairstyle', '=', hairstyle ])
+      } else {
+        subquery.push([ 'orWhere', 'hairstyle', '=', hairstyle ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // eye color
+  let eyecolors = this.getEyeColors()
+
+  if (eyecolors.length) {
+    subquery = []
+
+    _.each(eyecolors, function (eyecolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'eyecolor', '=', eyecolor ])
+      } else {
+        subquery.push([ 'orWhere', 'eyecolor', '=', eyecolor ])
       }
     })
 
