@@ -442,9 +442,17 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
 Role.prototype.getGenders = function () {
   let array = []
 
-  if (this.gender_male == 1) { array.push('Male') }
+  if (this.gender_male == 1) {
+    array.push('Male')
+  }
 
-  if (this.gender_female == 1) { array.push('Female') }
+  if (this.gender_female == 1) {
+    array.push('Female')
+  }
+
+  if (array.length > 1) {
+    return []
+  }
 
   return array
 }
@@ -467,7 +475,9 @@ Role.prototype.getEthnicities = function () {
     east_indian: 'East Indian'
   }
 
-  if (this.ethnicity_any == 1) { return getValues(ethnicities) }
+  if (this.ethnicity_any == 1) {
+    return []
+  }
 
   for (let e in ethnicities) {
     if (this['ethnicity_' + e] == 1) {
@@ -494,7 +504,10 @@ Role.prototype.getHairColors = function () {
     salt_pepper: 'Salt&Peppe'
   }
 
-  if (this.hair_any == 1) { return getValues(haircolors) }
+  if (this.hair_any == 1) {
+    return []
+  }
+
   for (let color in haircolors) {
     if (this['hair_' + color] == 1) {
       array.push(haircolors[color])
@@ -519,7 +532,9 @@ Role.prototype.getHairStyles = function () {
     short: 'Short'
   }
 
-  if (this.hairstyle_any == 1) { return getValues(hairstyles) }
+  if (this.hairstyle_any == 1) {
+    return []
+  }
 
   for (let style in hairstyles) {
     if (this['hairstyle_' + style] == 1) {
@@ -544,7 +559,9 @@ Role.prototype.getEyeColors = function () {
     hazel: 'Hazel'
   }
 
-  if (this.eye_any == 1) { return getValues(eyecolors) }
+  if (this.eye_any == 1) {
+    return []
+  }
 
   for (let color in eyecolors) {
     if (this['eye_' + color] == 1) {
@@ -570,7 +587,9 @@ Role.prototype.getBuilds = function () {
     average: 'Average'
   }
 
-  if (this.built_any == 1) { return getValues(builds) }
+  if (this.built_any == 1) {
+    return []
+  }
 
   for (let b in builds) {
     if (this['built_' + b] == 1) {
