@@ -272,6 +272,11 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
         data.query.push(['where', 'has_photos', '=', 0 ])
       }
     }
+
+    if (options.regdate_from && options.regdate_to) {
+      data.query.push(['where', 'date_entered', '<=', options.regdate_to])
+      data.query.push(['where', 'date_entered', '>=', options.regdate_from])
+    }
   }
 
   if (app_filter) {
