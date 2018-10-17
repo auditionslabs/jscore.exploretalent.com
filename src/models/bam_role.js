@@ -272,6 +272,11 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
         data.query.push(['where', 'has_photos', '=', 0 ])
       }
     }
+
+    if (options.regdate_from && options.regdate_to) {
+      data.query.push(['where', 'date_entered', '<=', options.regdate_to])
+      data.query.push(['where', 'date_entered', '>=', options.regdate_from])
+    }
   }
 
   if (app_filter) {
@@ -334,6 +339,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // gender
   let genders = this.getGenders()
 
   if (genders.length) {
@@ -350,6 +356,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // ethnicity
   let ethnicities = this.getEthnicities()
 
   if (ethnicities.length) {
@@ -366,6 +373,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // body type/build
   let builds = this.getBuilds()
 
   if (builds.length) {
@@ -382,15 +390,74 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // hair color
+  let haircolors = this.getHairColors()
+
+  if (haircolors.length) {
+    subquery = []
+
+    _.each(haircolors, function (haircolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'haircolor', '=', haircolor ])
+      } else {
+        subquery.push([ 'orWhere', 'haircolor', '=', haircolor ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // hair style
+  let hairstyles = this.getHairStyles()
+
+  if (hairstyles.length) {
+    subquery = []
+
+    _.each(hairstyles, function (hairstyle) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'hairstyle', '=', hairstyle ])
+      } else {
+        subquery.push([ 'orWhere', 'hairstyle', '=', hairstyle ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // eye color
+  let eyecolors = this.getEyeColors()
+
+  if (eyecolors.length) {
+    subquery = []
+
+    _.each(eyecolors, function (eyecolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'eyecolor', '=', eyecolor ])
+      } else {
+        subquery.push([ 'orWhere', 'eyecolor', '=', eyecolor ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
   return data
 }
 
 Role.prototype.getGenders = function () {
   let array = []
 
-  if (this.gender_male == 1) { array.push('Male') }
+  if (this.gender_male == 1) {
+    array.push('Male')
+  }
 
-  if (this.gender_female == 1) { array.push('Female') }
+  if (this.gender_female == 1) {
+    array.push('Female')
+  }
+
+  if (array.length > 1) {
+    return []
+  }
 
   return array
 }
@@ -413,7 +480,9 @@ Role.prototype.getEthnicities = function () {
     east_indian: 'East Indian'
   }
 
-  if (this.ethnicity_any == 1) { return getValues(ethnicities) }
+  if (this.ethnicity_any == 1) {
+    return []
+  }
 
   for (let e in ethnicities) {
     if (this['ethnicity_' + e] == 1) {
@@ -440,7 +509,10 @@ Role.prototype.getHairColors = function () {
     salt_pepper: 'Salt&Peppe'
   }
 
-  if (this.hair_any == 1) { return getValues(haircolors) }
+  if (this.hair_any == 1) {
+    return []
+  }
+
   for (let color in haircolors) {
     if (this['hair_' + color] == 1) {
       array.push(haircolors[color])
@@ -465,7 +537,9 @@ Role.prototype.getHairStyles = function () {
     short: 'Short'
   }
 
-  if (this.hairstyle_any == 1) { return getValues(hairstyles) }
+  if (this.hairstyle_any == 1) {
+    return []
+  }
 
   for (let style in hairstyles) {
     if (this['hairstyle_' + style] == 1) {
@@ -490,7 +564,9 @@ Role.prototype.getEyeColors = function () {
     hazel: 'Hazel'
   }
 
-  if (this.eye_any == 1) { return getValues(eyecolors) }
+  if (this.eye_any == 1) {
+    return []
+  }
 
   for (let color in eyecolors) {
     if (this['eye_' + color] == 1) {
@@ -516,7 +592,9 @@ Role.prototype.getBuilds = function () {
     average: 'Average'
   }
 
-  if (this.built_any == 1) { return getValues(builds) }
+  if (this.built_any == 1) {
+    return []
+  }
 
   for (let b in builds) {
     if (this['built_' + b] == 1) {
