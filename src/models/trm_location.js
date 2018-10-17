@@ -3,7 +3,7 @@
 
 let _ = require('lodash')
 
-function Banners (data) {
+function Locations (data) {
   _.extend(this, data || {})
 }
 
