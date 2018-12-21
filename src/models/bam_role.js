@@ -12,15 +12,23 @@ function Role (data) {
 }
 
 Role.prototype.getHeightMinText = function () {
-  if (parseInt(this.height_min)) { return talentService.getHeight(this.height_min) } else { return 'Any' }
+  if (parseInt(this.height_min)) {
+    return talentService.getHeight(this.height_min)
+  } else {
+    return 'Any'
+  }
 }
 
 Role.prototype.getHeightMaxText = function () {
-  if (parseInt(this.height_max)) { return talentService.getHeight(this.height_max) } else { return 'Any' }
+  if (parseInt(this.height_max)) {
+    return talentService.getHeight(this.height_max)
+  } else {
+    return 'Any'
+  }
 }
 
 Role.prototype.getLikeItList = function (options, app_filter) {
-  options = options || { }
+  options = options || {}
 
   let data = {
     per_page: options.per_page,
@@ -28,9 +36,9 @@ Role.prototype.getLikeItList = function (options, app_filter) {
       [ 'with', 'user' ],
       [ 'with', 'bam_talentinfo1' ],
       [ 'with', 'bam_talentinfo2' ],
-      [ 'with', 'bam_talent_media2' ],
       [ 'with', 'bam_talent_music' ],
       [ 'with', 'bam_talent_dance' ],
+      [ 'with', 'bam_talent_media2' ],
       [ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
       [ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
       [ 'where', 'laret_schedules.rating', '<>', 0 ],
@@ -38,7 +46,7 @@ Role.prototype.getLikeItList = function (options, app_filter) {
     ]
   }
 
-  options = options || { }
+  options = options || {}
 
   data.page = options.page
 
@@ -177,25 +185,6 @@ Role.prototype.deleteSelfSubmissions = function () {
   return scheduleResource.delete(data)
 }
 
-// Role.prototype.getSelfSubmissions = function(options) {
-//   let data = {
-//     query : [
-//       [ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-//       [ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-//       [ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-//       [ 'with', 'schedule_notes.user.bam_cd_user' ],
-//       [ 'where', 'submission', '=', 1 ],
-//       [ 'where', 'bam_role_id', '=', this.role_id ]
-//     ]
-//   }
-
-//   if (options) {
-//     data = _.merge(data, options)
-//   }
-
-//   return scheduleResource.get(data)
-// }
-
 Role.prototype.getSelfSubmissions = function (options, app_filter) {
   let data = {
 
@@ -286,17 +275,17 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
   if (parseInt(this.age_min)) {
     data.query.push([ 'where', [
         [ 'where', 'dobyyyy', '<', new Date().getFullYear() - parseInt(this.age_min) ],
-      [ 'orWhere', [
+        [ 'orWhere', [
           [ 'where', 'dobyyyy', '=', new Date().getFullYear() - parseInt(this.age_min) ],
-        [ 'where', [
+          [ 'where', [
             [ 'where', 'dobmm', '<', new Date().getMonth() + 1 ],
-          [ 'orWhere', [
+            [ 'orWhere', [
               [ 'where', 'dobmm', '=', new Date().getMonth() + 1 ],
               [ 'where', 'dobdd', '<=', new Date().getDate() ]
+            ]]
           ]]
         ]]
-      ]]
-    ]
+      ]
     ])
   }
 
