@@ -99,7 +99,7 @@ Role.prototype.getSubmissionsCount = function (xorigins) {
     query: [
       [ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
       [ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
-      [ 'where', 'bam.laret_schedules.submission', '=', 1 ],
+      [ 'where', 'bam.laret_schedules.submission', '>', 0 ],
       [ 'where', 'bam.laret_schedules.bam_role_id', '=', this.role_id ]
     ]
   }
@@ -160,7 +160,7 @@ Role.prototype.copyToLikeItList = function () {
         [ 'where', 'rating', '=', 0 ],
         [ 'orWhereNull', 'rating' ]
       ],
-      [ 'where', 'submission', '=', 1 ],
+      [ 'where', 'submission', '>', 0 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
     fields: {
@@ -176,7 +176,7 @@ Role.prototype.deleteSelfSubmissions = function () {
   let data = {
     with_trashed: 1,
     query: [
-      [ 'where', 'submission', '=', 1 ],
+      [ 'where', 'submission', '>', 0 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
     per_page: 1000000
@@ -198,7 +198,7 @@ Role.prototype.getSelfSubmissions = function (options, app_filter) {
       [ 'with', 'bam_talent_dance' ],
       [ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
       [ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
-      [ 'where', 'laret_schedules.submission', 1 ],
+      [ 'where', 'laret_schedules.submission', '>', 0 ],
       [ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
     ]
   }
