@@ -223,10 +223,10 @@ Talent.prototype.getSelfSubmissions = function () {
     page: qs.self_submissions || 1,
     query : [
       [ 'join', 'laret_schedules', 'laret_schedules.bam_role_id', '=', 'roles.role_id' ],
-      [ 'where', 'laret_schedules.submission', '=', 1 ],
+      [ 'where', 'laret_schedules.submission', '>', 0 ],
       [ 'where', 'laret_schedules.invitee_id', '=', this.user.id ],
       [ 'select', 'laret_schedules.id as schedule_id' ],
-      ['orderBy', 'laret_schedules.created_at', 'DESC']
+      [ 'orderBy', 'laret_schedules.created_at', 'DESC' ]
     ]
   }
 
@@ -244,7 +244,8 @@ Talent.prototype.getSelfSubmissions = function () {
       let data2 = {
         query : [
           [ 'whereIn', 'id', scheduleIds ],
-          [ 'with', 'bam_role.bam_casting' ]
+          [ 'with', 'bam_role.bam_casting' ],
+          [ 'orderBy', 'created_at', 'DESC' ]
         ]
       }
 

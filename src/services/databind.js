@@ -69,10 +69,12 @@ function databind (element, data, append) {
       } else if ($(element).is('[data-slider]')) {
         attr = 'slider'
       } else if ($(element).is('input[type="checkbox"]') || $(element).is('input[type="radio"]')) {
-        if (value == 1 || value === 'true') {
-          attr = 'checked'
-          value = true
+        attr = 'checked'
+        _value = false
+        if (value == 1 || value == 'true') {
+          _value = true
         }
+        value = _value
       } else if ($(element).is('[data-multiselect]')) {
         attr = 'multiselect'
       } else if ($(element).is('[data-select]')) {
@@ -116,7 +118,11 @@ function databind (element, data, append) {
         $(element).text(value + ' - ' +  $(element).text())
         break
       case 'html':
-        $(element).html(value)
+        if ($(element).is('iframe')) {
+          $(element).contents().find('html').html(value)
+        } else {
+          $(element).html(value)
+        }
         break
       case 'checked':
         $(element).prop('checked', value)

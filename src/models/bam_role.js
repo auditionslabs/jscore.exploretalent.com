@@ -12,15 +12,23 @@ function Role (data) {
 }
 
 Role.prototype.getHeightMinText = function () {
-  if (parseInt(this.height_min)) { return talentService.getHeight(this.height_min) } else { return 'Any' }
+  if (parseInt(this.height_min)) {
+    return talentService.getHeight(this.height_min)
+  } else {
+    return 'Any'
+  }
 }
 
 Role.prototype.getHeightMaxText = function () {
-  if (parseInt(this.height_max)) { return talentService.getHeight(this.height_max) } else { return 'Any' }
+  if (parseInt(this.height_max)) {
+    return talentService.getHeight(this.height_max)
+  } else {
+    return 'Any'
+  }
 }
 
 Role.prototype.getLikeItList = function (options, app_filter) {
-  options = options || { }
+  options = options || {}
 
   let data = {
     per_page: options.per_page,
@@ -28,9 +36,9 @@ Role.prototype.getLikeItList = function (options, app_filter) {
       [ 'with', 'user' ],
       [ 'with', 'bam_talentinfo1' ],
       [ 'with', 'bam_talentinfo2' ],
-      [ 'with', 'bam_talent_media2' ],
       [ 'with', 'bam_talent_music' ],
       [ 'with', 'bam_talent_dance' ],
+      [ 'with', 'bam_talent_media2' ],
       [ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
       [ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
       [ 'where', 'laret_schedules.rating', '<>', 0 ],
@@ -38,7 +46,7 @@ Role.prototype.getLikeItList = function (options, app_filter) {
     ]
   }
 
-  options = options || { }
+  options = options || {}
 
   data.page = options.page
 
@@ -91,7 +99,7 @@ Role.prototype.getSubmissionsCount = function (xorigins) {
     query: [
       [ 'join', 'bam.laret_users', 'bam.laret_users.bam_talentnum', '=', 'search.talents.talentnum' ],
       [ 'leftJoin', 'bam.laret_schedules', 'bam.laret_schedules.invitee_id', '=', 'bam.laret_users.id' ],
-      [ 'where', 'bam.laret_schedules.submission', '=', 1 ],
+      [ 'where', 'bam.laret_schedules.submission', '>', 0 ],
       [ 'where', 'bam.laret_schedules.bam_role_id', '=', this.role_id ]
     ]
   }
@@ -152,7 +160,7 @@ Role.prototype.copyToLikeItList = function () {
         [ 'where', 'rating', '=', 0 ],
         [ 'orWhereNull', 'rating' ]
       ],
-      [ 'where', 'submission', '=', 1 ],
+      [ 'where', 'submission', '>', 0 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
     fields: {
@@ -168,7 +176,7 @@ Role.prototype.deleteSelfSubmissions = function () {
   let data = {
     with_trashed: 1,
     query: [
-      [ 'where', 'submission', '=', 1 ],
+      [ 'where', 'submission', '>', 0 ],
       [ 'where', 'bam_role_id', '=', this.role_id ]
     ],
     per_page: 1000000
@@ -176,25 +184,6 @@ Role.prototype.deleteSelfSubmissions = function () {
 
   return scheduleResource.delete(data)
 }
-
-// Role.prototype.getSelfSubmissions = function(options) {
-//   let data = {
-//     query : [
-//       [ 'with', 'invitee.bam_talentci.bam_talentinfo1' ],
-//       [ 'with', 'invitee.bam_talentci.bam_talentinfo2' ],
-//       [ 'with', 'invitee.bam_talentci.bam_talent_media2' ],
-//       [ 'with', 'schedule_notes.user.bam_cd_user' ],
-//       [ 'where', 'submission', '=', 1 ],
-//       [ 'where', 'bam_role_id', '=', this.role_id ]
-//     ]
-//   }
-
-//   if (options) {
-//     data = _.merge(data, options)
-//   }
-
-//   return scheduleResource.get(data)
-// }
 
 Role.prototype.getSelfSubmissions = function (options, app_filter) {
   let data = {
@@ -209,7 +198,7 @@ Role.prototype.getSelfSubmissions = function (options, app_filter) {
       [ 'with', 'bam_talent_dance' ],
       [ 'join', 'laret_users', 'laret_users.bam_talentnum', '=', 'talentci.talentnum' ],
       [ 'leftJoin', 'laret_schedules', 'laret_schedules.invitee_id', '=', 'laret_users.id' ],
-      [ 'where', 'laret_schedules.submission', 1 ],
+      [ 'where', 'laret_schedules.submission', '>', 0 ],
       [ 'where', 'laret_schedules.bam_role_id', '=', this.role_id ]
     ]
   }
@@ -272,6 +261,11 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
         data.query.push(['where', 'has_photos', '=', 0 ])
       }
     }
+
+    if (options.regdate_from && options.regdate_to) {
+      data.query.push(['where', 'date_entered', '<=', options.regdate_to])
+      data.query.push(['where', 'date_entered', '>=', options.regdate_from])
+    }
   }
 
   if (app_filter) {
@@ -281,17 +275,17 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
   if (parseInt(this.age_min)) {
     data.query.push([ 'where', [
         [ 'where', 'dobyyyy', '<', new Date().getFullYear() - parseInt(this.age_min) ],
-      [ 'orWhere', [
+        [ 'orWhere', [
           [ 'where', 'dobyyyy', '=', new Date().getFullYear() - parseInt(this.age_min) ],
-        [ 'where', [
+          [ 'where', [
             [ 'where', 'dobmm', '<', new Date().getMonth() + 1 ],
-          [ 'orWhere', [
+            [ 'orWhere', [
               [ 'where', 'dobmm', '=', new Date().getMonth() + 1 ],
               [ 'where', 'dobdd', '<=', new Date().getDate() ]
+            ]]
           ]]
         ]]
-      ]]
-    ]
+      ]
     ])
   }
 
@@ -334,6 +328,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // gender
   let genders = this.getGenders()
 
   if (genders.length) {
@@ -350,6 +345,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // ethnicity
   let ethnicities = this.getEthnicities()
 
   if (ethnicities.length) {
@@ -366,6 +362,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // body type/build
   let builds = this.getBuilds()
 
   if (builds.length) {
@@ -382,15 +379,74 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
     data.query.push([ 'where', subquery ])
   }
 
+  // hair color
+  let haircolors = this.getHairColors()
+
+  if (haircolors.length) {
+    subquery = []
+
+    _.each(haircolors, function (haircolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'haircolor', '=', haircolor ])
+      } else {
+        subquery.push([ 'orWhere', 'haircolor', '=', haircolor ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // hair style
+  let hairstyles = this.getHairStyles()
+
+  if (hairstyles.length) {
+    subquery = []
+
+    _.each(hairstyles, function (hairstyle) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'hairstyle', '=', hairstyle ])
+      } else {
+        subquery.push([ 'orWhere', 'hairstyle', '=', hairstyle ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
+  // eye color
+  let eyecolors = this.getEyeColors()
+
+  if (eyecolors.length) {
+    subquery = []
+
+    _.each(eyecolors, function (eyecolor) {
+      if (subquery.length == 0) {
+        subquery.push([ 'where', 'eyecolor', '=', eyecolor ])
+      } else {
+        subquery.push([ 'orWhere', 'eyecolor', '=', eyecolor ])
+      }
+    })
+
+    data.query.push([ 'where', subquery ])
+  }
+
   return data
 }
 
 Role.prototype.getGenders = function () {
   let array = []
 
-  if (this.gender_male == 1) { array.push('Male') }
+  if (this.gender_male == 1) {
+    array.push('Male')
+  }
 
-  if (this.gender_female == 1) { array.push('Female') }
+  if (this.gender_female == 1) {
+    array.push('Female')
+  }
+
+  if (array.length > 1) {
+    return []
+  }
 
   return array
 }
@@ -413,7 +469,9 @@ Role.prototype.getEthnicities = function () {
     east_indian: 'East Indian'
   }
 
-  if (this.ethnicity_any == 1) { return getValues(ethnicities) }
+  if (this.ethnicity_any == 1) {
+    return []
+  }
 
   for (let e in ethnicities) {
     if (this['ethnicity_' + e] == 1) {
@@ -440,7 +498,10 @@ Role.prototype.getHairColors = function () {
     salt_pepper: 'Salt&Peppe'
   }
 
-  if (this.hair_any == 1) { return getValues(haircolors) }
+  if (this.hair_any == 1) {
+    return []
+  }
+
   for (let color in haircolors) {
     if (this['hair_' + color] == 1) {
       array.push(haircolors[color])
@@ -465,7 +526,9 @@ Role.prototype.getHairStyles = function () {
     short: 'Short'
   }
 
-  if (this.hairstyle_any == 1) { return getValues(hairstyles) }
+  if (this.hairstyle_any == 1) {
+    return []
+  }
 
   for (let style in hairstyles) {
     if (this['hairstyle_' + style] == 1) {
@@ -490,7 +553,9 @@ Role.prototype.getEyeColors = function () {
     hazel: 'Hazel'
   }
 
-  if (this.eye_any == 1) { return getValues(eyecolors) }
+  if (this.eye_any == 1) {
+    return []
+  }
 
   for (let color in eyecolors) {
     if (this['eye_' + color] == 1) {
@@ -516,7 +581,9 @@ Role.prototype.getBuilds = function () {
     average: 'Average'
   }
 
-  if (this.built_any == 1) { return getValues(builds) }
+  if (this.built_any == 1) {
+    return []
+  }
 
   for (let b in builds) {
     if (this['built_' + b] == 1) {
