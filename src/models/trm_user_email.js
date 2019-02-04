@@ -6,7 +6,7 @@ function TrmUserEmail (data) {
   _.extend(this, data)
 }
 
-UserEmail.relationship = [
+TrmUserEmail.relationship = [
   'data:trm_user_emails'
 ]
 module.exports = TrmUserEmail
