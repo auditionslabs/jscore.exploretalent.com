@@ -273,20 +273,7 @@ Role.prototype.getMatchesFilter = function (pro, options, app_filter) {
   }
 
   if (parseInt(this.age_min)) {
-    data.query.push([ 'where', [
-        [ 'where', 'dobyyyy', '<', new Date().getFullYear() - parseInt(this.age_min) ],
-        [ 'orWhere', [
-          [ 'where', 'dobyyyy', '=', new Date().getFullYear() - parseInt(this.age_min) ],
-          [ 'where', [
-            [ 'where', 'dobmm', '<', new Date().getMonth() + 1 ],
-            [ 'orWhere', [
-              [ 'where', 'dobmm', '=', new Date().getMonth() + 1 ],
-              [ 'where', 'dobdd', '<=', new Date().getDate() ]
-            ]]
-          ]]
-        ]]
-      ]
-    ])
+    data.query.push([ 'where', 'dobyyyy', '<=', new Date().getFullYear() - parseInt(this.age_min) ])
   }
 
   if (parseInt(this.age_max)) {
