@@ -26,7 +26,7 @@ module.exports = function(element, options) {
 
   let url = window.location.pathname
   let page_count = options.total ? Math.ceil(options.total / options.per_page) : options.page
-  let infinate = options.total ? false : true
+  let infinate = typeof options.total === 'undefined'
 
   if (page_count <= 1 && !infinate) {
     $this.empty()
