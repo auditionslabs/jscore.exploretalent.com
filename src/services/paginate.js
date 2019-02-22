@@ -18,6 +18,10 @@ module.exports = function(element, options) {
     options.per_page = 25
   }
 
+  if (!options.count) {
+    options.count = 25
+  }
+
   options.page = parseInt(qs[options.name])
 
   if (!options.page) {
@@ -91,7 +95,7 @@ module.exports = function(element, options) {
     ul.append(nextt)
   }
 
-  if (infinate) {
+  if (infinate && options.count >= options.per_page) {
     ul.append(next)
   }
 
