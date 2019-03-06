@@ -138,18 +138,39 @@ Talent.prototype.getSocialAccount = function(type) {
 }
 
 Talent.prototype.getLocation = function() {
-  if (this.bam_talentinfo2 && this.bam_talentinfo2.city1) {
-    return this.bam_talentinfo2.city1
+  let parts = []
+
+  if(this.city && this.city.length > 0) {
+    parts.push(this.city)
   }
-  else if(this.city && this.state && this.state.length > 2) {
-    return this.city + ', ' + this.state
+
+  if(this.state && this.state.length > 0) {
+    parts.push(this.state)
   }
-  else if(this.state && this.state.length > 2) {
-    return this.city
+
+  if (parts.length  >= 2) {
+    return parts.join(', ')
   }
-  else {
-    return 'Not Set'
+
+  if (this.bam_talentinfo2) {
+    if (this.bam_talentinfo2.city1) {
+      return this.bam_talentinfo2.city1
+    }
+
+    if (this.bam_talentinfo2.city2) {
+      return this.bam_talentinfo2.city2
+    }
+
+    if (this.bam_talentinfo2.city3) {
+      return this.bam_talentinfo2.city3
+    }
   }
+
+  if (parts.length  >= 1) {
+    return parts.join(', ')
+  }
+
+  return 'Unknown'
 }
 
 Talent.prototype.heightText = function() {
