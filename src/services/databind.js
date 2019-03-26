@@ -171,7 +171,11 @@ function databind (element, data, append) {
         $(element).val(value).multiselect('refresh')
         break
       case 'visibility':
-        if (parseInt(value)) { $(element).show() } else { $(element).hide() }
+        if (parseInt(value)) {
+          $(element).show()
+        } else {
+          $(element).hide()
+        }
         break
       case 'option':
         value = JSON.parse(value)
