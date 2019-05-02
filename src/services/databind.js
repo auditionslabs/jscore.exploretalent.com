@@ -188,6 +188,9 @@ function databind (element, data, append) {
       case 'class':
         $(element).addClass(value)
         break
+      case 'title-attr':
+        $(element).attr('title', value)
+        break
       default:
         $(element).attr(attr, value)
         break
