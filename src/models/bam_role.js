@@ -193,7 +193,6 @@ Role.prototype.getSelfSubmissions = function (options, app_filter) {
       [ 'with', 'user' ],
       [ 'with', 'bam_talentinfo1' ],
       [ 'with', 'bam_talentinfo2' ],
-      [ 'with', 'bam_talentci' ],
       [ 'with', 'bam_talent_media2' ],
       [ 'with', 'bam_talent_music' ],
       [ 'with', 'bam_talent_dance' ],
