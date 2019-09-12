@@ -97,7 +97,7 @@ resource.search = function (data, options) {
     .then(function (res) {
       _.each(talents.data, function (talent) {
         talent.schedule = _.find(res.data, function (schedule) {
-          return talent.user.id == schedule.invitee_id
+          return talent.user && talent.user.id == schedule.invitee_id
         })
 
         if (!talent.schedule) {
