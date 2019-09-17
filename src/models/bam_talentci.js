@@ -131,6 +131,21 @@ Talent.prototype.getPrimaryPhotoId = function() {
     )
    return id
 }
+
+Talent.prototype.getPrimaryPhotoComplete = function() {
+  let complete =
+    _.first(
+      _.pluck(
+        _.uniq(([]).concat(
+          _.where(this.bam_talent_media2, { type : 2 }),
+          _.where(this.bam_talent_media2, { type : '2' })
+        )),
+        'complete'
+      )
+    )
+   return complete
+}
+
 Talent.prototype.getSocialAccount = function(type) {
   let social = _.first(_.pluck(_.where(this.bam_talent_social, { sm_type : type }), 'sm_url'))
 
