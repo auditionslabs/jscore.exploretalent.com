@@ -1,9 +1,9 @@
 'use strict'
 
 let _ = require('lodash'),
-  vicidial_reportss = {}
+  vicidial_reports = {}
 
-vicidial_reportss.create = function (array) {
+vicidial_reports.create = function (array) {
   let modelify = require('src/services/model.js')
 
   return _.map(array || [], function (item) {
@@ -11,4 +11,4 @@ vicidial_reportss.create = function (array) {
   })
 }
 
-module.exports = vicidial_reportss
+module.exports = vicidial_reports
