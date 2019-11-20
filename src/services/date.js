@@ -86,6 +86,10 @@ function formatDateTime (value) {
     (date.getUTCHours() < 12 ? 'AM' : 'PM')
 }
 
+function sql(date) {
+  return moment(+date).format('YYYY-MM-DD HH:mm:ss')
+}
+
 module.exports = {
   toUnixTimeStamp: toUnixTimeStamp,
   formatYMD: formatYMD,
@@ -93,5 +97,6 @@ module.exports = {
   formatDateTime: formatDateTime,
   calculateAge: calculateAge,
   now: now,
-  formatFYMD: formatFYMD
+  formatFYMD: formatFYMD,
+  sql: sql
 }
