@@ -87,7 +87,7 @@ function formatDateTime (value) {
 }
 
 function sql(date) {
-  return moment(+date).format('YYYY-MM-DD HH:mm:ss')
+  return moment(+(date || moment())).format('YYYY-MM-DD HH:mm:ss')
 }
 
 module.exports = {
