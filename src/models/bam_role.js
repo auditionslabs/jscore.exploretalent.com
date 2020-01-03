@@ -166,7 +166,7 @@ Role.prototype.copyToLikeItList = function () {
     fields: {
       rating: 3
     },
-    per_page: 1000000
+    per_page: 1000
   }
 
   return scheduleResource.patch(data)
