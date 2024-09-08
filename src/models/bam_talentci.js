@@ -95,7 +95,7 @@ Talent.prototype.getPrimaryPhoto = function() {
   let gender = this.bam_talentinfo1 ? this.bam_talentinfo1.sex : 'Male'
 
   if (media_path) {
-    return 'https://etdownload.s3.amazonaws.com/' + media_path
+    return 'https://talentmedia.blob.core.windows.net/etdownload/' + media_path
   }
   else {
     if(gender == "Male") {
