@@ -586,7 +586,7 @@ Role.prototype.bulkAddToLikeitlist = function (filters) {
     bam_cd_user_id: this.bam_casting.user_id,
     bam_role_id: this.role_id,
     query: JSON.stringify(filters),
-    status: status
+    status: 0
   }
 
   return scheduleImportResource.post(data)
